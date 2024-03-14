@@ -46,12 +46,19 @@ public class ArticleType extends EntityBase {
                     persistentState.getProperty("id") +
                     " was updated in database.";
             }
+            // Insert new Article Type
             else {
-                Integer id = insertAutoIncrementalPersistentState(mySchema, persistentState);
-                persistentState.setProperty("id", Integer.toString(id));
-                updateStatusMessage = "Article Type for id: " +  
+                try {
+                    Integer id = insertAutoIncrementalPersistentState(mySchema, persistentState);
+                    persistentState.setProperty("id", Integer.toString(id));
+                    updateStatusMessage = "Article Type for id: " +  
                     persistentState.getProperty("id") + 
                     " installed successfully in database!";
+                }
+                catch(Exception e) {
+                    System.out.println(e);
+                    System.out.println("Possible duplicate value for Barcode Prefix.");
+                }
             }
         } catch (Exception e) {
 			updateStatusMessage = "Error in installing Article Type data in database!";
