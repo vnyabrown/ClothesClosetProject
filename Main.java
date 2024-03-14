@@ -3,14 +3,15 @@ import java.util.Properties;
 
 public class Main {
     public static void main(String[] args) {
-        Properties atp = new Properties();
+        ArticleTypeCollection atc = new ArticleTypeCollection();
 
-        atp.setProperty("description", "t-shirt");
-        atp.setProperty("barcodePrefix", "ts");
-        atp.setProperty("alphaCode", "bb");
+        try {
+        atc.findArticleTypeWithAlphaCode("bb");
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
 
-        ArticleType at = new ArticleType(atp);
-        at.updateStateInDatabase();
-        System.out.println(at.toString());
+        atc.display();
     }
 }

@@ -3,3 +3,4 @@
 [3/14/24, 1:12 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=377) Duplicate entry 'ss' for key 'barcodePrefix'>
 [3/14/24, 1:16 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=379) Duplicate entry 'ts' for key 'barcodePrefix'>
 [3/14/24, 1:20 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=380) Duplicate entry 'ts' for key 'barcodePrefix'>
+[3/14/24, 3:55 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=393) Duplicate entry 'ts' for key 'barcodePrefix'>

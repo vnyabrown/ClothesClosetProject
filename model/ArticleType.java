@@ -34,6 +34,14 @@ public class ArticleType extends EntityBase {
     }
 
 
+    public static int compare(ArticleType a, ArticleType b) {
+        String aStr = (String)a.getState("alphaCode");
+        String bStr = (String)b.getState("alphaCode");
+
+        return aStr.compareTo(bStr);
+    }
+
+
     public void updateStateInDatabase() {
         try {
             // Upate Article Type
@@ -67,7 +75,8 @@ public class ArticleType extends EntityBase {
     
 
     public String toString() {
-        return "Article id: " + persistentState.getProperty("id") + "\n" +
+        return "New Article ------------------------------------\n" +
+            "Article id: " + persistentState.getProperty("id") + "\n" +
             "Description: " + persistentState.getProperty("description") + "\n" +
             "Barcode: " + persistentState.getProperty("barcodePrefix") + "\n" +
             "Alpha Code: " + persistentState.getProperty("alphaCode") + "\n" + 
