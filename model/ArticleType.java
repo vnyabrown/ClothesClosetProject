@@ -38,7 +38,13 @@ public class ArticleType extends EntityBase {
         try {
             // Upate Article Type
             if(persistentState.getProperty("id") != null) {
-                // TODO
+                Properties whereClause = new Properties();
+                whereClause.setProperty("id", 
+                    persistentState.getProperty("id"));
+                updatePersistentState(mySchema, persistentState, whereClause);
+                updateStatusMessage = "Article type info for id: " +
+                    persistentState.getProperty("id") +
+                    " was updated in database.";
             }
             else {
                 Integer id = insertAutoIncrementalPersistentState(mySchema, persistentState);
@@ -48,13 +54,13 @@ public class ArticleType extends EntityBase {
                     " installed successfully in database!";
             }
         } catch (Exception e) {
-            // TODO: handle exception
+			updateStatusMessage = "Error in installing Article Type data in database!";
         }
     }
     
 
     public String toString() {
-        return //"Article id: " + persistentState.getProperty("id") + "\n" +
+        return "Article id: " + persistentState.getProperty("id") + "\n" +
             "Description: " + persistentState.getProperty("description") + "\n" +
             "Barcode: " + persistentState.getProperty("barcodePrefix") + "\n" +
             "Alpha Code: " + persistentState.getProperty("alphaCode") + "\n" + 

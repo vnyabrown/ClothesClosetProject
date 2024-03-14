@@ -1,0 +1,1 @@
+[3/14/24, 12:57 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=327) Duplicate entry 'ss' for key 'barcodePrefix'>

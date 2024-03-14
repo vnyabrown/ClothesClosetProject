@@ -5,9 +5,9 @@ public class Main {
     public static void main(String[] args) {
         Properties atp = new Properties();
 
-        atp.setProperty("description", "Somthing new");
-        atp.setProperty("barcodePrefix", "ab");
-        atp.setProperty("alphaCode", "cd");
+        atp.setProperty("description", "socks");
+        atp.setProperty("barcodePrefix", "ss");
+        atp.setProperty("alphaCode", "sk");
 
         ArticleType at = new ArticleType(atp);
         at.updateStateInDatabase();
