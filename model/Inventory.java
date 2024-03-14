@@ -28,24 +28,24 @@ public class Inventory extends EntityBase {
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
-        // You must get one book at least
+        // You must get one item at least
         if (allDataRetrieved != null) {
             int size = allDataRetrieved.size();
 
-            // There should be EXACTLY one book. More than that is an error
+            // There should be EXACTLY one item. More than that is an error
             if (size != 1) {
-                throw new InvalidPrimaryKeyException("Multiple books matching id : "
+                throw new InvalidPrimaryKeyException("Multiple Items matching barcode : "
                         + Barcode + " found.");
             } else {
                 // copy all the retrieved data into persistent state
-                Properties retrievedBookData = allDataRetrieved.elementAt(0);
+                Properties retrievedInventoryData = allDataRetrieved.elementAt(0);
                 persistentState = new Properties();
 
-                Enumeration allKeys = retrievedBookData.propertyNames();
+                Enumeration allKeys = retrievedInventoryData.propertyNames();
                 while (allKeys.hasMoreElements() == true) {
                     String nextKey = (String) allKeys.nextElement();
-                    String nextValue = retrievedBookData.getProperty(nextKey);
-                    // BookNumber = Integer.parseInt(retrievedBookData.getProperty("bookNumber"));
+                    String nextValue = retrievedInventoryData.getProperty(nextKey);
+                    // BarNumber = Integer.parseInt(retrievedInventoryData.getProperty("Barcode"));
 
                     if (nextValue != null) {
                         persistentState.setProperty(nextKey, nextValue);
@@ -54,9 +54,9 @@ public class Inventory extends EntityBase {
 
             }
         }
-        // If no Book found for this username, throw an exception
+        // If no item found for this barcode, throw an exception
         else {
-            throw new InvalidPrimaryKeyException("No book matching id : "
+            throw new InvalidPrimaryKeyException("No item matching barcode : "
                     + Barcode + " found.");
         }
     }
@@ -198,7 +198,7 @@ public class Inventory extends EntityBase {
         }
     }
 
-    @Override
+    //@Override
     public void updateState(String key, Object value) {
         stateChangeRequest(key, value);    }
 
