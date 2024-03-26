@@ -44,7 +44,12 @@ public class ColorCollection extends EntityBase implements IView {
     }
 
 
+    public void findColorBarcodePfx(String pfx)  {
 
+        // The query to get all the books
+        String query = "SELECT * FROM " + myTableName + " WHERE BarcodePrefix" + pfx ;
+        executeQueryAndPopulate(query);
+    }
 
 
 
