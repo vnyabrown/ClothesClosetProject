@@ -13,7 +13,7 @@ import database.*;
 import impresario.IView;
 
 public class ArticleTypeCollection extends EntityBase implements IView{
-    private static final String myTableName = "ArticleType";
+    private static final String myTableName = "articletype";
     private Vector<ArticleType> articleTypes;
     private String updateStatusMessage;
 
@@ -104,13 +104,13 @@ public class ArticleTypeCollection extends EntityBase implements IView{
 
 
     public void findArticleTypeWithAlphaCode(String alphaCode) throws InvalidPrimaryKeyException{
-        String query = "SELECT * FROM " + myTableName + " WHERE alphaCode LIKE '%" + alphaCode + "%'";
+        String query = "SELECT * FROM " + myTableName + " WHERE AlphaCode LIKE '%" + alphaCode + "%'";
         populateArticleTypesWithQuery(query);
     }
 
 
     public void findArticleTypeWithDescription(String text) throws InvalidPrimaryKeyException{
-        String query = "SELECT * FROM " + myTableName + " WHERE description LIKE '%" + text + "%'";
+        String query = "SELECT * FROM " + myTableName + " WHERE Description LIKE '%" + text + "%'";
         populateArticleTypesWithQuery(query);
     }
 

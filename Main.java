@@ -8,8 +8,8 @@ public class Main {
 
         try {
             
-            // //atc.findArticleTypeWithDescription("so");
-            // //ArticleType at = new ArticleType(atc.getState("getVector").get(0));
+            atc.findArticleTypeWithDescription("ie");
+
             Properties p = new Properties();
             p.setProperty("Description", "blank");
             p.setProperty("Id", "20");
@@ -20,6 +20,7 @@ public class Main {
             // System.out.println("here in main");
             //at.updateStateInDatabase();
             at.stateChangeRequest("markInactive", "");
+
 
         }
         catch(Exception e) {
