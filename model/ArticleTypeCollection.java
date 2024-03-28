@@ -26,8 +26,12 @@ public class ArticleTypeCollection extends EntityBase implements IView{
     
     public Object getState(String key)
     {
-        if (key.equals("UpdateStatusMessage"))
+        if (key.equals("UpdateStatusMessage")) {
             return updateStatusMessage;
+        }
+        else if (key.equals("getVector")) {
+            return this.articleTypes;
+        }
 
         return persistentState.getProperty(key);
     }

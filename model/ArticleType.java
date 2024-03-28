@@ -53,6 +53,7 @@ public class ArticleType extends EntityBase {
                 updateStatusMessage = "Article type info for id: " +
                     persistentState.getProperty("id") +
                     " was updated in database.";
+                System.out.println("article was updated.");
             }
             // Insert new Article Type
             else {
@@ -101,9 +102,17 @@ public class ArticleType extends EntityBase {
 
 
     public void stateChangeRequest(String key, Object value) {
-
+        if(key == "markInactive") {
+            markInactive();
+        }
 		myRegistry.updateSubscribers(key, this);
 	}
+
+
+    private void markInactive() {
+        persistentState.setProperty("status", "Inactive");
+        updateStateInDatabase();
+    }
 
 
 	/** Called via the IView relationship */

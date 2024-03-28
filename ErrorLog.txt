@@ -4,3 +4,13 @@
 [3/14/24, 1:16 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=379) Duplicate entry 'ts' for key 'barcodePrefix'>
 [3/14/24, 1:20 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=380) Duplicate entry 'ts' for key 'barcodePrefix'>
 [3/14/24, 3:55 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=393) Duplicate entry 'ts' for key 'barcodePrefix'>
+[3/28/24, 1:26 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=182) Duplicate entry 'zz' for key 'barcodePrefix'>
+[3/28/24, 1:28 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=183) Duplicate entry 'zz' for key 'barcodePrefix'>
+[3/28/24, 1:28 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=183) Duplicate entry 'zz' for key 'barcodePrefix'>
+[3/28/24, 1:30 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=196) Duplicate entry 'zz' for key 'barcodePrefix'>
+[3/28/24, 1:30 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=196) Duplicate entry 'zz' for key 'barcodePrefix'>
+[3/28/24, 1:32 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=221) Duplicate entry 'zz' for key 'barcodePrefix'>
+[3/28/24, 1:32 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=221) Duplicate entry 'zz' for key 'barcodePrefix'>
+[3/28/24, 1:32 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=222) Duplicate entry 'zz' for key 'barcodePrefix'>
+[3/28/24, 1:32 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=222) Duplicate entry 'zz' for key 'barcodePrefix'>
+[3/28/24, 1:33 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=223) Duplicate entry 'zz' for key 'barcodePrefix'>
