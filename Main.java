@@ -8,14 +8,16 @@ public class Main {
 
         try {
             
-            //atc.findArticleTypeWithDescription("so");
-            //ArticleType at = new ArticleType(atc.getState("getVector").get(0));
+            // //atc.findArticleTypeWithDescription("so");
+            // //ArticleType at = new ArticleType(atc.getState("getVector").get(0));
             Properties p = new Properties();
-            p.setProperty("id", "15");
-            p.setProperty("description", "blank");
-            p.setProperty("barcodePrefix", "zz");
-            p.setProperty("alphaCode", "zz");
+            p.setProperty("Description", "blank");
+            p.setProperty("Id", "20");
+            p.setProperty("BarcodePrefix", "zz");
+            p.setProperty("AlphaCode", "zz");
             ArticleType at = new ArticleType(p);
+            System.out.println(at.toString());
+            // System.out.println("here in main");
             //at.updateStateInDatabase();
             at.stateChangeRequest("markInactive", "");
 

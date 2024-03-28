@@ -12,7 +12,7 @@ import exception.InvalidPrimaryKeyException;
 //import impresario.IView;
 
 public class ArticleType extends EntityBase {
-    private static final String myTableName = "ArticleType";
+    private static final String myTableName = "articletype";
     protected Properties dependencies;
     // GUI Components
     private String updateStatusMessage = "empty from ArticleType";
@@ -30,7 +30,8 @@ public class ArticleType extends EntityBase {
             }
         });                                                                                                                                                                                         
         // Set enum for status automatically to "Active"
-        persistentState.setProperty("status", "Active");
+        persistentState.setProperty("Status", "Active");
+        System.out.println("article created");
     }
 
 
@@ -45,23 +46,25 @@ public class ArticleType extends EntityBase {
     public void updateStateInDatabase() {
         try {
             // Upate Article Type
-            if(persistentState.getProperty("id") != null) {
+            if(persistentState.getProperty("Id") != null) {
                 Properties whereClause = new Properties();
-                whereClause.setProperty("id", 
-                    persistentState.getProperty("id"));
+                whereClause.setProperty("Id", 
+                    persistentState.getProperty("Id"));
                 updatePersistentState(mySchema, persistentState, whereClause);
                 updateStatusMessage = "Article type info for id: " +
-                    persistentState.getProperty("id") +
+                    persistentState.getProperty("Id") +
                     " was updated in database.";
                 System.out.println("article was updated.");
             }
             // Insert new Article Type
             else {
                 try {
+                    System.out.println("11111");
                     Integer id = insertAutoIncrementalPersistentState(mySchema, persistentState);
-                    persistentState.setProperty("id", Integer.toString(id));
+                    System.out.println("22222");
+                    persistentState.setProperty("Id", Integer.toString(id));
                     updateStatusMessage = "Article Type for id: " +  
-                    persistentState.getProperty("id") + 
+                    persistentState.getProperty("Id") + 
                     " installed successfully in database!";
                 }
                 catch(Exception e) {
@@ -77,11 +80,11 @@ public class ArticleType extends EntityBase {
 
     public String toString() {
         return "New Article ------------------------------------\n" +
-            "Article id: " + persistentState.getProperty("id") + "\n" +
-            "Description: " + persistentState.getProperty("description") + "\n" +
-            "Barcode: " + persistentState.getProperty("barcodePrefix") + "\n" +
-            "Alpha Code: " + persistentState.getProperty("alphaCode") + "\n" + 
-            "Status: " + persistentState.getProperty("status");
+            "Article id: " + persistentState.getProperty("Id") + "\n" +
+            "Description: " + persistentState.getProperty("Description") + "\n" +
+            "Barcode: " + persistentState.getProperty("BarcodePrefix") + "\n" +
+            "Alpha Code: " + persistentState.getProperty("AlphaCode") + "\n" + 
+            "Status: " + persistentState.getProperty("Status");
     }
 
 
@@ -110,7 +113,7 @@ public class ArticleType extends EntityBase {
 
 
     private void markInactive() {
-        persistentState.setProperty("status", "Inactive");
+        persistentState.setProperty("Status", "Inactive");
         updateStateInDatabase();
     }
 
