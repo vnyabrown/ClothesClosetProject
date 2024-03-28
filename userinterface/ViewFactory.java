@@ -7,19 +7,11 @@ public class ViewFactory {
 
 	public static View createView(String viewName, IModel model)
 	{
-		/*
-		 * if *viewName.equals("VIWNAMEHERE") == true)
-		 * {
-		 * 		return new VIEWNAMEHERE(model);
-		 * }
-		 */
-		if(viewName.equals("VIEWNAMEHERE") == true)
-		{
-			return null;
-			// this is just an example
+		switch (viewName) {
+			case "ClosetView":
+				return  new ClosetView(model);
+			default: return null;
 		}
-		else
-			return null;
 	}
 
 

@@ -1,0 +1,2 @@
+[3/28/24, 1:27 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+[3/28/24, 1:30 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
