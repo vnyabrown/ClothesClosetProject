@@ -11,7 +11,7 @@ import java.util.Vector;
 import exception.InvalidPrimaryKeyException;
 
 public class Color extends EntityBase {
-    private static final String myTableName = "Color";
+    private static final String myTableName = "color";
     
     protected Properties dependencies;
 
@@ -194,9 +194,17 @@ public class Color extends EntityBase {
         return persistentState.getProperty(key);
     }
 
-    @Override
+
     public void stateChangeRequest(String key, Object value) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'stateChangeRequest'");
+        if(key == "markInactive") {
+            markInactive();
+        }
+        myRegistry.updateSubscribers(key, this);
+    }
+
+
+    private void markInactive() {
+        persistentState.setProperty("Status", "Inactive");
+        updateStateInDatabase();
     }
 }

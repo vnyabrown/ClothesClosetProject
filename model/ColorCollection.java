@@ -8,7 +8,7 @@ import java.util.Properties;
 import model.Color;
 
 public class ColorCollection extends EntityBase implements IView {
-    private static final String myTableName = "Color";
+    private static final String myTableName = "color";
 
     private Vector<Color> colorList;
 
@@ -60,7 +60,7 @@ public class ColorCollection extends EntityBase implements IView {
     public Vector<Color> findColorBarcodePfx(String pfx)  {
 
         // The query to get all the colors
-        String query = "SELECT * FROM " + myTableName + " WHERE BarcodePrefix " + pfx ;
+        String query = "SELECT * FROM " + myTableName + " WHERE BarcodePrefix = " + pfx ;
         try {
             updateColorListFromSQL(query);
         } catch (Exception e) {
