@@ -11,7 +11,7 @@ import java.util.Vector;
 import exception.InvalidPrimaryKeyException;
 
 public class Color extends EntityBase {
-    private static final String myTableName = "Color";
+    private static final String myTableName = "color";
     
     protected Properties dependencies;
 
@@ -24,7 +24,7 @@ public class Color extends EntityBase {
         super(myTableName);
         
         setDependencies();
-        String query = "SELECT * FROM " + myTableName + " WHERE (Id = )" + colorId + ")";
+        String query = "SELECT * FROM " + myTableName + " WHERE (Id = " + colorId + ")";
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
