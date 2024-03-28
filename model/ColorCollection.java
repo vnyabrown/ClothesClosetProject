@@ -32,6 +32,19 @@ public class ColorCollection extends EntityBase implements IView {
         }
     }
 
+    public void updateColorListFromSQL(String query) throws Exception {
+        // Reset bookList
+        this.colorList = new Vector<Color>();
+
+        // Pull the data
+        Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
+
+        // Loop through data received and make fill bookList with Book objects
+        for (int i = 0; i < allDataRetrieved.size(); i++) {
+            this.colorList.add(new Color(allDataRetrieved.elementAt(i)));
+        }
+    }
+
     /* Display each color information from Book in Collection to user */
     // ==============================================================
     public void displayCollection()
@@ -44,11 +57,17 @@ public class ColorCollection extends EntityBase implements IView {
     }
 
 
-    public void findColorBarcodePfx(String pfx)  {
+    public Vector<Color> findColorBarcodePfx(String pfx)  {
 
-        // The query to get all the books
-        String query = "SELECT * FROM " + myTableName + " WHERE BarcodePrefix" + pfx ;
-        executeQueryAndPopulate(query);
+        // The query to get all the colors
+        String query = "SELECT * FROM " + myTableName + " WHERE BarcodePrefix " + pfx ;
+        try {
+            updateColorListFromSQL(query);
+        } catch (Exception e) {
+            System.out.println("ERROR: Invalid BarcodePrefix. '" + pfx + "' is not valid!");
+        }
+
+        return this.colorList;
     }
 
 

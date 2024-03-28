@@ -60,6 +60,8 @@ public class Color extends EntityBase {
         } // end if
     } // end of constructor
 
+
+
     // Constructor to initialize empty Color object
     public Color()
     {
@@ -76,6 +78,7 @@ public class Color extends EntityBase {
         setDependencies();
         persistentState = new Properties();
         Enumeration allKeys = props.propertyNames();
+
         while (allKeys.hasMoreElements() == true)
         {
             String nextKey = (String)allKeys.nextElement();
