@@ -6,7 +6,7 @@ public class Main {
         ArticleTypeCollection atc = new ArticleTypeCollection();
 
         try {
-        atc.findArticleTypeWithAlphaCode("bb");
+        atc.findArticleTypeWithDescription("so");
         }
         catch(Exception e) {
             System.out.println(e);

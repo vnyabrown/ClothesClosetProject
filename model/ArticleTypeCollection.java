@@ -105,6 +105,12 @@ public class ArticleTypeCollection extends EntityBase implements IView{
     }
 
 
+    public void findArticleTypeWithDescription(String text) throws InvalidPrimaryKeyException{
+        String query = "SELECT * FROM " + myTableName + " WHERE description LIKE '%" + text + "%'";
+        populateArticleTypesWithQuery(query);
+    }
+
+
     private void populateArticleTypesWithQuery(String query) throws InvalidPrimaryKeyException {
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
