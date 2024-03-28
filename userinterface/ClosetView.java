@@ -21,7 +21,18 @@ import java.util.Properties;
 
 public class ClosetView extends View {
 
-    private Button tempBtn;
+    private Button addArticleButton;
+    private Button modArticleButton;
+    private Button delArticleButton;
+    private Button addColorButton;
+    private Button modColorButton;
+    private Button delColorButton;
+    private Button addClothingButton;
+    private Button modClothingButton;
+    private Button delClothingButton;
+    private Button checkoutButton;
+    private Button listInventoryButton;
+    private Button listCheckedOutButton;
 
     // For showing error message
     private MessageView statusLog;
@@ -71,20 +82,121 @@ public class ClosetView extends View {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        // standin so we have template when we need it
-        tempBtn = new Button("Temp");
-        tempBtn.setOnAction(new EventHandler<ActionEvent>() {
+        addArticleButton = new Button("Add Article");
+        addArticleButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                System.out.println("Yay buttons!");
-                //processAction(e);
+                processAction(e);
+            }
+        });
+        modArticleButton = new Button("Modify Article");
+        modArticleButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                processAction(e);
+            }
+        });
+        delArticleButton = new Button("Delete Article");
+        delArticleButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                processAction(e);
             }
         });
 
-        HBox btnContainer = new HBox(10);
-        btnContainer.setAlignment(Pos.BOTTOM_RIGHT);
-        btnContainer.getChildren().add(tempBtn);
-        grid.add(btnContainer, 1, 3);
+        HBox articleContainer = new HBox(10);
+        articleContainer.setAlignment(Pos.CENTER);
+        articleContainer.getChildren().add(addArticleButton);
+        articleContainer.getChildren().add(modArticleButton);
+        articleContainer.getChildren().add(delArticleButton);
+        grid.add(articleContainer, 0, 0);
+
+
+        addColorButton = new Button("Add Color");
+        addColorButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                processAction(e);
+            }
+        });
+        modColorButton = new Button("Modify Color");
+        modColorButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                processAction(e);
+            }
+        });
+        delColorButton = new Button("Delete Color");
+        delColorButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                processAction(e);
+            }
+        });
+        HBox colorContainer = new HBox(10);
+        colorContainer.setAlignment(Pos.CENTER);
+        colorContainer.getChildren().add(addColorButton);
+        colorContainer.getChildren().add(modColorButton);
+        colorContainer.getChildren().add(delColorButton);
+        grid.add(colorContainer, 0, 1);
+
+
+        addClothingButton = new Button("Add Clothing Item");
+        addClothingButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                processAction(e);
+            }
+        });
+        modClothingButton = new Button("Modify Clothing Item");
+        modClothingButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                processAction(e);
+            }
+        });
+        delClothingButton = new Button("Delete Clothing Item");
+        delClothingButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                processAction(e);
+            }
+        });
+        HBox clothingContainer = new HBox(10);
+        clothingContainer.setAlignment(Pos.CENTER);
+        clothingContainer.getChildren().add(addClothingButton);
+        clothingContainer.getChildren().add(modClothingButton);
+        clothingContainer.getChildren().add(delClothingButton);
+        grid.add(clothingContainer, 0, 2);
+
+
+        checkoutButton = new Button("Checkout Item(s)");
+        checkoutButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                processAction(e);
+            }
+        });
+        listInventoryButton = new Button("List Available Items");
+        listInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                processAction(e);
+            }
+        });
+        listCheckedOutButton = new Button("List Checked Out Items");
+        listCheckedOutButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                processAction(e);
+            }
+        });
+        HBox miscContainer = new HBox(10);
+        miscContainer.setAlignment(Pos.CENTER);
+        miscContainer.getChildren().add(checkoutButton);
+        miscContainer.getChildren().add(listInventoryButton);
+        miscContainer.getChildren().add(listCheckedOutButton);
+        grid.add(miscContainer, 0, 3);
 
         return grid;
     }
@@ -99,13 +211,8 @@ public class ClosetView extends View {
 
     public void processAction(Event evt)
     {
-        // DEBUG: System.out.println("TellerView.actionPerformed()");
-
-        clearErrorMessage();
-        Properties props = new Properties();
-        props.setProperty("ID", "1");
-        props.setProperty("Password", "123");
-        myModel.stateChangeRequest("Login", props);
+        // DEBUG: System.out.println("ClosetView.actionPerformed()");
+        System.out.println("Yay buttons!");
 
     }
 
