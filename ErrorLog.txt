@@ -19,3 +19,6 @@
 [3/28/24, 2:03 PM]|JDBCBroker|JDBCBroker|Error|NOTAG|null<Could not load driver class[org.mariadb.jdbc.Driver]>
 [3/28/24, 2:04 PM]|JDBCBroker|JDBCBroker|Error|NOTAG|null<Could not load driver class[org.mariadb.jdbc.Driver]>
 [3/28/24, 2:13 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=3856) Duplicate entry 'zz' for key 'BarcodePrefix'>
+[3/29/24, 6:09 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=222) Duplicate entry '01' for key 'BarcodePrefix'>
+[3/29/24, 6:13 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=223) Duplicate entry '01' for key 'BarcodePrefix'>
+[3/29/24, 6:16 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=224) Duplicate entry '01' for key 'BarcodePrefix'>

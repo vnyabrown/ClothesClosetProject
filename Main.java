@@ -18,8 +18,18 @@ public class Main {
                 System.out.println(str);
             }
 
-            String str = "this is now a 2-piece suit.";
+            String str = "this is now a 3-piece suit.";
+            String str2 = "QQ";
+            String str3 = "010";
+
             at.modifyDescription(str);
+            at.modifyAlphaCode(str2);
+            at.updateStateInDatabase();
+
+            at.modifyBarcodePrefix(str3);
+            at.updateStateInDatabase();
+
+            at.markInactive();
             at.updateStateInDatabase();
         }
         catch(Exception e) {

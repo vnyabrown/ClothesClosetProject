@@ -54,14 +54,12 @@ public class ArticleType extends EntityBase {
                 updateStatusMessage = "Article type info for id: " +
                     persistentState.getProperty("Id") +
                     " was updated in database.";
-                System.out.println("article was updated.");
+                System.out.println("Article Type was updated into database.");
             }
             // Insert new Article Type
             else {
                 try {
-                    System.out.println("11111");
                     Integer id = insertAutoIncrementalPersistentState(mySchema, persistentState);
-                    System.out.println("22222");
                     persistentState.setProperty("Id", Integer.toString(id));
                     updateStatusMessage = "Article Type for id: " +  
                     persistentState.getProperty("Id") + 
@@ -72,7 +70,11 @@ public class ArticleType extends EntityBase {
                     System.out.println("Possible duplicate value for Barcode Prefix.");
                 }
             }
+        } catch(SQLException e) {
+            System.err.println("ERROR sql: " + e.getMessage());
+
         } catch (Exception e) {
+            System.err.println("ERRRRROR general: " + e.getMessage());
 			updateStatusMessage = "Error in installing Article Type data in database!";
         }
     }
@@ -94,6 +96,18 @@ public class ArticleType extends EntityBase {
     public void modifyDescription(String str) {
         persistentState.setProperty("Description", str);
         System.out.println("Description modified.");
+    }
+
+
+    public void modifyAlphaCode(String str) {
+        persistentState.setProperty("AlphaCode", str);
+        System.out.println("Alpha Code modified.");
+    }
+
+
+    public void modifyBarcodePrefix(String str) {
+        persistentState.setProperty("BarcodePrefix", str);
+        System.out.println("Barcode Prefix modified.");
     }
     
 
@@ -131,7 +145,7 @@ public class ArticleType extends EntityBase {
 	}
 
 
-    private void markInactive() {
+    public void markInactive() {
         persistentState.setProperty("Status", "Inactive");
         updateStateInDatabase();
     }
