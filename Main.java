@@ -7,26 +7,25 @@ public class Main {
         ArticleTypeCollection atc = new ArticleTypeCollection();
 
         try {
-            
             atc.findArticleTypeWithDescription("ie");
-
-            Properties p = new Properties();
-            p.setProperty("Description", "blank");
-            p.setProperty("Id", "20");
-            p.setProperty("BarcodePrefix", "zz");
-            p.setProperty("AlphaCode", "zz");
-            ArticleType at = new ArticleType(p);
+            Vector<ArticleType> atcVector = (Vector<ArticleType>)atc.getState("getVector");
+            ArticleType at = atcVector.get(0);
             System.out.println(at.toString());
-            // System.out.println("here in main");
-            //at.updateStateInDatabase();
-            at.stateChangeRequest("markInactive", "");
 
+            System.out.println();
+            Vector<String> v = at.getFields(); 
+            for(String str : v) {
+                System.out.println(str);
+            }
 
+            String str = "this is now a 2-piece suit.";
+            at.modifyDescription(str);
+            at.updateStateInDatabase();
         }
         catch(Exception e) {
             System.out.println(e);
         }
 
-        atc.display();
+        //atc.display();
     }
 }

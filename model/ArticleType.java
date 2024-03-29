@@ -76,10 +76,29 @@ public class ArticleType extends EntityBase {
 			updateStatusMessage = "Error in installing Article Type data in database!";
         }
     }
+
+
+    public Vector<String> getFields() {
+        Vector<String> v = new Vector<String>();
+
+        v.addElement(persistentState.getProperty("Id"));
+        v.addElement(persistentState.getProperty("Description"));
+        v.addElement(persistentState.getProperty("BarcodePrefix"));
+        v.addElement(persistentState.getProperty("AlphaCode"));
+        v.addElement(persistentState.getProperty("Status"));
+
+        return v;
+    }
+
+
+    public void modifyDescription(String str) {
+        persistentState.setProperty("Description", str);
+        System.out.println("Description modified.");
+    }
     
 
     public String toString() {
-        return "New Article ------------------------------------\n" +
+        return "Article ------------------------------------\n" +
             "Article id: " + persistentState.getProperty("Id") + "\n" +
             "Description: " + persistentState.getProperty("Description") + "\n" +
             "Barcode: " + persistentState.getProperty("BarcodePrefix") + "\n" +
