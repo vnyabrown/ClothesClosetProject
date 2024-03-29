@@ -1,7 +1,17 @@
+# Before changing any information in this file first
+# enter the 2 commands below into the terminal within the git directory
+
+# Command: git update-index --skip-worktree dbConfig.ini
+
+# Command: git update-index --skip-worktree ConfigureDB.py
+
+# This will stop you from pushing local changes to this file
+# and over writing the template.
+
 import os
-local_username = "ENTER YOUR USERNAME HERE"
-local_password = "ENTER YOUR LOCAL PASSWORD HERE"
-local_db_name = "ENTER YOUR LOCAL DATABASE NAME HERE"
+local_username = "tamer"
+local_password = "8708"
+local_db_name = "articletype"
 server = "localhost"
 
 choice = int(input("Enter 1 to connect to your local database\nEnter 2 to connect to CSDB\n"))
