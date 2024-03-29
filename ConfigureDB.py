@@ -9,9 +9,9 @@
 # and over writing the template.
 
 import os
-local_username = "tamer"
-local_password = "8708"
-local_db_name = "articletype"
+local_username = "Enter YOUR USERNAME HERE"
+local_password = "ENTER YOUR PASSWORD HERE"
+local_db_name = "ENTER YOUR DATABASE NAME HERE"
 server = "localhost"
 
 choice = int(input("Enter 1 to connect to your local database\nEnter 2 to connect to CSDB\n"))
