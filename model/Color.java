@@ -130,7 +130,37 @@ public class Color extends EntityBase {
         updateStateInDatabase();
     } // end of save
 
-    private void updateStateInDatabase()
+    public Vector<String> getFields() {
+        Vector<String> v = new Vector<String>();
+
+        v.addElement(persistentState.getProperty("Id"));
+        v.addElement(persistentState.getProperty("Description"));
+        v.addElement(persistentState.getProperty("BarcodePrefix"));
+        v.addElement(persistentState.getProperty("AlphaCode"));
+        v.addElement(persistentState.getProperty("Status"));
+
+        return v;
+    }
+
+
+    public void modifyDescription(String str) {
+        persistentState.setProperty("Description", str);
+        System.out.println("Description modified.");
+    }
+
+
+    public void modifyAlphaCode(String str) {
+        persistentState.setProperty("AlphaCode", str);
+        System.out.println("Alpha Code modified.");
+    }
+
+
+    public void modifyBarcodePrefix(String str) {
+        persistentState.setProperty("BarcodePrefix", str);
+        System.out.println("Barcode Prefix modified.");
+    }
+
+    public void updateStateInDatabase()
     {
         try {
             if (persistentState.getProperty("Id") != null) {
