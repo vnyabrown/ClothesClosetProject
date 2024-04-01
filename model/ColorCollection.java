@@ -60,7 +60,7 @@ public class ColorCollection extends EntityBase implements IView {
     public Vector<Color> findColorBarcodePfx(String pfx)  {
 
         // The query to get all the colors
-        String query = "SELECT * FROM " + myTableName + " WHERE BarcodePrefix = " + pfx ;
+        String query = "SELECT * FROM " + myTableName + " WHERE (BarcodePrefix = " + pfx + ")";
         try {
             updateColorListFromSQL(query);
         } catch (Exception e) {

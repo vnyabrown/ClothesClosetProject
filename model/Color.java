@@ -24,7 +24,7 @@ public class Color extends EntityBase {
         super(myTableName);
         
         setDependencies();
-        String query = "SELECT * FROM " + myTableName + " WHERE (Id = )" + colorId + ")";
+        String query = "SELECT * FROM " + myTableName + " WHERE (Id = " + colorId + ")";
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
