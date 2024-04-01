@@ -9,7 +9,6 @@ import model.Color;
 
 public class ColorCollection extends EntityBase implements IView {
     private static final String myTableName = "color";
-    private static final String myTableName = "color";
 
     private Vector<Color> colorList;
 
