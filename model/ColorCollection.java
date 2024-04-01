@@ -70,6 +70,29 @@ public class ColorCollection extends EntityBase implements IView {
         return this.colorList;
     }
 
+    public Vector<Color> findColorAlphaCode(String alpha) throws InvalidPrimaryKeyException{
+        String query = "SELECT * FROM " + myTableName + " WHERE AlphaCode LIKE '%" + alpha + "%'";
+        try {
+            updateColorListFromSQL(query);
+        } catch (Exception e) {
+            System.out.println("ERROR: Invalid BarcodePrefix. '" + alpha + "' is not valid!");
+        }
+
+        return this.colorList;
+    }
+
+
+    public Vector<Color> findColorDescription(String descr) throws InvalidPrimaryKeyException{
+        String query = "SELECT * FROM " + myTableName + " WHERE Description LIKE '%" + descr + "%'";
+        try {
+            updateColorListFromSQL(query);
+        } catch (Exception e) {
+            System.out.println("ERROR: Invalid BarcodePrefix. '" + descr + "' is not valid!");
+        }
+
+        return this.colorList;
+    }
+
 
 
 

@@ -129,6 +129,8 @@ public class testColor
         System.out.print("enter the barcode Prefix of the color you wish to delete: ");
         bcpfx = input.nextLine();
         colorList = colorCollection.findColorBarcodePfx(bcpfx);
+        //If finding color by description or alphaCode the teller will also have to
+        //ask the user to select the correct color from given colors
 
         //print color and confirm
         System.out.println(colorList);
