@@ -22,5 +22,3 @@
 [4/2/24, 12:52 AM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
 [4/2/24, 12:55 AM]|ModifyArticleTransaction|Transaction|Error|NOTAG|null<Error>
 [4/2/24, 12:55 AM]|ModifyArticleTransaction|Transaction|Error|NOTAG|null<Error>
-[4/2/24, 1:00 AM]|DeleteArticleTransaction|Transaction|Error|NOTAG|null<Error>
-[4/2/24, 1:00 AM]|ModifyArticleTransaction|Transaction|Error|NOTAG|null<Error>
