@@ -1,2 +1,26 @@
 [3/28/24, 1:27 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
 [3/28/24, 1:30 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+[4/1/24, 11:23 PM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/1/24, 11:23 PM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/1/24, 11:23 PM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/1/24, 11:24 PM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/1/24, 11:24 PM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/1/24, 11:24 PM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/1/24, 11:40 PM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/1/24, 11:40 PM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/1/24, 11:40 PM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/1/24, 11:40 PM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/1/24, 11:46 PM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/1/24, 11:47 PM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/1/24, 11:49 PM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/1/24, 11:52 PM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/2/24, 12:25 AM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+[4/2/24, 12:52 AM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/2/24, 12:52 AM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/2/24, 12:52 AM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/2/24, 12:52 AM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/2/24, 12:52 AM]|InsertArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/2/24, 12:55 AM]|ModifyArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/2/24, 12:55 AM]|ModifyArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/2/24, 1:00 AM]|DeleteArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/2/24, 1:00 AM]|ModifyArticleTransaction|Transaction|Error|NOTAG|null<Error>

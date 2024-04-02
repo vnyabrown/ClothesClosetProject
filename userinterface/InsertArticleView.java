@@ -8,9 +8,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -18,21 +19,21 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-import java.util.Properties;
+public class InsertArticleView extends View {
 
-public class ClosetView extends View {
+    private TextField descriptionField;
+    private TextField barcodePrefixField;
+    private TextField alphaCodeField;
+    private TextField statusField;
 
-    private Button articleButton;
-    private Button colorButton;
-    private Button clothingButton;
-    private Button stockButton;
-    private Button quitButton;
+    private Button submitButton;
+    private Button cancelButton;
 
     // For showing error message
     private MessageView statusLog;
 
-    public ClosetView(IModel closet) {
-        super(closet, "ClosetView");
+    public InsertArticleView(IModel article) {
+        super(article, "InsertArticle");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -56,8 +57,7 @@ public class ClosetView extends View {
         myModel.subscribe("LoginError", this);
     }
 
-    private Node createTitle()
-    {
+    private Node createTitle() {
 
         Text titleText = new Text("       Brockport Clothes Closet          ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
@@ -68,61 +68,46 @@ public class ClosetView extends View {
         return titleText;
     }
 
-    private GridPane createFormContents()
-    {
-
+    private GridPane createFormContents() {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        articleButton = new Button("Article");
-        articleButton.setOnAction(new EventHandler<ActionEvent>() {
+        Label descriptionLabel = new Label("Description: ");
+        grid.add(descriptionLabel, 0, 0);
+        descriptionField = new TextField();
+        grid.add(descriptionField, 1, 0);
+        Label barcodePrefixLabel = new Label("Barcode Prefix: ");
+        grid.add(barcodePrefixLabel, 0, 1);
+        barcodePrefixField = new TextField();
+        grid.add(barcodePrefixField, 1, 1);
+        Label alphaCodeLabel = new Label("Alpha Code: ");
+        grid.add(alphaCodeLabel, 0, 2);
+        alphaCodeField = new TextField();
+        grid.add(alphaCodeField, 1, 2);
+        Label statusLabel = new Label("Status: ");
+        grid.add(statusLabel, 0, 3);
+        statusField = new TextField();
+        grid.add(statusField, 1, 3);
+
+        submitButton = new Button("Submit");
+        submitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                processAction(e);
+            }
+        });
+        grid.add(submitButton, 0, 4);
+        cancelButton = new Button("Cancel");
+        cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 myModel.stateChangeRequest("Article", "");
             }
         });
-
-        colorButton = new Button("Color");
-        colorButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Color", "");
-            }
-        });
-
-        clothingButton = new Button("Clothing");
-        clothingButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Clothing", "");
-            }
-        });
-
-        stockButton = new Button("Stock");
-        stockButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Stock", "");
-            }
-        });
-
-        quitButton = new Button("Quit");
-        quitButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {System.exit(0);}
-        });
-
-        grid.add(articleButton, 0, 0);
-        grid.add(colorButton, 1, 0);
-        grid.add(clothingButton, 0, 1);
-        grid.add(stockButton, 1, 1);
-        HBox btnContainer = new HBox(10);
-        btnContainer.setAlignment(Pos.BOTTOM_RIGHT);
-        btnContainer.getChildren().add(quitButton);
-        grid.add(btnContainer, 0, 2);
+        grid.add(cancelButton, 1, 4);
 
         return grid;
     }
@@ -133,6 +118,13 @@ public class ClosetView extends View {
         statusLog = new MessageView(initialMessage);
 
         return statusLog;
+    }
+
+    public void processAction(Event evt)
+    {
+        // DEBUG: System.out.println("InsertArticleView.actionPerformed()");
+        System.out.println("Logic TBA");
+
     }
 
     @Override

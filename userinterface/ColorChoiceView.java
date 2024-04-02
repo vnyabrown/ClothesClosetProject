@@ -10,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -18,21 +17,18 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-import java.util.Properties;
+public class ColorChoiceView extends View {
 
-public class ClosetView extends View {
-
-    private Button articleButton;
-    private Button colorButton;
-    private Button clothingButton;
-    private Button stockButton;
+    private Button addColorButton;
+    private Button modColorButton;
+    private Button delColorButton;
     private Button quitButton;
 
     // For showing error message
     private MessageView statusLog;
 
-    public ClosetView(IModel closet) {
-        super(closet, "ClosetView");
+    public ColorChoiceView(IModel closet) {
+        super(closet, "ColorChoiceView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -56,8 +52,7 @@ public class ClosetView extends View {
         myModel.subscribe("LoginError", this);
     }
 
-    private Node createTitle()
-    {
+    private Node createTitle() {
 
         Text titleText = new Text("       Brockport Clothes Closet          ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
@@ -68,65 +63,6 @@ public class ClosetView extends View {
         return titleText;
     }
 
-    private GridPane createFormContents()
-    {
-
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(25, 25, 25, 25));
-
-        articleButton = new Button("Article");
-        articleButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Article", "");
-            }
-        });
-
-        colorButton = new Button("Color");
-        colorButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Color", "");
-            }
-        });
-
-        clothingButton = new Button("Clothing");
-        clothingButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Clothing", "");
-            }
-        });
-
-        stockButton = new Button("Stock");
-        stockButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Stock", "");
-            }
-        });
-
-        quitButton = new Button("Quit");
-        quitButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {System.exit(0);}
-        });
-
-        grid.add(articleButton, 0, 0);
-        grid.add(colorButton, 1, 0);
-        grid.add(clothingButton, 0, 1);
-        grid.add(stockButton, 1, 1);
-        HBox btnContainer = new HBox(10);
-        btnContainer.setAlignment(Pos.BOTTOM_RIGHT);
-        btnContainer.getChildren().add(quitButton);
-        grid.add(btnContainer, 0, 2);
-
-        return grid;
-    }
-
     private MessageView createStatusLog(String initialMessage)
     {
 
@@ -135,22 +71,61 @@ public class ClosetView extends View {
         return statusLog;
     }
 
+    public void processAction(Event evt)
+    {
+        // DEBUG: System.out.println("ClosetView.actionPerformed()");
+        System.out.println("Yay buttons!");
+
+    }
+
+    private GridPane createFormContents()
+    {
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+
+        addColorButton = new Button("Insert Color");
+        addColorButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                System.out.println("Unimplemented");
+                myModel.stateChangeRequest("InsertColor", null);
+            }
+        });
+        modColorButton = new Button("Modify Color");
+        modColorButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                System.out.println("Unimplemented");
+                myModel.stateChangeRequest("ModifyColor", null);
+            }
+        });
+        delColorButton = new Button("Delete Color");
+        delColorButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                System.out.println("Unimplemented");
+                myModel.stateChangeRequest("DeleteColor", null);
+            }
+        });
+        quitButton = new Button("Quit");
+        quitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {myModel.stateChangeRequest("CancelArticleTransaction", null);}
+        });
+
+        grid.add(addColorButton, 0, 0);
+        grid.add(modColorButton, 0, 1);
+        grid.add(delColorButton, 0, 2);
+        grid.add(quitButton, 0, 3);
+
+        return grid;
+    }
+
     @Override
     public void updateState(String key, Object value) {
 
-    }
-
-    public void displayErrorMessage(String message)
-    {
-        statusLog.displayErrorMessage(message);
-    }
-
-    /**
-     * Clear error message
-     */
-    //----------------------------------------------------------
-    public void clearErrorMessage()
-    {
-        statusLog.clearErrorMessage();
     }
 }

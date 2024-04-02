@@ -44,31 +44,16 @@ public class Closet implements IView, IModel {
         setDependencies();
 
         // Set up the initial view
-        createAndShowClosetView();
+        createAndShowChoiceView("ClosetView");
 //        System.out.println("LibrarianView Shown");
     }
     private void setDependencies()
     {
         dependencies = new Properties();
         dependencies.setProperty("Login", "LoginError");
+        dependencies.setProperty("InsertArticle", "TransactionError");
 
         myRegistry.setDependencies(dependencies);
-    }
-
-    private void createAndShowClosetView()
-    {
-        Scene currentScene = (Scene)myViews.get("ClosetView");
-
-        if (currentScene == null)
-        {
-            // create our initial view
-            View newView = ViewFactory.createView("ClosetView", this); // USE VIEW FACTORY
-            currentScene = new Scene(newView);
-            myViews.put("ClosetView", currentScene);
-        }
-
-        swapToView(currentScene);
-
     }
 
     @Override
@@ -88,7 +73,101 @@ public class Closet implements IView, IModel {
 
     @Override
     public void stateChangeRequest(String key, Object value) {
+        switch (key) {
+            case "Article":
+                if (value != null) {
+                    loginErrorMessage = "";
+                    createAndShowChoiceView("ArticleChoiceView");
+                }
+                break;
 
+            case "Color":
+                if (value != null) {
+                    loginErrorMessage = "";
+                    createAndShowChoiceView("ColorChoiceView");
+                }
+                break;
+
+            case "Clothing":
+                if (value != null) {
+                    loginErrorMessage = "";
+                    createAndShowChoiceView("ClothingChoiceView");
+                }
+                break;
+
+            case "Stock":
+                if (value != null) {
+                    loginErrorMessage = "";
+                    createAndShowChoiceView("StockChoiceView");
+                }
+                break;
+
+            case "CancelArticleTransaction":
+            case "CancelColorTransaction":
+            case "CancelClothingTransaction":
+            case "CancelStockTransaction":
+                createAndShowChoiceView("ClosetView");
+                break;
+
+            case "InsertArticle":
+            case "ModifyArticle":
+            case "DeleteArticle":
+                String transType = key;
+                doTransaction(transType);
+                break;
+
+            case "Logout":
+                myViews.remove("CancelArticleTransaction");
+                myViews.remove("CancelColorTransaction");
+                myViews.remove("CancelClothingTransaction");
+                myViews.remove("CancelStockTransaction");
+                createAndShowChoiceView("ClosetView");
+                break;
+        }
+        myRegistry.updateSubscribers(key, this);
+    }
+
+    private void createAndShowChoiceView(String view)
+    {
+        Scene currentScene = (Scene)myViews.get(view);
+
+        if (currentScene == null)
+        {
+            // create our initial view
+            View newView = ViewFactory.createView(view, this); // USE VIEW FACTORY
+            currentScene = new Scene(newView);
+            myViews.put(view, currentScene);
+        }
+
+
+        // make the view visible by installing it into the frame
+        swapToView(currentScene);
+
+    }
+
+    /**
+     * Create a Transaction depending on the Transaction type (deposit,
+     * withdraw, transfer, etc.). Use the AccountHolder holder data to do the
+     * create.
+     */
+    //----------------------------------------------------------
+    public void doTransaction(String transactionType)
+    {
+        try
+        {
+
+            Transaction trans = TransactionFactory.createTransaction(transactionType);
+
+            trans.subscribe("CancelTransaction", this);
+            trans.stateChangeRequest("DoYourJob", "");
+        }
+        catch (Exception ex)
+        {
+            transactionErrorMessage = "FATAL ERROR: TRANSACTION FAILURE: Unrecognized transaction!!";
+            new Event(Event.getLeafLevelClassName(this), "createTransaction",
+                    "Transaction Creation Failure: Unrecognized transaction " + ex.toString(),
+                    Event.ERROR);
+        }
     }
 
     @Override
