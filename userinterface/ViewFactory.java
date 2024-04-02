@@ -5,7 +5,7 @@ import impresario.IModel;
 //==============================================================================
 public class ViewFactory {
 
-	public static View createView(String viewName, IModel model)
+	/* public static View createView(String viewName, IModel model)
 	{
 		return switch (viewName) {
 			case "ClosetView" -> new ClosetView(model);
@@ -16,8 +16,36 @@ public class ViewFactory {
 			case "DeleteArticleView" -> new DeleteArticleView(model);
 			default -> null;
 		};
-	}
+	} */
 
+	public static View createView(String viewName, IModel model)
+	{
+		if(viewName.equals("ClosetView") == true)
+		{
+			return new ClosetView(model);
+		}
+		else if(viewName.equals("ArticleChoiceView") == true)
+		{
+			return new ArticleChoiceView(model);
+		}
+		else if (viewName.equals("ColorChoiceView") == true)
+		{
+			return new ColorChoiceView(model);
+		}
+		else if (viewName.equals("InsertArticleView") == true)
+		{
+			return new InsertArticleView(model);
+		}
+		else if (viewName.equals("ModifyArticleView") == true)
+		{
+			return new ModifyArticleView(model);
+		}
+		else if (viewName.equals("DeleteArticleView") == true)
+		{
+			return new DeleteArticleView(model);
+		}
+		else return null;
+	}
 
 	/*
 	public static Vector createVectorView(String viewName, IModel model)
