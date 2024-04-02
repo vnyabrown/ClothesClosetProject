@@ -12,7 +12,7 @@ import exception.InvalidPrimaryKeyException;
 //import impresario.IView;
 
 public class ArticleType extends EntityBase {
-    private static final String myTableName = "ArticleType";
+    private static final String myTableName = "articletype";
     protected Properties dependencies;
     // GUI Components
     private String updateStatusMessage = "empty from ArticleType";
@@ -30,41 +30,94 @@ public class ArticleType extends EntityBase {
             }
         });                                                                                                                                                                                         
         // Set enum for status automatically to "Active"
-        persistentState.setProperty("status", "Active");
+        persistentState.setProperty("Status", "Active");
+        System.out.println("article created");
+    }
+
+
+    public static int compare(ArticleType a, ArticleType b) {
+        String aStr = (String)a.getState("AlphaCode");
+        String bStr = (String)b.getState("AlphaCode");
+
+        return aStr.compareTo(bStr);
     }
 
 
     public void updateStateInDatabase() {
         try {
             // Upate Article Type
-            if(persistentState.getProperty("id") != null) {
+            if(persistentState.getProperty("Id") != null) {
                 Properties whereClause = new Properties();
-                whereClause.setProperty("id", 
-                    persistentState.getProperty("id"));
+                whereClause.setProperty("Id", 
+                    persistentState.getProperty("Id"));
                 updatePersistentState(mySchema, persistentState, whereClause);
                 updateStatusMessage = "Article type info for id: " +
-                    persistentState.getProperty("id") +
+                    persistentState.getProperty("Id") +
                     " was updated in database.";
+                System.out.println("Article Type was updated into database.");
             }
+            // Insert new Article Type
             else {
-                Integer id = insertAutoIncrementalPersistentState(mySchema, persistentState);
-                persistentState.setProperty("id", Integer.toString(id));
-                updateStatusMessage = "Article Type for id: " +  
-                    persistentState.getProperty("id") + 
+                try {
+                    Integer id = insertAutoIncrementalPersistentState(mySchema, persistentState);
+                    persistentState.setProperty("Id", Integer.toString(id));
+                    updateStatusMessage = "Article Type for id: " +  
+                    persistentState.getProperty("Id") + 
                     " installed successfully in database!";
+                }
+                catch(Exception e) {
+                    System.out.println(e);
+                    System.out.println("Possible duplicate value for Barcode Prefix.");
+                }
             }
+        } catch(SQLException e) {
+            System.err.println("ERROR sql: " + e.getMessage());
+
         } catch (Exception e) {
+            System.err.println("ERRRRROR general: " + e.getMessage());
 			updateStatusMessage = "Error in installing Article Type data in database!";
         }
+    }
+
+
+    public Vector<String> getFields() {
+        Vector<String> v = new Vector<String>();
+
+        v.addElement(persistentState.getProperty("Id"));
+        v.addElement(persistentState.getProperty("Description"));
+        v.addElement(persistentState.getProperty("BarcodePrefix"));
+        v.addElement(persistentState.getProperty("AlphaCode"));
+        v.addElement(persistentState.getProperty("Status"));
+
+        return v;
+    }
+
+
+    public void modifyDescription(String str) {
+        persistentState.setProperty("Description", str);
+        System.out.println("Description modified.");
+    }
+
+
+    public void modifyAlphaCode(String str) {
+        persistentState.setProperty("AlphaCode", str);
+        System.out.println("Alpha Code modified.");
+    }
+
+
+    public void modifyBarcodePrefix(String str) {
+        persistentState.setProperty("BarcodePrefix", str);
+        System.out.println("Barcode Prefix modified.");
     }
     
 
     public String toString() {
-        return "Article id: " + persistentState.getProperty("id") + "\n" +
-            "Description: " + persistentState.getProperty("description") + "\n" +
-            "Barcode: " + persistentState.getProperty("barcodePrefix") + "\n" +
-            "Alpha Code: " + persistentState.getProperty("alphaCode") + "\n" + 
-            "Status: " + persistentState.getProperty("status");
+        return "Article ------------------------------------\n" +
+            "Article id: " + persistentState.getProperty("Id") + "\n" +
+            "Description: " + persistentState.getProperty("Description") + "\n" +
+            "Barcode: " + persistentState.getProperty("BarcodePrefix") + "\n" +
+            "Alpha Code: " + persistentState.getProperty("AlphaCode") + "\n" + 
+            "Status: " + persistentState.getProperty("Status");
     }
 
 
@@ -85,9 +138,17 @@ public class ArticleType extends EntityBase {
 
 
     public void stateChangeRequest(String key, Object value) {
-
+        if(key == "markInactive") {
+            markInactive();
+        }
 		myRegistry.updateSubscribers(key, this);
 	}
+
+
+    public void markInactive() {
+        persistentState.setProperty("Status", "Inactive");
+        updateStateInDatabase();
+    }
 
 
 	/** Called via the IView relationship */
