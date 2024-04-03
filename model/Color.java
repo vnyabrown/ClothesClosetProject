@@ -36,7 +36,7 @@ public class Color extends EntityBase {
             // There should be EXACTLY one item, more than that is an error
             if (size!=1)
             {
-                throw new InvalidPrimaryKeyException("Multiple items matching Color Id: " + colorId + " found.");
+                throw new InvalidPrimaryKeyException("Multiple Colors matching Color Id: " + colorId + " found.");
             }
 
             else
@@ -59,8 +59,6 @@ public class Color extends EntityBase {
             } // end if else
         } // end if
     } // end of constructor
-
-
 
     // Constructor to initialize empty Color object
     public Color()
@@ -89,6 +87,8 @@ public class Color extends EntityBase {
                 persistentState.setProperty(nextKey, nextValue);
             } // end if
         } // end while
+        // Set enum for status automatically to "Active"
+        persistentState.setProperty("Status", "Active");
     } // end of Properties constructor
 
     // DO we need the above constructor if we have this function? This is code repetition?
@@ -106,6 +106,7 @@ public class Color extends EntityBase {
                 persistentState.setProperty(nextKey, nextValue);
             }
         }
+        persistentState.setProperty("Status", "Active");
     } // end of processNewColor
 
     /**

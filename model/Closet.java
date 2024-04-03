@@ -19,7 +19,7 @@ public class Closet implements IView, IModel {
     private Properties dependencies;
     private ModelRegistry myRegistry;
     private ArticleType newArticle = new ArticleType();
-    private Color newColor;
+    private Color newColor = new Color();
     //private Inventory newInventory;
 
     // GUI Components
@@ -115,10 +115,16 @@ public class Closet implements IView, IModel {
             case "InsertArticleView":
                 createAndShowChoiceView("InsertArticleView");
                 break;
+            case "InsertColorView":
+                createAndShowChoiceView("InsertColorView");
+                break;
             case "InsertArticle":
-                //newArticle = new ArticleType((Properties)value);
                 newArticle.processNewArticle((Properties)value);
                 newArticle.updateStateInDatabase();
+                break;
+            case "InsertColor":
+                newColor.processNewColor((Properties)value);
+                newColor.updateStateInDatabase();
                 break;
             case "ModifyArticle":
             case "DeleteArticle":

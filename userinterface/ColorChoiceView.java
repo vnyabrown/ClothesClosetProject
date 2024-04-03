@@ -49,12 +49,12 @@ public class ColorChoiceView extends View {
 //        populateFields();
 
         // STEP 0: Be sure you tell your model what keys you are interested in
-        myModel.subscribe("LoginError", this);
+        //myModel.subscribe("LoginError", this);
     }
 
     private Node createTitle() {
 
-        Text titleText = new Text("       Brockport Clothes Closet          ");
+        Text titleText = new Text("       Select a Color Option          ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleText.setTextAlignment(TextAlignment.CENTER);
         titleText.setFill(Color.DARKGREEN);
@@ -90,8 +90,7 @@ public class ColorChoiceView extends View {
         addColorButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                System.out.println("Unimplemented");
-                myModel.stateChangeRequest("InsertColor", null);
+                myModel.stateChangeRequest("InsertColorView", null);
             }
         });
         modColorButton = new Button("Modify Color");

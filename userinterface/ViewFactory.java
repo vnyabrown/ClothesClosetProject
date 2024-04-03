@@ -36,6 +36,10 @@ public class ViewFactory {
 		{
 			return new InsertArticleView(model);
 		}
+		else if (viewName.equals("InsertColorView") == true)
+		{
+			return new InsertColorView(model);
+		}
 		else if (viewName.equals("ModifyArticleView") == true)
 		{
 			return new ModifyArticleView(model);

@@ -17,7 +17,7 @@ public class ArticleType extends EntityBase {
     // GUI Components
     private String updateStatusMessage = "empty from ArticleType";
 
-    // Cronstructor
+    // Constructor
     public ArticleType(Properties articleTypeProperties) {
         super(myTableName);
         // Need to figure the purpose of this out

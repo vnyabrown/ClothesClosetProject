@@ -54,7 +54,7 @@ public class ArticleChoiceView extends View {
 
     private Node createTitle() {
 
-        Text titleText = new Text("       Brockport Clothes Closet          ");
+        Text titleText = new Text("       Select an Article Option          ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleText.setTextAlignment(TextAlignment.CENTER);
         titleText.setFill(Color.DARKGREEN);
