@@ -1,12 +1,6 @@
-# Before changing any information in this file first
-# enter the 2 commands below into the terminal within the git directory
-
-# Command: git update-index --skip-worktree dbConfig.ini
-
-# Command: git update-index --skip-worktree ConfigureDB.py
-
-# This will stop you from pushing local changes to this file
-# and over writing the template.
+# Don't change anything on this file. Make a new file with the same
+# name minus the .sample portion. In that file change your login info.
+# And don't track that new file. ex: Don't use the command "git add ."
 
 import os
 local_username = "Enter YOUR USERNAME HERE"
