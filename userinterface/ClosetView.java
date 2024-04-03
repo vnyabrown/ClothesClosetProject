@@ -20,7 +20,8 @@ import javafx.scene.text.TextAlignment;
 
 import java.util.Properties;
 
-public class ClosetView extends View {
+public class
+ClosetView extends View {
 
     private Button articleButton;
     private Button colorButton;

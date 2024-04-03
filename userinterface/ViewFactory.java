@@ -44,6 +44,9 @@ public class ViewFactory {
 		{
 			return new DeleteArticleView(model);
 		}
+		else if(viewName.equals("SearchArticleTypeView")) {
+			return new SearchArticleTypeView(model);
+		}
 		else return null;
 	}
 
