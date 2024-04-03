@@ -18,6 +18,9 @@ public class Closet implements IView, IModel {
     // For Impresario
     private Properties dependencies;
     private ModelRegistry myRegistry;
+    private ArticleType newArticle;
+    private Color newColor;
+    //private Inventory newInventory;
 
     // GUI Components
     private Hashtable<String, Scene> myViews;
@@ -110,6 +113,9 @@ public class Closet implements IView, IModel {
                 break;
 
             case "InsertArticle":
+                newArticle = new ArticleType((Properties)value);
+                newArticle.updateStateInDatabase();
+                break;
             case "ModifyArticle":
             case "DeleteArticle":
                 String transType = key;
