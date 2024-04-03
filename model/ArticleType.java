@@ -25,15 +25,42 @@ public class ArticleType extends EntityBase {
         persistentState = new Properties();
         articleTypeProperties.forEach((key, value) -> {
             if(value != null) {
-                //System.out.println(value); // Debugging 
-                persistentState.setProperty((String)key, (String)value);
+                
+                    //System.out.println(value); // Debugging 
+                    persistentState.setProperty((String)key, (String)value);
+                
+                
             }
-        });                                                                                                                                                                                         
+        });                                                                                                                                                                                       
         // Set enum for status automatically to "Active"
         persistentState.setProperty("Status", "Active");
         System.out.println("article created");
     }
 
+    public ArticleType()
+    {
+        super(myTableName);
+        //setDependencies();
+        persistentState = new Properties();
+    }
+
+    public void processNewArticle(Properties props)
+    {
+        //setDependencies();
+        Enumeration allKeys = props.propertyNames();
+        while (allKeys.hasMoreElements() == true)
+        {
+            String nextKey = (String) allKeys.nextElement();
+            String nextValue = props.getProperty(nextKey);
+
+            if (nextValue != null) {
+                persistentState.setProperty(nextKey, nextValue);
+            }
+            // Set enum for status automatically to "Active"
+            persistentState.setProperty("Status", "Active");
+            System.out.println("article created");
+        }
+    }
 
     public static int compare(ArticleType a, ArticleType b) {
         String aStr = (String)a.getState("AlphaCode");
@@ -42,10 +69,10 @@ public class ArticleType extends EntityBase {
         return aStr.compareTo(bStr);
     }
 
-
     public void updateStateInDatabase() {
         try {
             // Upate Article Type
+
             if(persistentState.getProperty("Id") != null) {
                 Properties whereClause = new Properties();
                 whereClause.setProperty("Id", 
@@ -66,6 +93,7 @@ public class ArticleType extends EntityBase {
                     " installed successfully in database!";
                 }
                 catch(Exception e) {
+                    e.printStackTrace();
                     System.out.println(e);
                     System.out.println("Possible duplicate value for Barcode Prefix.");
                 }
@@ -74,7 +102,7 @@ public class ArticleType extends EntityBase {
             System.err.println("ERROR sql: " + e.getMessage());
 
         } catch (Exception e) {
-            System.err.println("ERRRRROR general: " + e.getMessage());
+            System.err.println("ERROR general: " + e.getMessage());
 			updateStatusMessage = "Error in installing Article Type data in database!";
         }
     }

@@ -18,7 +18,7 @@ public class Closet implements IView, IModel {
     // For Impresario
     private Properties dependencies;
     private ModelRegistry myRegistry;
-    private ArticleType newArticle;
+    private ArticleType newArticle = new ArticleType();
     private Color newColor;
     //private Inventory newInventory;
 
@@ -112,8 +112,12 @@ public class Closet implements IView, IModel {
                 createAndShowChoiceView("ClosetView");
                 break;
 
+            case "InsertArticleView":
+                createAndShowChoiceView("InsertArticleView");
+                break;
             case "InsertArticle":
-                newArticle = new ArticleType((Properties)value);
+                //newArticle = new ArticleType((Properties)value);
+                newArticle.processNewArticle((Properties)value);
                 newArticle.updateStateInDatabase();
                 break;
             case "ModifyArticle":

@@ -34,7 +34,7 @@ public class InsertArticleView extends View {
     private MessageView statusLog;
 
     public InsertArticleView(IModel article) {
-        super(article, "InsertArticle");
+        super(article, "InsertArticleView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -83,19 +83,19 @@ public class InsertArticleView extends View {
         grid.add(prompt, 0, 0, 2, 1);
 
         Label descriptionLabel = new Label("Description: ");
-        grid.add(descriptionLabel, 0, 0);
+        grid.add(descriptionLabel, 0, 1);
         descriptionField = new TextField();
-        grid.add(descriptionField, 1, 0);
+        grid.add(descriptionField, 1, 1);
 
         Label barcodePrefixLabel = new Label("Barcode Prefix: ");
-        grid.add(barcodePrefixLabel, 0, 1);
+        grid.add(barcodePrefixLabel, 0, 2);
         barcodePrefixField = new TextField();
-        grid.add(barcodePrefixField, 1, 1);
+        grid.add(barcodePrefixField, 1, 2);
 
         Label alphaCodeLabel = new Label("Alpha Code: ");
-        grid.add(alphaCodeLabel, 0, 2);
+        grid.add(alphaCodeLabel, 0, 3);
         alphaCodeField = new TextField();
-        grid.add(alphaCodeField, 1, 2);
+        grid.add(alphaCodeField, 1, 3);
 
         submitButton = new Button("Submit");
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -110,11 +110,10 @@ public class InsertArticleView extends View {
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("ArticleChoiceView", "");
+                myModel.stateChangeRequest("Article", "");
             }
         });
         grid.add(cancelButton, 1, 4);
-
         return grid;
     }
 
@@ -160,12 +159,17 @@ public class InsertArticleView extends View {
             props.setProperty("Description", descriptionEntered);
             props.setProperty("BarcodePrefix", barcodePrefixEntered);
             props.setProperty("AlphaCode", alphaCodeEntered);
+            //props.setProperty("Status", null);
 
             try
             {
                 myModel.stateChangeRequest("InsertArticle", props); // Call stateChangeRequest to insert an article
                 displaySuccessMessage("Successfully inserted a new Article Type!");
-                myModel.stateChangeRequest("ClosetView", "");
+            }
+            catch(Exception ex)
+            {
+                displayErrorMessage("Failed to insert an Article Type!");
+                ex.printStackTrace();
             }
         }
         

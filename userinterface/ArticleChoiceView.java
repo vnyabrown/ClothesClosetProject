@@ -90,7 +90,7 @@ public class ArticleChoiceView extends View {
         addArticleButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("InsertArticle", null);
+                myModel.stateChangeRequest("InsertArticleView", null);
             }
         });
         modArticleButton = new Button("Modify Article");
