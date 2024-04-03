@@ -102,6 +102,13 @@ public class Closet implements IView, IModel {
                 }
                 break;
 
+            case "ArticleChoiceView":
+                if (value != null) {
+                    loginErrorMessage = "";
+                    createAndShowChoiceView("ArticleChoiceView");
+                }
+                break;
+
             case "CancelArticleTransaction":
             case "CancelColorTransaction":
             case "CancelClothingTransaction":
@@ -110,11 +117,16 @@ public class Closet implements IView, IModel {
                 break;
 
             case "InsertArticle":
-            case "ModifyArticle":
-            case "DeleteArticle":
+            //case "DeleteArticle":
                 String transType = key;
                 doTransaction(transType);
                 break;
+
+            case "ModifyArticle":
+            case "DeleteArticle":
+                createAndShowChoiceView("SearchArticleTypeView");
+                break;
+
 
             case "Logout":
                 myViews.remove("CancelArticleTransaction");
