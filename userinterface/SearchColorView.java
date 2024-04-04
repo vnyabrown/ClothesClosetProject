@@ -23,7 +23,7 @@ import impresario.IModel;
 
 /** The class containing the Account View  for the ATM application */
 //==============================================================
-public class SearchArticleTypeView extends View
+public class SearchColorView extends View
 {
 
     // GUI components
@@ -38,7 +38,7 @@ public class SearchArticleTypeView extends View
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public SearchArticleTypeView(IModel bookCollection)
+    public SearchColorView(IModel bookCollection)
     {
         super(bookCollection, "SearchTitle");
 
@@ -129,7 +129,7 @@ public class SearchArticleTypeView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("ArticleChoiceView", "");
+                myModel.stateChangeRequest("ColorChoiceView", "");
             }
         });
         doneCont.getChildren().add(cancelButton);
@@ -162,7 +162,7 @@ public class SearchArticleTypeView extends View
             String[] values = new String[2];
             values[0] = (String) text.getText();
             values[1] = (String) searchMethod.getValue();
-            myModel.stateChangeRequest("SearchArticleTypeCollection", values);
+            myModel.stateChangeRequest("SearchColorCollection", values);
             //myModel.stateChangeRequest("SearchBooksCollection", null);
         }
     }

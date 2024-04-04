@@ -23,7 +23,7 @@ import impresario.IModel;
 
 /** The class containing the Account View  for the ATM application */
 //==============================================================
-public class ModifyArticleTypeView extends View
+public class ModifyColorView extends View
 {
 
     // GUI components
@@ -38,9 +38,9 @@ public class ModifyArticleTypeView extends View
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public ModifyArticleTypeView(IModel bookCollection)
+    public ModifyColorView(IModel bookCollection)
     {
-        super(bookCollection, "ModifyArticleTypeView");
+        super(bookCollection, "ModifyColorView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -129,7 +129,7 @@ public class ModifyArticleTypeView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("SearchForArticleType", "");
+                myModel.stateChangeRequest("SearchForColor", "");
             }
         });
         doneCont.getChildren().add(cancelButton);
@@ -162,8 +162,8 @@ public class ModifyArticleTypeView extends View
             String[] values = new String[2];
             values[0] = (String) text.getText();
             values[1] = (String) modificationField.getValue();
-            myModel.stateChangeRequest("ModifyArticleType", values);
-            displayMessage("Article Type Modified.");
+            myModel.stateChangeRequest("ModifyColor", values);
+            displayMessage("Color Modified.");
             //myModel.stateChangeRequest("SearchBooksCollection", null);
         }
     }

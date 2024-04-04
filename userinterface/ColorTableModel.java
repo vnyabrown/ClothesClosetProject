@@ -5,7 +5,7 @@ import java.util.Vector;
 import javafx.beans.property.SimpleStringProperty;
 
 //==============================================================================
-public class ArticleTypeTableModel
+public class ColorTableModel
 {
     private final SimpleStringProperty Id;
     private final SimpleStringProperty Description;
@@ -14,7 +14,7 @@ public class ArticleTypeTableModel
     private final SimpleStringProperty Status;
 
     //----------------------------------------------------------------------------
-    public ArticleTypeTableModel(Vector<String> bookData)
+    public ColorTableModel(Vector<String> bookData)
     {
         Id =  new SimpleStringProperty(bookData.elementAt(0));
         Description =  new SimpleStringProperty(bookData.elementAt(1));

@@ -98,7 +98,6 @@ public class ColorChoiceView extends View {
         modColorButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                System.out.println("Unimplemented");
                 myModel.stateChangeRequest("ModifyColor", null);
             }
         });
@@ -106,14 +105,13 @@ public class ColorChoiceView extends View {
         delColorButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                System.out.println("Unimplemented");
                 myModel.stateChangeRequest("DeleteColor", null);
             }
         });
         quitButton = new Button("Quit");
         quitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent e) {myModel.stateChangeRequest("CancelArticleTransaction", null);}
+            public void handle(ActionEvent e) {myModel.stateChangeRequest("CancelColorTransaction", null);}
         });
 
         grid.add(addColorButton, 0, 0);

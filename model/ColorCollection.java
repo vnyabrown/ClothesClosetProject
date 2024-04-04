@@ -94,7 +94,17 @@ public class ColorCollection extends EntityBase implements IView {
     }
 
 
+    public void display(){
+        if (colorList.isEmpty())
+        {
+            System.out.println("No Colors in vector.");
+            return;
+        }
+        for (int cnt = 0;cnt <colorList.size(); cnt++) {
+            System.out.println(colorList.elementAt(cnt).toString());
 
+        }
+    }
 
 
 

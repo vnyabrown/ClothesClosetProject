@@ -13,8 +13,8 @@ import java.util.Properties;
 
 public class Closet implements IView, IModel {
     // State variables
-    private ArticleTypeCollection atc;
-    private ArticleType at;
+    private ColorCollection colorColl;
+    private Color color;
     // For Impresario
     private Properties dependencies;
     private ModelRegistry myRegistry;
@@ -59,7 +59,7 @@ public class Closet implements IView, IModel {
     @Override
     public Object getState(String key) {
         if(key.equals("ArticleTypeCollection")) {
-            return atc;
+            return colorColl;
         }
         else {
             return "nothing from getState in Closet";
@@ -114,40 +114,40 @@ public class Closet implements IView, IModel {
                 }
                 break;
 
-            case "SearchForArticleType":
-                createAndShowChoiceView("SearchArticleTypeView");
+            case "SearchForColor":
+                createAndShowChoiceView("SearchColorView");
                 break;
             // value in this case is not a string but an array
             // first value is search text
             // second is whether to search by alphaCode or description
-            case"SearchArticleTypeCollection":
-                searchArticleTypeCollection((String[]) value);
+            case"SearchColorCollection":
+                searchColorCollection((String[]) value);
                 break;
-            case "ArticleTypeSelectedForDeletion":
-                at = new ArticleType((Properties) value);
-                at.markInactive();
+            case "ColorSelectedForDeletion":
+                color = new Color((Properties) value);
+                color.markInactive();
                 break;
-            case "ArticleTypeToBeModified":
-                at = new ArticleType((Properties) value);
+            case "ColorToBeModified":
+                color = new Color((Properties) value);
                 System.out.println("here");
-                createAndShowChoiceView("ModifyArticleTypeView");
+                createAndShowChoiceView("ModifyColorView");
                 break;
-            case "ModifyArticleType":
+            case "ModifyColor":
                 String[] array = (String[]) value;
                 if(array[1].equals("Description")) {
-                    at.modifyDescription(array[0]);
-                    at.updateStateInDatabase();
+                    color.modifyDescription(array[0]);
+                    color.updateStateInDatabase();
                 }
                 else if(array[1].equals("Barcode Prefix")) {
-                    at.modifyBarcodePrefix(array[0]);
-                    at.updateStateInDatabase();
+                    color.modifyBarcodePrefix(array[0]);
+                    color.updateStateInDatabase();
                 }
                 else if(array[1].equals("Alpha Code")) {
-                    at.modifyAlphaCode(array[0]);
-                    at.updateStateInDatabase();
+                    color.modifyAlphaCode(array[0]);
+                    color.updateStateInDatabase();
                 }
                 else {
-                    System.out.println("not an option in statechangerequest in modifyarticletype");
+                    System.out.println("not an option in statechangerequest in modifycolor");
                 }
                 break;
 
@@ -182,22 +182,22 @@ public class Closet implements IView, IModel {
     // argument is array
     // first element is search string
     // second is whether to search by alphaCode or description
-    private void searchArticleTypeCollection(String[] values) {
+    private void searchColorCollection(String[] values) {
         System.out.println(values[0] + " " + values[1]);
-        atc = new ArticleTypeCollection();
+        colorColl = new ColorCollection();
         String target = values[0];
         try {
             if(values[1].equals("Alpha Code")) {
-                atc.findArticleTypeWithAlphaCode(target);
+                colorColl.findColorAlphaCode(target);
             }
             else if(values[1].equals("Description")) {
-                atc.findArticleTypeWithDescription(target);
+                colorColl.findColorDescription(target);
             }
             else {
                 System.err.println("string in combo box doesn't match one of correct conditions.");
             }
-            atc.display();
-            createAndShowArticleTypeCollectionView();
+            colorColl.display();
+            createAndShowColorCollectionView();
 
         } catch(Exception e) {
             e.printStackTrace();
@@ -206,9 +206,9 @@ public class Closet implements IView, IModel {
 
 
     // Create view to hold table of article types
-    private void createAndShowArticleTypeCollectionView() {
+    private void createAndShowColorCollectionView() {
         // create our initial view
-        View newView = ViewFactory.createView("ArticleTypeCollectionView", this); // USE VIEW FACTORY
+        View newView = ViewFactory.createView("ColorCollectionView", this); // USE VIEW FACTORY
         Scene currentScene = new Scene(newView);
 
         swapToView(currentScene);
