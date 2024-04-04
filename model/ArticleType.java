@@ -9,7 +9,7 @@ import java.util.Vector;
 
 // project imports
 import exception.InvalidPrimaryKeyException;
-//import impresario.IView;
+import impresario.IView;
 
 public class ArticleType extends EntityBase {
     private static final String myTableName = "articletype";
@@ -63,8 +63,8 @@ public class ArticleType extends EntityBase {
     }
 
     public static int compare(ArticleType a, ArticleType b) {
-        String aStr = (String)a.getState("AlphaCode");
-        String bStr = (String)b.getState("AlphaCode");
+        String aStr = (String)a.getState("Id");
+        String bStr = (String)b.getState("Id");
 
         return aStr.compareTo(bStr);
     }

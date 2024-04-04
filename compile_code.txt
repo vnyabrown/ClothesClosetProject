@@ -8,6 +8,8 @@ For linux
 To compile:
 
 javac --module-path $PATH_TO_FX --add-modules javafx.controls -d classes Main.java
+or
+javac --module-path $PATH_TO_FX --add-modules javafx.controls -d classes common/*.java database/*.java event/*.java exception/*.java impresario/*.java model/*.java userinterface/*.java Utilities/*.java
 
 To run:
 
