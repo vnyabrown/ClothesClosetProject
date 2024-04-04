@@ -71,7 +71,7 @@ public class ModifyArticleTypeView extends View
         HBox container = new HBox();
         container.setAlignment(Pos.CENTER);
 
-        Text titleText = new Text(" Library ");
+        Text titleText = new Text("       Brockport Clothes Closet          ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
@@ -129,7 +129,7 @@ public class ModifyArticleTypeView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("ArticleChoiceView", "");
+                myModel.stateChangeRequest("SearchForArticleType", "");
             }
         });
         doneCont.getChildren().add(cancelButton);
@@ -163,6 +163,7 @@ public class ModifyArticleTypeView extends View
             values[0] = (String) text.getText();
             values[1] = (String) modificationField.getValue();
             myModel.stateChangeRequest("ModifyArticleType", values);
+            displayMessage("Article Type Modified.");
             //myModel.stateChangeRequest("SearchBooksCollection", null);
         }
     }

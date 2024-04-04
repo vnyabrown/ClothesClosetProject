@@ -107,7 +107,7 @@ public class ArticleChoiceView extends View {
                 myModel.stateChangeRequest("SearchForArticleType", null);
             }
         });
-        quitButton = new Button("Quit");
+        quitButton = new Button("Back");
         quitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {myModel.stateChangeRequest("CancelArticleTransaction", null);}

@@ -149,6 +149,7 @@ public class Closet implements IView, IModel {
                 else {
                     System.out.println("not an option in statechangerequest in modifyarticletype");
                 }
+                break;
 
 
 
