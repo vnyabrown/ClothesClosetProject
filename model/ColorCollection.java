@@ -117,7 +117,9 @@ public class ColorCollection extends EntityBase implements IView {
     public Object getState(String key) {
         if (key.equals("Color"))
             return colorList;
-
+        else if (key.equals("getVector")) {
+            return this.colorList;
+        }
         return null;
     }
 

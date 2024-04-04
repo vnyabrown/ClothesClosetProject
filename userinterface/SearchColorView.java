@@ -129,7 +129,7 @@ public class SearchColorView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("ColorChoiceView", "");
+                myModel.stateChangeRequest("Color", "");
             }
         });
         doneCont.getChildren().add(cancelButton);

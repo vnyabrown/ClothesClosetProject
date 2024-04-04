@@ -50,7 +50,7 @@ public class ViewFactory {
 		else if(viewName.equals("ColorCollectionView")) {
 			return new ColorCollectionView(model);
 		}
-		else if(viewName.equals("ModifyColorTypeView")) {
+		else if(viewName.equals("ModifyColorView")) {
 			return new ModifyColorView(model);
 		}
 		else {

@@ -18,7 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+//import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -30,17 +30,19 @@ import java.util.Enumeration;
 
 // project imports
 import impresario.IModel;
-import model.ArticleType;
-import model.ArticleTypeCollection;
+import model.Color;
+import model.ColorCollection;
 
 //==============================================================================
 public class ColorCollectionView extends View
 {
+
+    javafx.scene.paint.Color color;
     protected TableView<ColorTableModel> tableOfColors;
     protected Button cancelButton;
     protected Button deleteButton;
     protected MessageView statusLog;
-    private ArticleTypeCollection atc;
+    private ColorCollection atc;
 
 
 
@@ -77,7 +79,7 @@ public class ColorCollectionView extends View
         ObservableList<ColorTableModel> tableData = FXCollections.observableArrayList();
         try
         {
-            atc = (ArticleTypeCollection) myModel.getState("ColorCollection");
+            atc = (ColorCollection) myModel.getState("ColorCollection");
 //            bookCollection.display();
 
             Vector entryList = (Vector)atc.getState("getVector");
@@ -85,7 +87,7 @@ public class ColorCollectionView extends View
 
             while (entries.hasMoreElements() == true)
             {
-                ArticleType nextAT = (ArticleType) entries.nextElement();
+                Color nextAT = (Color) entries.nextElement();
                 Vector<String> view = nextAT.getFields();
                 System.out.println("---------");
                 for(String str : view) {
@@ -119,7 +121,7 @@ public class ColorCollectionView extends View
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
-        titleText.setFill(Color.DARKGREEN);
+        titleText.setFill(color.DARKGREEN);
         container.getChildren().add(titleText);
 
         return container;
@@ -140,46 +142,46 @@ public class ColorCollectionView extends View
         Text prompt = new Text("LIST OF Colors");
         prompt.setWrappingWidth(350);
         prompt.setTextAlignment(TextAlignment.CENTER);
-        prompt.setFill(Color.BLACK);
+        prompt.setFill(color.BLACK);
         grid.add(prompt, 0, 0, 2, 1);
 
         tableOfColors = new TableView<ColorTableModel>();
         tableOfColors.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        TableColumn accountNumberColumn = new TableColumn("Id") ;
-        accountNumberColumn.setMinWidth(100);
-        accountNumberColumn.setCellValueFactory(
+        TableColumn colorNumberColumn = new TableColumn("Id") ;
+        colorNumberColumn.setMinWidth(100);
+        colorNumberColumn.setCellValueFactory(
                 new PropertyValueFactory<ColorTableModel, String>("Id"));
 
-        TableColumn accountTypeColumn = new TableColumn("Description") ;
-        accountTypeColumn.setMinWidth(100);
-        accountTypeColumn.setCellValueFactory(
+        TableColumn colorDescColumn = new TableColumn("Description") ;
+        colorDescColumn.setMinWidth(100);
+        colorDescColumn.setCellValueFactory(
                 new PropertyValueFactory<ColorTableModel, String>("Description"));
 
-        TableColumn balanceColumn = new TableColumn("BarcodePrefix") ;
-        balanceColumn.setMinWidth(100);
-        balanceColumn.setCellValueFactory(
+        TableColumn  colorBfxColumn = new TableColumn("BarcodePrefix") ;
+        colorBfxColumn.setMinWidth(100);
+        colorBfxColumn.setCellValueFactory(
                 new PropertyValueFactory<ColorTableModel, String>("BarcodePrefix"));
 
-        TableColumn serviceChargeColumn = new TableColumn("AlphaCode") ;
-        serviceChargeColumn.setMinWidth(100);
-        serviceChargeColumn.setCellValueFactory(
+        TableColumn colorAlphaColumn = new TableColumn("AlphaCode") ;
+        colorAlphaColumn.setMinWidth(100);
+        colorAlphaColumn.setCellValueFactory(
                 new PropertyValueFactory<ColorTableModel, String>("AlphaCode"));
 
-        TableColumn statusColumn = new TableColumn("Status") ;
-        statusColumn.setMinWidth(100);
-        statusColumn.setCellValueFactory(
+        TableColumn colorStatusColumn = new TableColumn("Status") ;
+        colorStatusColumn.setMinWidth(100);
+        colorStatusColumn.setCellValueFactory(
                 new PropertyValueFactory<ColorTableModel, String>("Status"));
 
-        tableOfColors.getColumns().addAll(accountNumberColumn, accountTypeColumn,
-                balanceColumn, serviceChargeColumn, statusColumn);
+        tableOfColors.getColumns().addAll(colorNumberColumn, colorDescColumn,
+                colorBfxColumn, colorAlphaColumn, colorStatusColumn);
 
         tableOfColors.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event)
             {
                 if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
-                    processArticleTypeSelected("");
+                    processColorSelected("");
                 }
             }
         });
@@ -201,7 +203,7 @@ public class ColorCollectionView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                processArticleTypeSelected("delete");
+                processColorSelected("delete");
             }
         });
 
@@ -210,7 +212,7 @@ public class ColorCollectionView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                processArticleTypeSelected("modify");
+                processColorSelected("modify");
             }
         });
 
@@ -235,14 +237,14 @@ public class ColorCollectionView extends View
     }
 
     //--------------------------------------------------------------------------
-    protected void processArticleTypeSelected(String str)
+    protected void processColorSelected(String str)
     {
         ColorTableModel selectedItem = tableOfColors.getSelectionModel().getSelectedItem();
 
         if(selectedItem != null)
         {
-            String selectedAcctNumber = selectedItem.getId();
-            System.out.println("selected : " + selectedAcctNumber);
+            String selectedColorNum = selectedItem.getId();
+            System.out.println("selected : " + selectedColorNum);
             Properties prop = new Properties();
             prop.setProperty("Id", selectedItem.getId());
             prop.setProperty("Description", selectedItem.getDescription());
