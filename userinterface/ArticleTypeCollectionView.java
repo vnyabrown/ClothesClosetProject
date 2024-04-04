@@ -187,7 +187,7 @@ public class ArticleTypeCollectionView extends View
             public void handle(MouseEvent event)
             {
                 if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
-                    processArticleTypeselected();
+                    processArticleTypeSelected("");
                 }
             }
         });
@@ -200,7 +200,7 @@ public class ArticleTypeCollectionView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("DeleteArticle", null);
+                myModel.stateChangeRequest("SearchForArticleType", null);
             }
         });
 
@@ -209,7 +209,7 @@ public class ArticleTypeCollectionView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                processArticleTypeselected("delete");
+                processArticleTypeSelected("delete");
             }
         });
 
@@ -218,7 +218,7 @@ public class ArticleTypeCollectionView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                processArticleTypeselected("modify");
+                processArticleTypeSelected("modify");
             }
         });
 
@@ -226,6 +226,7 @@ public class ArticleTypeCollectionView extends View
         btnContainer.setAlignment(Pos.CENTER);
         btnContainer.getChildren().add(cancelButton);
         btnContainer.getChildren().add(deleteButton);
+        btnContainer.getChildren().add(modifyButton);
 
         vbox.getChildren().add(grid);
         vbox.getChildren().add(scrollPane);
@@ -242,7 +243,7 @@ public class ArticleTypeCollectionView extends View
     }
 
     //--------------------------------------------------------------------------
-    protected void processArticleTypeselected(String str)
+    protected void processArticleTypeSelected(String str)
     {
         ArticleTypeTableModel selectedItem = tableOfArticleTypes.getSelectionModel().getSelectedItem();
 
@@ -262,7 +263,11 @@ public class ArticleTypeCollectionView extends View
                 displayMessage("Article Type Deleted.");
             }
             else if(str.equals("modify")) {
-                TODO;
+                System.out.println("in modify in view");
+                myModel.stateChangeRequest("ArticleTypeToBeModified", prop);
+            }
+            else {
+                System.out.println("str in processArticleTypeSelected is not right");
             }
         }
         else {

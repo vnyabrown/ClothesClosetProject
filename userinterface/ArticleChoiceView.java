@@ -97,14 +97,14 @@ public class ArticleChoiceView extends View {
         modArticleButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("ModifyArticle", null);
+                myModel.stateChangeRequest("SearchForArticleType", null);
             }
         });
         delArticleButton = new Button("Delete Article");
         delArticleButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("DeleteArticle", null);
+                myModel.stateChangeRequest("SearchForArticleType", null);
             }
         });
         quitButton = new Button("Quit");

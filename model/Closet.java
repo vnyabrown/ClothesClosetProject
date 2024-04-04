@@ -114,8 +114,7 @@ public class Closet implements IView, IModel {
                 }
                 break;
 
-            case "ModifyArticle":
-            case "DeleteArticle":
+            case "SearchForArticleType":
                 createAndShowChoiceView("SearchArticleTypeView");
                 break;
             // value in this case is not a string but an array
@@ -128,6 +127,29 @@ public class Closet implements IView, IModel {
                 at = new ArticleType((Properties) value);
                 at.markInactive();
                 break;
+            case "ArticleTypeToBeModified":
+                at = new ArticleType((Properties) value);
+                System.out.println("here");
+                createAndShowChoiceView("ModifyArticleTypeView");
+                break;
+            case "ModifyArticleType":
+                String[] array = (String[]) value;
+                if(array[1].equals("Description")) {
+                    at.modifyDescription(array[0]);
+                    at.updateStateInDatabase();
+                }
+                else if(array[1].equals("Barcode Prefix")) {
+                    at.modifyBarcodePrefix(array[0]);
+                    at.updateStateInDatabase();
+                }
+                else if(array[1].equals("Alpha Code")) {
+                    at.modifyAlphaCode(array[0]);
+                    at.updateStateInDatabase();
+                }
+                else {
+                    System.out.println("not an option in statechangerequest in modifyarticletype");
+                }
+
 
 
             case "CancelArticleTransaction":
