@@ -32,6 +32,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.util.Properties;
 import java.util.Vector;
 import java.util.Enumeration;
 
@@ -45,6 +46,7 @@ public class ArticleTypeCollectionView extends View
 {
     protected TableView<ArticleTypeTableModel> tableOfArticleTypes;
     protected Button cancelButton;
+    protected Button deleteButton;
     protected MessageView statusLog;
     private ArticleTypeCollection atc;
 
@@ -198,13 +200,32 @@ public class ArticleTypeCollectionView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("LibraryOptions", null);
+                myModel.stateChangeRequest("DeleteArticle", null);
+            }
+        });
+
+        deleteButton = new Button("Delete");
+        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                clearErrorMessage();
+                processArticleTypeselected("delete");
+            }
+        });
+
+        Button modifyButton = new Button("Modify");
+        modifyButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                clearErrorMessage();
+                processArticleTypeselected("modify");
             }
         });
 
         HBox btnContainer = new HBox(100);
         btnContainer.setAlignment(Pos.CENTER);
         btnContainer.getChildren().add(cancelButton);
+        btnContainer.getChildren().add(deleteButton);
 
         vbox.getChildren().add(grid);
         vbox.getChildren().add(scrollPane);
@@ -221,7 +242,7 @@ public class ArticleTypeCollectionView extends View
     }
 
     //--------------------------------------------------------------------------
-    protected void processArticleTypeselected()
+    protected void processArticleTypeselected(String str)
     {
         ArticleTypeTableModel selectedItem = tableOfArticleTypes.getSelectionModel().getSelectedItem();
 
@@ -229,8 +250,23 @@ public class ArticleTypeCollectionView extends View
         {
             String selectedAcctNumber = selectedItem.getId();
             System.out.println("selected : " + selectedAcctNumber);
+            Properties prop = new Properties();
+            prop.setProperty("Id", selectedItem.getId());
+            prop.setProperty("Description", selectedItem.getDescription());
+            prop.setProperty("BarcodePrefix", selectedItem.getBarcodePrefix());
+            prop.setProperty("AlphaCode", selectedItem.getAlphaCode());
+            prop.setProperty("Status", selectedItem.getStatus());
 
-            myModel.stateChangeRequest("ArticleTypeselected", selectedAcctNumber);
+            if(str.equals("delete")) {
+                myModel.stateChangeRequest("ArticleTypeSelectedForDeletion", prop);
+                displayMessage("Article Type Deleted.");
+            }
+            else if(str.equals("modify")) {
+                TODO;
+            }
+        }
+        else {
+            System.out.println("selecteditem is null in atc view");
         }
     }
 

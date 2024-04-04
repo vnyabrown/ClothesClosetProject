@@ -48,7 +48,7 @@ public class ViewFactory {
 			return new SearchArticleTypeView(model);
 		}
 		else if(viewName.equals("ArticleTypeCollectionView")) {
-			return new SearchArticleTypeView(model);
+			return new ArticleTypeCollectionView(model);
 		}
 		else {
 			System.out.println("No view found matching " + viewName + " in view factory.");

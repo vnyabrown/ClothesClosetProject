@@ -6,10 +6,7 @@ import impresario.IView;
 import impresario.ModelRegistry;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import userinterface.MainStageContainer;
-import userinterface.View;
-import userinterface.ViewFactory;
-import userinterface.WindowPosition;
+import userinterface.*;
 
 import java.util.Hashtable;
 import java.util.Properties;
@@ -126,6 +123,10 @@ public class Closet implements IView, IModel {
             // second is whether to search by alphaCode or description
             case"SearchArticleTypeCollection":
                 searchArticleTypeCollection((String[]) value);
+                break;
+            case "ArticleTypeSelectedForDeletion":
+                at = new ArticleType((Properties) value);
+                at.markInactive();
                 break;
 
 

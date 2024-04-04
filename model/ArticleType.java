@@ -36,8 +36,8 @@ public class ArticleType extends EntityBase {
 
 
     public static int compare(ArticleType a, ArticleType b) {
-        String aStr = (String)a.getState("AlphaCode");
-        String bStr = (String)b.getState("AlphaCode");
+        String aStr = (String)a.getState("Id");
+        String bStr = (String)b.getState("Id");
 
         return aStr.compareTo(bStr);
     }
