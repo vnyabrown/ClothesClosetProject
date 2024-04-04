@@ -9,7 +9,7 @@ import java.util.Vector;
 
 // project imports
 import exception.InvalidPrimaryKeyException;
-//import impresario.IView;
+import impresario.IView;
 
 public class ArticleType extends EntityBase {
     private static final String myTableName = "articletype";

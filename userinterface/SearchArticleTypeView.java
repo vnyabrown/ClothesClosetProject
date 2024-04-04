@@ -29,6 +29,7 @@ public class SearchArticleTypeView extends View
     // GUI components
     protected TextField bookTitle;
     protected TextField text;
+    protected ComboBox searchMethod;
     protected Button cancelButton;
     protected Button submitButton;
 
@@ -55,7 +56,7 @@ public class SearchArticleTypeView extends View
 
         getChildren().add(container);
 
-        //populateFields();
+        populateFields();
 
         // These need to be made specific for Book
         //myModel.subscribe("ServiceCharge", this);
@@ -92,7 +93,7 @@ public class SearchArticleTypeView extends View
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("Enter Title of Books to Find.");
+        Text prompt = new Text("Enter Alpha Code or Description for search.");
         prompt.setWrappingWidth(400);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
@@ -100,7 +101,7 @@ public class SearchArticleTypeView extends View
 
         Font myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
 
-        Text textLabel = new Text("Search Criteria : ");
+        Text textLabel = new Text("Search Text : ");
         textLabel.setFont(myFont);
         textLabel.setWrappingWidth(150);
         textLabel.setTextAlignment(TextAlignment.RIGHT);
@@ -109,6 +110,16 @@ public class SearchArticleTypeView extends View
         text = new TextField();
         text.setEditable(true);
         grid.add(text, 1, 1);
+
+        Text searchMethodLabel = new Text("Search Criteria : ");
+        searchMethodLabel.setFont(myFont);
+        searchMethodLabel.setWrappingWidth(150);
+        searchMethodLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(searchMethodLabel, 0, 2);
+
+        searchMethod = new ComboBox<String>();
+        searchMethod.setMinSize(100, 20);
+        grid.add(searchMethod, 1, 2);
 
         HBox doneCont = new HBox(10);
         doneCont.setAlignment(Pos.CENTER);
@@ -128,6 +139,7 @@ public class SearchArticleTypeView extends View
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                System.out.println("submit clicked");
                 processAction(actionEvent);
             }
         });
@@ -142,12 +154,15 @@ public class SearchArticleTypeView extends View
     // Process user input
     public void processAction(Event event) {
 
-        if(bookTitle.getText() == null || bookTitle.getText().isEmpty()) {
-            displayErrorMessage("Please enter a book title.");
-            bookTitle.requestFocus();
+        if(text.getText() == null || text.getText().isEmpty()) {
+            displayErrorMessage("Please enter a Description or Alpha Code.");
+            text.requestFocus();
         }
         else {
-            myModel.stateChangeRequest("SearchBooksCollection", bookTitle.getText());
+            String[] values = new String[2];
+            values[0] = (String) text.getText();
+            values[1] = (String) searchMethod.getValue();
+            myModel.stateChangeRequest("SearchArticleTypeCollection", values);
             //myModel.stateChangeRequest("SearchBooksCollection", null);
         }
     }
@@ -173,6 +188,8 @@ public class SearchArticleTypeView extends View
     //-------------------------------------------------------------
     public void populateFields()
     {
+        searchMethod.getItems().add("Alpha Code");
+        searchMethod.getItems().add("Description");
 //        status.getItems().add("Active");
 //        status.getItems().add("Inactive");
 

@@ -119,7 +119,9 @@ public class ArticleTypeCollection extends EntityBase implements IView{
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
         if (allDataRetrieved != null) {
+            System.out.println("alldataretrieved count: " + allDataRetrieved.size());
             for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++) {
+                System.out.println(allDataRetrieved.elementAt(cnt).getProperty("Id"));
                 Properties articleTypeData = allDataRetrieved.elementAt(cnt);
                 ArticleType articleType = new ArticleType(articleTypeData);
                 if (articleType != null) {
@@ -128,6 +130,7 @@ public class ArticleTypeCollection extends EntityBase implements IView{
             }
         }
         else {
+            System.out.println("alldataretrieved is null");
             throw new InvalidPrimaryKeyException("books not found");
         }
     }
