@@ -6,14 +6,14 @@ import userinterface.ViewFactory;
 
 import java.util.Properties;
 
-public class ModifyArticleTransaction extends Transaction {
+public class ModifyColorTransaction extends Transaction {
     /**
      * Constructor for this class.
      * <p>
      * Transaction remembers all the account IDs for this customer.
      * It uses AccountCatalog to create this list of account IDs.
      */
-    protected ModifyArticleTransaction() throws Exception {
+    protected ModifyColorTransaction() throws Exception {
         super();
     }
 
@@ -29,13 +29,13 @@ public class ModifyArticleTransaction extends Transaction {
 
     @Override
     protected Scene createView() {
-        Scene currentScene = myViews.get("ModifyArticleView");
+        Scene currentScene = myViews.get("ModifyColorView");
 
         if (currentScene == null) {
             // create our initial view
-            View newView = ViewFactory.createView("ModifyArticleView", this);
+            View newView = ViewFactory.createView("ModifyColorView", this);
             currentScene = new Scene(newView);
-            myViews.put("ModifyArticleView", currentScene);
+            myViews.put("ModifyColorView", currentScene);
         }
         return currentScene;
     }

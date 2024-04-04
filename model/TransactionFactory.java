@@ -4,11 +4,6 @@ package model;
 // system imports
 //import userinterface.InsertBookView;
 
-import userinterface.TransactionChoiceView;
-
-import java.util.Vector;
-import javax.swing.JFrame;
-
 // project imports
 
 /** The class containing the TransactionFactory for the ATM application */
@@ -24,16 +19,16 @@ public class TransactionFactory
             case "InsertArticle":
                 return new InsertArticleTransaction();
             case "ModifyArticle":
-                return new ModifyArticleTransaction();
+                //return new ModifyArticleTransaction();
             case "DeleteArticle":
-                return new DeleteArticleTransaction();
+                //return new DeleteArticleTransaction();
 
             case "InsertColor":
                 //return new InsertColorTransaction();
             case "ModifyColor":
-                //return new ModifyColorTransaction();
+                return new ModifyColorTransaction();
             case "DeleteColor":
-                //return new DeleteColorTransaction();
+                return new DeleteColorTransaction();
 
             case "InsertClothing":
                 //return new InsertClothingTransaction();

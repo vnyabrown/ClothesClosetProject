@@ -16,7 +16,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-public class DeleteArticleView extends View {
+public class DeleteColorView extends View {
 
     private Button submitButton;
     private Button cancelButton;
@@ -24,8 +24,8 @@ public class DeleteArticleView extends View {
     // For showing error message
     private MessageView statusLog;
 
-    public DeleteArticleView(IModel article) {
-        super(article, "InsertArticle");
+    public DeleteColorView(IModel color) {
+        super(color, "InsertColor");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -78,7 +78,7 @@ public class DeleteArticleView extends View {
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Article", "");
+                myModel.stateChangeRequest("Color", "");
             }
         });
         grid.add(cancelButton, 1, 4);

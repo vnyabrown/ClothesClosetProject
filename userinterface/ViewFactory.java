@@ -32,9 +32,9 @@ public class ViewFactory {
 		{
 			return new ColorChoiceView(model);
 		}
-		else if (viewName.equals("InsertArticleView") == true)
+		else if (viewName.equals("InsertColorView") == true)
 		{
-			return new InsertArticleView(model);
+			return new InsertColorView(model);
 		}
 		else if (viewName.equals("InsertColorView") == true)
 		{
@@ -44,18 +44,18 @@ public class ViewFactory {
 		{
 			return new ModifyArticleView(model);
 		}
-		else if (viewName.equals("DeleteArticleView") == true)
+		else if (viewName.equals("DeleteColorView") == true)
 		{
-			return new DeleteArticleView(model);
+			return new DeleteColorView(model);
 		}
-		else if(viewName.equals("SearchArticleTypeView")) {
-			return new SearchArticleTypeView(model);
+		else if(viewName.equals("SearchColorView")) {
+			return new SearchColorView(model);
 		}
-		else if(viewName.equals("ArticleTypeCollectionView")) {
-			return new ArticleTypeCollectionView(model);
+		else if(viewName.equals("ColorCollectionView")) {
+			return new ColorCollectionView(model);
 		}
-		else if(viewName.equals("ModifyArticleTypeView")) {
-			return new ModifyArticleTypeView(model);
+		else if(viewName.equals("ModifyColorView")) {
+			return new ModifyColorView(model);
 		}
 		else {
 			System.out.println("No view found matching " + viewName + " in view factory.");

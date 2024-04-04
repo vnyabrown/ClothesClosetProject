@@ -6,14 +6,14 @@ import userinterface.ViewFactory;
 
 import java.util.Properties;
 
-public class DeleteArticleTransaction extends Transaction {
+public class DeleteColorTransaction extends Transaction {
     /**
      * Constructor for this class.
      * <p>
      * Transaction remembers all the account IDs for this customer.
      * It uses AccountCatalog to create this list of account IDs.
      */
-    protected DeleteArticleTransaction() throws Exception {
+    protected DeleteColorTransaction() throws Exception {
         super();
     }
 
@@ -29,13 +29,13 @@ public class DeleteArticleTransaction extends Transaction {
 
     @Override
     protected Scene createView() {
-        Scene currentScene = myViews.get("DeleteArticleView");
+        Scene currentScene = myViews.get("DeleteColorView");
 
         if (currentScene == null) {
             // create our initial view
-            View newView = ViewFactory.createView("DeleteArticleView", this);
+            View newView = ViewFactory.createView("DeleteColorView", this);
             currentScene = new Scene(newView);
-            myViews.put("DeleteArticleView", currentScene);
+            myViews.put("DeleteColorView", currentScene);
         }
         return currentScene;
     }

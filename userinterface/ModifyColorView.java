@@ -23,13 +23,13 @@ import impresario.IModel;
 
 /** The class containing the Account View  for the ATM application */
 //==============================================================
-public class SearchArticleTypeView extends View
+public class ModifyColorView extends View
 {
 
     // GUI components
     protected TextField bookTitle;
     protected TextField text;
-    protected ComboBox searchMethod;
+    protected ComboBox modificationField;
     protected Button cancelButton;
     protected Button submitButton;
 
@@ -38,9 +38,9 @@ public class SearchArticleTypeView extends View
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public SearchArticleTypeView(IModel bookCollection)
+    public ModifyColorView(IModel bookCollection)
     {
-        super(bookCollection, "SearchTitle");
+        super(bookCollection, "ModifyColorView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -93,7 +93,7 @@ public class SearchArticleTypeView extends View
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("Enter Alpha Code or Description for search.");
+        Text prompt = new Text("Enter modified data and select field.");
         prompt.setWrappingWidth(400);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
@@ -101,7 +101,7 @@ public class SearchArticleTypeView extends View
 
         Font myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
 
-        Text textLabel = new Text("Search Text : ");
+        Text textLabel = new Text("Modified Data : ");
         textLabel.setFont(myFont);
         textLabel.setWrappingWidth(150);
         textLabel.setTextAlignment(TextAlignment.RIGHT);
@@ -111,15 +111,15 @@ public class SearchArticleTypeView extends View
         text.setEditable(true);
         grid.add(text, 1, 1);
 
-        Text searchMethodLabel = new Text("Search Criteria : ");
-        searchMethodLabel.setFont(myFont);
-        searchMethodLabel.setWrappingWidth(150);
-        searchMethodLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(searchMethodLabel, 0, 2);
+        Text modificationFieldLabel = new Text("Modified Field: ");
+        modificationFieldLabel.setFont(myFont);
+        modificationFieldLabel.setWrappingWidth(150);
+        modificationFieldLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(modificationFieldLabel, 0, 2);
 
-        searchMethod = new ComboBox<String>();
-        searchMethod.setMinSize(100, 20);
-        grid.add(searchMethod, 1, 2);
+        modificationField = new ComboBox<String>();
+        modificationField.setMinSize(100, 20);
+        grid.add(modificationField, 1, 2);
 
         HBox doneCont = new HBox(10);
         doneCont.setAlignment(Pos.CENTER);
@@ -129,7 +129,7 @@ public class SearchArticleTypeView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("ArticleChoiceView", "");
+                myModel.stateChangeRequest("SearchForColor", "");
             }
         });
         doneCont.getChildren().add(cancelButton);
@@ -161,8 +161,9 @@ public class SearchArticleTypeView extends View
         else {
             String[] values = new String[2];
             values[0] = (String) text.getText();
-            values[1] = (String) searchMethod.getValue();
-            myModel.stateChangeRequest("SearchArticleTypeCollection", values);
+            values[1] = (String) modificationField.getValue();
+            myModel.stateChangeRequest("ModifyColor", values);
+            displayMessage("Color Modified.");
             //myModel.stateChangeRequest("SearchBooksCollection", null);
         }
     }
@@ -188,8 +189,9 @@ public class SearchArticleTypeView extends View
     //-------------------------------------------------------------
     public void populateFields()
     {
-        searchMethod.getItems().add("Alpha Code");
-        searchMethod.getItems().add("Description");
+        modificationField.getItems().add("Description");
+        modificationField.getItems().add("Barcode Prefix");
+        modificationField.getItems().add("Alpha Code");
 //        status.getItems().add("Active");
 //        status.getItems().add("Inactive");
 

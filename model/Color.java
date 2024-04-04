@@ -234,7 +234,7 @@ public class Color extends EntityBase {
     }
 
 
-    private void markInactive() {
+    public void markInactive() {
         persistentState.setProperty("Status", "Inactive");
         updateStateInDatabase();
     }
