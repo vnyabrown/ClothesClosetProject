@@ -1,0 +1,24 @@
+javac -d classes -classpath classes;. model\*.java userinterface\*.java
+javac -classpath classes;. InterfaceTest.java
+java -cp mariadb-java-client-3.0.3.jar;classes;. MAINPROGRAMNAME
+
+
+For linux
+
+To compile:
+
+javac --module-path $PATH_TO_FX --add-modules javafx.controls -d classes Main.java
+or
+javac --module-path $PATH_TO_FX --add-modules javafx.controls -d classes common/*.java database/*.java event/*.java exception/*.java impresario/*.java model/*.java userinterface/*.java Utilities/*.java
+
+To run:
+
+java -cp mariadb-java-client-3.0.3.jar:classes BookShop
+java --module-path $PATH_TO_FX --add-modules javafx.controls -cp mariadb-java-client-3.0.3.jar:classes BookShop
+
+csdb login:
+
+username=ahadd1
+password=123
+dbName=spr24_csc429_ahadd1
+server=csdb.brockport.edu
