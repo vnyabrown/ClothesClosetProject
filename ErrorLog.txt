@@ -24,3 +24,5 @@
 [4/2/24, 12:55 AM]|ModifyArticleTransaction|Transaction|Error|NOTAG|null<Error>
 [4/2/24, 1:00 AM]|DeleteArticleTransaction|Transaction|Error|NOTAG|null<Error>
 [4/2/24, 1:00 AM]|ModifyArticleTransaction|Transaction|Error|NOTAG|null<Error>
+[4/3/24 5:32 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=14886) Duplicate entry '15' for key 'BarcodePrefix'>
+[4/3/24 5:34 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=14908) Duplicate entry '15' for key 'BarcodePrefix'>

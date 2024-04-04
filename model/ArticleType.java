@@ -83,6 +83,11 @@ public class ArticleType extends EntityBase {
                     " was updated in database.";
                 System.out.println("Article Type was updated into database.");
             }
+            else if (checkBarcodePrefixExists(persistentState.getProperty("BarcodePrefix")))
+            {
+                System.out.println();
+                throw new Exception("Error! Color with BarcodePrefix " + persistentState.getProperty("BarcodePrefix") + " exists in database!");
+            }
             // Insert new Article Type
             else {
                 try {
@@ -95,7 +100,7 @@ public class ArticleType extends EntityBase {
                 catch(Exception e) {
                     e.printStackTrace();
                     System.out.println(e);
-                    System.out.println("Possible duplicate value for Barcode Prefix.");
+                    throw new Exception ("Possible duplicate value for Barcode Prefix.");
                 }
             }
         } catch(SQLException e) {
@@ -118,6 +123,16 @@ public class ArticleType extends EntityBase {
         v.addElement(persistentState.getProperty("Status"));
 
         return v;
+    }
+
+    public boolean checkBarcodePrefixExists(String bfx)
+    {
+        String query = "SELECT * FROM " + myTableName + " WHERE BarcodePrefix = '%" + bfx + "%';";
+        if (!getSelectQueryResult(query).isEmpty())
+        {
+            return true; // it does already exist in table
+        }
+        return false; // it doesn't already exist in table
     }
 
 
