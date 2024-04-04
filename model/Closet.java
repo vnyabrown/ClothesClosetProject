@@ -58,7 +58,7 @@ public class Closet implements IView, IModel {
 
     @Override
     public Object getState(String key) {
-        if(key.equals("ArticleTypeCollection")) {
+        if(key.equals("ColorCollection")) {
             return colorColl;
         }
         else {
