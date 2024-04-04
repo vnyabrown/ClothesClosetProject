@@ -32,17 +32,27 @@ public class ViewFactory {
 		{
 			return new ColorChoiceView(model);
 		}
-		else if (viewName.equals("InsertColorView") == true)
+		else if (viewName.equals("InsertArticleView") == true)
 		{
-			return new InsertColorView(model);
+			return new InsertArticleView(model);
 		}
 		else if (viewName.equals("InsertColorView") == true)
 		{
 			return new InsertColorView(model);
 		}
-		else if (viewName.equals("ModifyArticleView") == true)
+		else if (viewName.equals("DeleteArticleView") == true)
 		{
-			return new ModifyArticleView(model);
+			return new DeleteArticleView(model);
+		}
+		else if(viewName.equals("SearchArticleTypeView")) {
+			return new SearchArticleTypeView(model);
+		}
+		else if(viewName.equals("ArticleTypeCollectionView")) {
+			return new ArticleTypeCollectionView(model);
+		}
+		else if (viewName.equals("ModifyArticleTypeView") == true)
+		{
+			return new ModifyArticleTypeView(model);
 		}
 		else if (viewName.equals("DeleteColorView") == true)
 		{

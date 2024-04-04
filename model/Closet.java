@@ -17,6 +17,7 @@ public class Closet implements IView, IModel {
     private ArticleType at;
     private ColorCollection colorColl;
     private Color color;
+    String[] array;
     // For Impresario
     private Properties dependencies;
     private ModelRegistry myRegistry;
@@ -66,6 +67,10 @@ public class Closet implements IView, IModel {
     public Object getState(String key) {
         if(key.equals("ColorCollection")) {
             return colorColl;
+        }
+        else if (key.equals("ArticleTypeCollection"))
+        {
+            return atc;
         }
         else {
             return "nothing from getState in Closet";
@@ -119,7 +124,42 @@ public class Closet implements IView, IModel {
                     createAndShowChoiceView("ArticleChoiceView");
                 }
                 break;
-
+            case "SearchForArticleType":
+                createAndShowChoiceView("SearchArticleTypeView");
+                break;
+            // value in this case is not a string but an array
+            // first value is search text
+            // second is whether to search by alphaCode or description
+            case"SearchArticleTypeCollection":
+                searchArticleTypeCollection((String[]) value);
+                break;
+            case "ArticleTypeSelectedForDeletion":
+                at = new ArticleType((Properties) value);
+                at.markInactive();
+                break;
+            case "ArticleTypeToBeModified":
+                at = new ArticleType((Properties) value);
+                System.out.println("here");
+                createAndShowChoiceView("ModifyArticleTypeView");
+                break;
+            case "ModifyArticleType":
+                array = (String[]) value;
+                if(array[1].equals("Description")) {
+                    at.modifyDescription(array[0]);
+                    at.updateStateInDatabase();
+                }
+                else if(array[1].equals("Barcode Prefix")) {
+                    at.modifyBarcodePrefix(array[0]);
+                    at.updateStateInDatabase();
+                }
+                else if(array[1].equals("Alpha Code")) {
+                    at.modifyAlphaCode(array[0]);
+                    at.updateStateInDatabase();
+                }
+                else {
+                    System.out.println("not an option in statechangerequest in modifyarticletype");
+                }
+                break;
             case "SearchForColor":
                 createAndShowChoiceView("SearchColorView");
                 break;
@@ -139,7 +179,7 @@ public class Closet implements IView, IModel {
                 createAndShowChoiceView("ModifyColorView");
                 break;
             case "ModifyColor":
-                String[] array = (String[]) value;
+                array = (String[]) value;
                 if(array[1].equals("Description")) {
                     color.modifyDescription(array[0]);
                     color.updateStateInDatabase();
