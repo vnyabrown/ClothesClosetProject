@@ -41,3 +41,9 @@
 [4/4/24, 1:09 PM]|JDBCBroker|JDBCBroker|Error|NOTAG|null<Could not load driver class[org.mariadb.jdbc.Driver]>
 [4/4/24, 1:09 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
 [4/15/24, 1:03 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+[4/15/24, 2:00 PM]|Inventory|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: (conn=154) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/15/24, 2:02 PM]|Inventory|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: (conn=155) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/15/24, 2:03 PM]|Inventory|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: (conn=156) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/15/24, 2:12 PM]|Inventory|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: (conn=181) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[4/15/24, 2:17 PM]|Inventory|updatePersistentState|Error|NOTAG|null<SQL Exception: 1054: (conn=232) Unknown column 'no' in 'field list'>
+[4/15/24, 2:26 PM]|Inventory|updatePersistentState|Error|NOTAG|null<SQL Exception: 1292: (conn=332) Incorrect date value: '1-2-2024' for column `csdbClothesClosetSystem`.`inventory`.`DateDonated` at row 1>
