@@ -1,0 +1,35 @@
+# Don't change anything on this file. Make a new file with the same
+# name minus the .sample portion. In that file change your login info.
+# And don't track that new file. ex: Don't use the command "git add ."
+
+import os
+local_username = "Enter YOUR USERNAME HERE"
+local_password = "ENTER YOUR PASSWORD HERE"
+local_db_name = "ENTER YOUR DATABASE NAME HERE"
+server = "localhost"
+
+choice = int(input("Enter 1 to connect to your local database\nEnter 2 to connect to CSDB\n"))
+
+file_path = "dbConfig.ini"
+
+if choice == 1 or choice == 2:
+    with open(file_path, "w") as file:
+        if choice == 1:
+            file.write("username=" + local_username)
+            file.write("\npassword=" + local_password)
+            file.write("\ndbName=" + local_db_name)
+            file.write("\nserver=" + server)
+            print("dbConfig.ini updated for localhost")
+        else:
+            file.write("username=" + "ahadd1")
+            file.write("\npassword=" + "123")
+            file.write("\ndbName=" + "spr24_csc429_ahadd1")
+            file.write("\nserver=" + "csdb.brockport.edu")
+            print("dbConfig.ini updated for CSDB")
+        file.close
+else:
+    print("Not a choice")
+
+
+
+

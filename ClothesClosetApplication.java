@@ -2,6 +2,7 @@ import event.Event;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -25,6 +26,8 @@ public class ClothesClosetApplication extends Application {
         // Create the top-level container (main frame) and add contents to it.
         MainStageContainer.setStage(primaryStage, "Brockport Clothes Closet");
         mainStage = MainStageContainer.getInstance();
+        mainStage.setResizable(true);
+        mainStage.setMaximized(true);
 
         // Finish setting up the stage (ENABLE THE GUI TO BE CLOSED USING THE TOP RIGHT
         // 'X' IN THE WINDOW), and show it.
@@ -38,7 +41,6 @@ public class ClothesClosetApplication extends Application {
         try
         {
             myCloset = new Closet();
-//            System.out.println("Librarian created");
         }
         catch(Exception exc)
         {
@@ -49,6 +51,8 @@ public class ClothesClosetApplication extends Application {
         }
 
         WindowPosition.placeCenter(mainStage);
+//        mainStage.setHeight(1000);
+//        mainStage.setWidth(1000);
 
         mainStage.show();
     }
