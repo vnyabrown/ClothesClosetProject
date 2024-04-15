@@ -10,7 +10,8 @@ public class InventoryCollectionTest {
         ic.findInventoryWithBarcode("123");
         ic.displayCollection();
         Inventory i = new Inventory("123");
-        i.modifyDateDonated("1-2-2024");
+        i.modifyDateDonated("2024-1-2");
+        i.removeInventoryItem();
         i.updateStateInDatabase();
 
     }

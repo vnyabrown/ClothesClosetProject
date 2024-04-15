@@ -168,6 +168,10 @@ public class Inventory extends EntityBase {
         persistentState.setProperty("DateDonated", DateDonated);
     }
 
+    public void removeInventoryItem() {
+        persistentState.setProperty("Status", "Removed");
+    }
+
     public void modifyDateTaken(String DateTaken) {
         persistentState.setProperty("DateTaken", DateTaken);
     }
