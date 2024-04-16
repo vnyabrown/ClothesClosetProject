@@ -14,6 +14,10 @@ public class ViewFactory {
 				return new ArticleChoiceView(model);
 			case "ColorChoiceView":
 				return new ColorChoiceView(model);
+			case "ClothingChoiceView":
+				return new ClothingChoiceView(model);
+			case "InventoryChoiceView":
+				return new InventoryChoiceView(model);
 			case "InsertArticleView":
 				return new InsertArticleView(model);
 			case "InsertColorView":
