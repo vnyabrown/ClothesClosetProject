@@ -43,6 +43,8 @@ public class Closet implements IView, IModel {
 
         if(myRegistry == null)
         {
+            System.out.println("null registry");
+
             new Event(Event.getLeafLevelClassName(this), "Closet",
                     "Could not instantiate Registry", Event.ERROR);
         }
@@ -61,7 +63,8 @@ public class Closet implements IView, IModel {
         dependencies = new Properties();
         dependencies.setProperty("Login", "LoginError");
         dependencies.setProperty("InsertArticle", "TransactionError");
-        dependencies.setProperty("testerror", "testerror");
+        dependencies.setProperty("successfulModify", "successfulModify");
+        dependencies.setProperty("unsuccessfulModify", "unsuccessfulModify");
 
         myRegistry.setDependencies(dependencies);
     }
@@ -82,6 +85,7 @@ public class Closet implements IView, IModel {
 
     @Override
     public void subscribe(String key, IView subscriber) {
+        myRegistry.subscribe(key, subscriber);
 
     }
 
@@ -161,6 +165,14 @@ public class Closet implements IView, IModel {
                 }
                 else {
                     System.out.println("not an option in statechangerequest in modifyarticletype");
+                }
+                String str = (String) at.getState("updateStatusMessage");
+                System.out.println(str);
+                if(str.equals("ok")) {
+                    stateChangeRequest("successfulModify", "yahoo");
+                }
+                else {
+                    stateChangeRequest("unsuccessfulModify", "yahoo");
                 }
                 break;
             case "SearchForColor":

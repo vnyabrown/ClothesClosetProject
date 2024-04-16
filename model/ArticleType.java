@@ -82,10 +82,11 @@ public class ArticleType extends EntityBase {
                     persistentState.getProperty("Id") +
                     " was updated in database.";
                 System.out.println("Article Type was updated into database.");
+                updateStatusMessage = "ok";
             }
             else if (checkBarcodePrefixExists(persistentState.getProperty("BarcodePrefix")))
             {
-                System.out.println();
+                updateStatusMessage = "Somthing wrong updating article type";
                 throw new Exception("Error! Color with BarcodePrefix " + persistentState.getProperty("BarcodePrefix") + " exists in database!");
             }
             // Insert new Article Type
@@ -173,9 +174,10 @@ public class ArticleType extends EntityBase {
 
 
     public Object getState(String key) {
-		if (key.equals("UpdateStatusMessage") == true)
-			return updateStatusMessage;
-
+		if (key.equals("updateStatusMessage")) {
+            System.out.println("in at get state, status: " + updateStatusMessage);
+            return updateStatusMessage;
+        }
 		return persistentState.getProperty(key);
 	}
 

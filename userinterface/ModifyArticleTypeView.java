@@ -58,9 +58,9 @@ public class ModifyArticleTypeView extends View
 
         populateFields();
 
-        myModel.subscribe("testerror", this);
+        myModel.subscribe("successfulModify", this);
+        myModel.subscribe("unsuccessfulModify", this);
         System.out.println("modify subscribed to closet");
-        myModel.stateChangeRequest("testerror", "");
 
         // These need to be made specific for Book
         //myModel.subscribe("ServiceCharge", this);
@@ -167,7 +167,7 @@ public class ModifyArticleTypeView extends View
             values[0] = (String) text.getText();
             values[1] = (String) modificationField.getValue();
             myModel.stateChangeRequest("ModifyArticleType", values);
-            displayMessage("Article Type Modified.");
+//displayMessage("Article Type Modified.");
             //myModel.stateChangeRequest("SearchBooksCollection", null);
         }
     }
@@ -211,10 +211,17 @@ public class ModifyArticleTypeView extends View
     //---------------------------------------------------------
     public void updateState(String key, Object value)
     {
-        System.out.println("update state received: " + key);
         clearErrorMessage();
-        if(key.equals("testerror")) {
-            System.out.println("testerror reached from modifyarticletypeview");
+        System.out.println("update state in mat: " + key);
+        if(key.equals("successfulModify")) {
+            System.out.println("successfulModify reached from modifyarticletypeview");
+            displayMessage("updated succesfully in db holy ****");
+        }
+        else if(key.equals("unsuccessfulModify")) {
+            displayErrorMessage("no can do");
+        }
+        else {
+            displayMessage("else in updatestate in mat");
         }
 
         //if (key.equals("ServiceCharge") == true)
