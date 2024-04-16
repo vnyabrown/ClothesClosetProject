@@ -58,6 +58,10 @@ public class ModifyArticleTypeView extends View
 
         populateFields();
 
+        myModel.subscribe("testerror", this);
+        System.out.println("modify subscribed to closet");
+        myModel.stateChangeRequest("testerror", "");
+
         // These need to be made specific for Book
         //myModel.subscribe("ServiceCharge", this);
         //myModel.subscribe("UpdateStatusMessage", this);
@@ -207,7 +211,11 @@ public class ModifyArticleTypeView extends View
     //---------------------------------------------------------
     public void updateState(String key, Object value)
     {
+        System.out.println("update state received: " + key);
         clearErrorMessage();
+        if(key.equals("testerror")) {
+            System.out.println("testerror reached from modifyarticletypeview");
+        }
 
         //if (key.equals("ServiceCharge") == true)
         //{

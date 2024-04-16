@@ -53,12 +53,15 @@ public class Closet implements IView, IModel {
         // Set up the initial view
         createAndShowChoiceView("ClosetView");
 //        System.out.println("LibrarianView Shown");
+
+        // test model controller connection
     }
     private void setDependencies()
     {
         dependencies = new Properties();
         dependencies.setProperty("Login", "LoginError");
         dependencies.setProperty("InsertArticle", "TransactionError");
+        dependencies.setProperty("testerror", "testerror");
 
         myRegistry.setDependencies(dependencies);
     }
@@ -275,7 +278,7 @@ public class Closet implements IView, IModel {
             else {
                 System.err.println("string in combo box doesn't match one of correct conditions.");
             }
-            atc.display();
+            //atc.display();
             createAndShowArticleTypeCollectionView();
 
         } catch(Exception e) {
@@ -346,6 +349,7 @@ public class Closet implements IView, IModel {
 
     @Override
     public void updateState(String key, Object value) {
+        System.out.print("from closet: " + key);
 
     }
 
