@@ -14,8 +14,6 @@ public class ViewFactory {
 				return new ArticleChoiceView(model);
 			case "ColorChoiceView":
 				return new ColorChoiceView(model);
-			case "ClothingChoiceView":
-				return new ClothingChoiceView(model);
 			case "InventoryChoiceView":
 				return new InventoryChoiceView(model);
 			case "InsertArticleView":
@@ -38,6 +36,8 @@ public class ViewFactory {
 				return new ColorCollectionView(model);
 			case "ModifyColorView":
 				return new ModifyColorView(model);
+			case "InsertClothingView":
+				return new InsertClothingView(model);
 			default:
 				System.out.println("No view found matching " + viewName + " in view factory.");
 				return null;

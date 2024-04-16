@@ -212,6 +212,9 @@ public class Closet implements IView, IModel {
             case "InsertColorView":
                 createAndShowChoiceView("InsertColorView");
                 break;
+            case "InsertClothingView":
+                createAndShowChoiceView("InsertClothingView");
+                break;
             case "InsertArticle":
                 newArticle.processNewArticle((Properties)value);
                 newArticle.updateStateInDatabase();
