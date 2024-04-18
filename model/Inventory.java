@@ -88,6 +88,13 @@ public class Inventory extends EntityBase {
         }
     }
 
+    public static int compare(Inventory a, Inventory b) {
+        String aStr = (String)a.getState("ArticleType");
+        String bStr = (String)b.getState("ArticleType");
+
+        return aStr.compareTo(bStr);
+    }
+
     // DO we need the above constructor if we have this function? This is code repetition...
     public void processNewInventory(Properties props)
     {
