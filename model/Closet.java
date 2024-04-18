@@ -59,6 +59,7 @@ public class Closet implements IView, IModel {
         dependencies = new Properties();
         dependencies.setProperty("Login", "LoginError");
         dependencies.setProperty("InsertArticle", "TransactionError");
+        dependencies.setProperty("ModifyButton", "ModifyButton");
 
         myRegistry.setDependencies(dependencies);
     }
@@ -79,7 +80,7 @@ public class Closet implements IView, IModel {
 
     @Override
     public void subscribe(String key, IView subscriber) {
-
+        myRegistry.subscribe(key, subscriber);
     }
 
     @Override
@@ -116,6 +117,9 @@ public class Closet implements IView, IModel {
                     loginErrorMessage = "";
                     createAndShowChoiceView("InventoryChoiceView");
                 }
+                break;
+            case "SearchForClothing":
+                createAndShowChoiceView("SearchForClothing");
                 break;
 
             case "ArticleChoiceView":
