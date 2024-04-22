@@ -40,6 +40,8 @@ public class ViewFactory {
 				return new InsertClothingView(model);
 			case "SearchForClothing":
 				return new SearchForClothingView(model);
+			case "ClothingCollectionView":
+				return new ClothingCollectionView(model);
 			default:
 				System.out.println("No view found matching " + viewName + " in view factory.");
 				return null;

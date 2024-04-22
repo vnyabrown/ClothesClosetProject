@@ -32,7 +32,7 @@ public class ClothingCollectionView extends View
 {
 
     javafx.scene.paint.Color color;
-    protected TableView<ColorTableModel> tableOfColors;
+    protected TableView<ClothingTableModel> tableOfClothing;
     protected Button cancelButton;
     protected Button deleteButton;
     protected MessageView statusLog;
@@ -72,10 +72,10 @@ public class ClothingCollectionView extends View
     //--------------------------------------------------------------------------
     protected void getEntryTableModelValues()
     {
-        ObservableList<ColorTableModel> tableData = FXCollections.observableArrayList();
+        ObservableList<ClothingTableModel> tableData = FXCollections.observableArrayList();
         try
         {
-            atc = (ColorCollection) myModel.getState("ColorCollection");
+            atc = (ColorCollection) myModel.getState("InventoryCollection");
 //            bookCollection.display();
 
             Vector entryList = (Vector)atc.getState("getVector");
@@ -92,15 +92,15 @@ public class ClothingCollectionView extends View
                 System.out.println("---------");
 
                 // add this list entry to the list
-                ColorTableModel nextTableRowData = new ColorTableModel(view);
+                ClothingTableModel nextTableRowData = new ClothingTableModel(view);
                 tableData.add(nextTableRowData);
             }
 
-            tableOfColors.setItems(tableData);
-            System.out.println("ok getting Color.");
+            tableOfClothing.setItems(tableData);
+            System.out.println("ok getting Inventory.");
         }
         catch (Exception e) {//SQLException e) {
-            System.err.println("Error getting Color from db.");
+            System.err.println("Error getting Inventory from db.");
             e.printStackTrace();
             // Need to handle this exception
         }
@@ -141,56 +141,124 @@ public class ClothingCollectionView extends View
         prompt.setFill(color.BLACK);
         grid.add(prompt, 0, 0, 2, 1);
 
-        tableOfColors = new TableView<ColorTableModel>();
-        tableOfColors.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableOfClothing = new TableView<ClothingTableModel>();
+        tableOfClothing.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        TableColumn colorNumberColumn = new TableColumn("Id") ;
-        colorNumberColumn.setMinWidth(100);
-        colorNumberColumn.setCellValueFactory(
-                new PropertyValueFactory<ColorTableModel, String>("Id"));
+        TableColumn barcodeColumn = new TableColumn("Barcode");
+        barcodeColumn.setMinWidth(100);
+        barcodeColumn.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("Barcode"));
 
-        TableColumn colorDescColumn = new TableColumn("Description") ;
-        colorDescColumn.setMinWidth(100);
-        colorDescColumn.setCellValueFactory(
-                new PropertyValueFactory<ColorTableModel, String>("Description"));
+        TableColumn genderColumn = new TableColumn("Gender");
+        genderColumn.setMinWidth(100);
+        genderColumn.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("Gender"));
 
-        TableColumn  colorBfxColumn = new TableColumn("BarcodePrefix") ;
-        colorBfxColumn.setMinWidth(100);
-        colorBfxColumn.setCellValueFactory(
-                new PropertyValueFactory<ColorTableModel, String>("BarcodePrefix"));
+        TableColumn sizeColumn = new TableColumn("Size");
+        sizeColumn.setMinWidth(100);
+        sizeColumn.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("Size"));
 
-        TableColumn colorAlphaColumn = new TableColumn("AlphaCode") ;
-        colorAlphaColumn.setMinWidth(100);
-        colorAlphaColumn.setCellValueFactory(
-                new PropertyValueFactory<ColorTableModel, String>("AlphaCode"));
+        TableColumn articleTypeColumn = new TableColumn("ArticleType");
+        articleTypeColumn.setMinWidth(100);
+        articleTypeColumn.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("ArticleType"));
 
-        TableColumn colorStatusColumn = new TableColumn("Status") ;
-        colorStatusColumn.setMinWidth(100);
-        colorStatusColumn.setCellValueFactory(
-                new PropertyValueFactory<ColorTableModel, String>("Status"));
+        TableColumn color1Column = new TableColumn("Color1");
+        color1Column.setMinWidth(100);
+        color1Column.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("Color1"));
 
-        tableOfColors.getColumns().addAll(colorNumberColumn, colorDescColumn,
-                colorBfxColumn, colorAlphaColumn, colorStatusColumn);
+        TableColumn color2Column = new TableColumn("Color2");
+        color2Column.setMinWidth(100);
+        color2Column.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("Color2"));
 
-        tableOfColors.setOnMousePressed(new EventHandler<MouseEvent>() {
+        TableColumn brandColumn = new TableColumn("Brand");
+        brandColumn.setMinWidth(100);
+        brandColumn.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("Brand"));
+
+        TableColumn notesColumn = new TableColumn("Notes");
+        notesColumn.setMinWidth(100);
+        notesColumn.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("Notes"));
+
+        TableColumn statusColumn = new TableColumn("Status");
+        statusColumn.setMinWidth(100);
+        statusColumn.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("Status"));
+
+        TableColumn donorLastnameColumn = new TableColumn("DonorLastname");
+        donorLastnameColumn.setMinWidth(100);
+        donorLastnameColumn.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("DonorLastname"));
+
+        TableColumn donorFirstnameColumn = new TableColumn("DonorFirstname");
+        donorFirstnameColumn.setMinWidth(100);
+        donorFirstnameColumn.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("DonorFirstname"));
+
+        TableColumn donorPhoneColumn = new TableColumn("DonorPhone");
+        donorPhoneColumn.setMinWidth(100);
+        donorPhoneColumn.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("DonorPhone"));
+
+        TableColumn donorEmailColumn = new TableColumn("DonorEmail");
+        donorEmailColumn.setMinWidth(100);
+        donorEmailColumn.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("DonorEmail"));
+
+        TableColumn receiverNetidColumn = new TableColumn("ReceiverNetid");
+        receiverNetidColumn.setMinWidth(100);
+        receiverNetidColumn.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("ReceiverNetid"));
+
+        TableColumn receiverLastnameColumn = new TableColumn("ReceiverLastname");
+        receiverLastnameColumn.setMinWidth(100);
+        receiverLastnameColumn.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("ReceiverLastname"));
+
+        TableColumn receiverFirstnameColumn = new TableColumn("ReceiverFirstname");
+        receiverFirstnameColumn.setMinWidth(100);
+        receiverFirstnameColumn.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("ReceiverFirstname"));
+
+        TableColumn dateDonatedColumn = new TableColumn("DateDonated");
+        dateDonatedColumn.setMinWidth(100);
+        dateDonatedColumn.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("DateDonated"));
+
+        TableColumn dateTakenColumn = new TableColumn("DateTaken");
+        dateTakenColumn.setMinWidth(100);
+        dateTakenColumn.setCellValueFactory(
+                new PropertyValueFactory<ClothingTableModel, String>("DateTaken"));
+
+
+        tableOfClothing.getColumns().addAll(barcodeColumn, genderColumn, sizeColumn, articleTypeColumn,
+                color1Column, color2Column, brandColumn, notesColumn, statusColumn, donorLastnameColumn,
+                donorFirstnameColumn, donorPhoneColumn, donorEmailColumn, receiverNetidColumn,
+                receiverLastnameColumn, receiverFirstnameColumn, dateDonatedColumn, dateTakenColumn);
+
+        tableOfClothing.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event)
             {
                 if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
-                    processColorSelected("");
+                    processClothingSelected("");
                 }
             }
         });
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setPrefSize(115, 150);
-        scrollPane.setContent(tableOfColors);
+        scrollPane.setContent(tableOfClothing);
 
         cancelButton = new Button("Back");
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("SearchForColor", null);
+                myModel.stateChangeRequest("SearchForClothing", null);
             }
         });
 
@@ -199,7 +267,7 @@ public class ClothingCollectionView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                processColorSelected("delete");
+                processClothingSelected("delete");
             }
         });
 
@@ -208,7 +276,16 @@ public class ClothingCollectionView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                processColorSelected("modify");
+                processClothingSelected("modify");
+            }
+        });
+
+        Button checkButton = new Button("Checkout");
+        modifyButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                clearErrorMessage();
+                processClothingSelected("Checkout");
             }
         });
 
@@ -217,6 +294,7 @@ public class ClothingCollectionView extends View
         btnContainer.getChildren().add(cancelButton);
         btnContainer.getChildren().add(deleteButton);
         btnContainer.getChildren().add(modifyButton);
+        btnContainer.getChildren().add(checkButton);
 
         vbox.getChildren().add(grid);
         vbox.getChildren().add(scrollPane);
@@ -233,20 +311,33 @@ public class ClothingCollectionView extends View
     }
 
     //--------------------------------------------------------------------------
-    protected void processColorSelected(String str)
+    protected void processClothingSelected(String str)
     {
-        ColorTableModel selectedItem = tableOfColors.getSelectionModel().getSelectedItem();
+        ClothingTableModel selectedItem = tableOfClothing.getSelectionModel().getSelectedItem();
 
         if(selectedItem != null)
         {
-            String selectedColorNum = selectedItem.getId();
-            System.out.println("selected : " + selectedColorNum);
+            String selectedBarcode = selectedItem.getBarcode();
+            System.out.println("Selected Barcode: " + selectedBarcode);
             Properties prop = new Properties();
-            prop.setProperty("Id", selectedItem.getId());
-            prop.setProperty("Description", selectedItem.getDescription());
-            prop.setProperty("BarcodePrefix", selectedItem.getBarcodePrefix());
-            prop.setProperty("AlphaCode", selectedItem.getAlphaCode());
+            prop.setProperty("Barcode", selectedItem.getBarcode());
+            prop.setProperty("Gender", selectedItem.getGender());
+            prop.setProperty("Size", selectedItem.getSize());
+            prop.setProperty("ArticleType", selectedItem.getArticleType());
+            prop.setProperty("Color1", selectedItem.getColor1());
+            prop.setProperty("Color2", selectedItem.getColor2());
+            prop.setProperty("Brand", selectedItem.getBrand());
+            prop.setProperty("Notes", selectedItem.getNotes());
             prop.setProperty("Status", selectedItem.getStatus());
+            prop.setProperty("DonorLastname", selectedItem.getDonorLastname());
+            prop.setProperty("DonorFirstname", selectedItem.getDonorFirstname());
+            prop.setProperty("DonorPhone", selectedItem.getDonorPhone());
+            prop.setProperty("DonorEmail", selectedItem.getDonorEmail());
+            prop.setProperty("ReceiverNetid", selectedItem.getReceiverNetid());
+            prop.setProperty("ReceiverLastname", selectedItem.getReceiverLastname());
+            prop.setProperty("ReceiverFirstname", selectedItem.getReceiverFirstname());
+            prop.setProperty("DateDonated", selectedItem.getDateDonated());
+            prop.setProperty("DateTaken", selectedItem.getDateTaken());
 
             if(str.equals("delete")) {
                 myModel.stateChangeRequest("ColorSelectedForDeletion", prop);

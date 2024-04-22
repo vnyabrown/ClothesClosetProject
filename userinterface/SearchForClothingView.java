@@ -120,7 +120,7 @@ public class SearchForClothingView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("Color", "");
+                myModel.stateChangeRequest("Inventory", "");
             }
         });
         doneCont.getChildren().add(cancelButton);
@@ -152,8 +152,10 @@ public class SearchForClothingView extends View
         else {
             String[] values = new String[2];
             values[0] = (String) text.getText();
-            myModel.stateChangeRequest("SearchColorCollection", values);
-            //myModel.stateChangeRequest("SearchBooksCollection", null);
+            values[1] = (String) "Barcode";
+            System.out.println("not stuck in SearchForClothingView");
+            myModel.stateChangeRequest("SearchClothingCollection", values);
+            //myModel.stateChangeRequest("SearchColorCollection", null);
         }
     }
 

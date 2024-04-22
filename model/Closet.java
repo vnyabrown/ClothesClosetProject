@@ -13,6 +13,12 @@ import java.util.Properties;
 
 public class Closet implements IView, IModel {
     // State variables
+
+
+    private Inventory cloth;
+    private InventoryCollection clothColl;
+
+
     private ArticleTypeCollection atc;
     private ArticleType at;
     private ColorCollection colorColl;
@@ -105,13 +111,6 @@ public class Closet implements IView, IModel {
                 }
                 break;
 
-            case "Clothing":
-                if (value != null) {
-                    loginErrorMessage = "";
-                    createAndShowChoiceView("ClothingChoiceView");
-                }
-                break;
-
             case "Inventory":
                 if (value != null) {
                     loginErrorMessage = "";
@@ -120,6 +119,9 @@ public class Closet implements IView, IModel {
                 break;
             case "SearchForClothing":
                 createAndShowChoiceView("SearchForClothing");
+                break;
+            case"SearchClothingCollection":
+                searchClothingCollection((String[]) value);
                 break;
 
             case "ArticleChoiceView":
@@ -268,6 +270,26 @@ public class Closet implements IView, IModel {
         }
     }
 
+    private void searchClothingCollection(String[] values) {
+        System.out.println(values[0] + " " + values[1]);
+        clothColl = new InventoryCollection();
+        String target = values[0];
+        try {
+            if(values[1].equals("Alpha Code")) {
+                //TODO Change to clothColl.findInventoryBarcode once implemented
+                colorColl.findColorAlphaCode(target);
+            }
+            else {
+                System.err.println("string in combo box doesn't match one of correct conditions.");
+            }
+            clothColl.display();
+            createAndShowClothingCollectionView();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void searchArticleTypeCollection(String[] values) {
         System.out.println(values[0] + " " + values[1]);
         atc = new ArticleTypeCollection();
@@ -303,6 +325,14 @@ public class Closet implements IView, IModel {
     private void createAndShowColorCollectionView() {
         // create our initial view
         View newView = ViewFactory.createView("ColorCollectionView", this); // USE VIEW FACTORY
+        Scene currentScene = new Scene(newView);
+
+        swapToView(currentScene);
+    }
+
+    private void createAndShowClothingCollectionView() {
+        // create our initial view
+        View newView = ViewFactory.createView("ClothingCollectionView", this); // USE VIEW FACTORY
         Scene currentScene = new Scene(newView);
 
         swapToView(currentScene);
