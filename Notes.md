@@ -1,0 +1,5 @@
+- Add constructors to ArticleType & Color
+    - Create object from barcode (like from id)
+    - Store data in properties objects?
+- Auto-populate textfields with information from given objects
+    - Check before processAction for all others, barcode field musn't be empty
