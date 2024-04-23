@@ -360,7 +360,7 @@ public class ClothingCollectionView extends View
         }
         else {
             System.out.println("selecteditem is null in clothing collection view");
-            displayMessage("Select an Item");
+            displayErrorMessage("Select an Item");
         }
     }
 
@@ -380,6 +380,11 @@ public class ClothingCollectionView extends View
     public void displayMessage(String message)
     {
         statusLog.displayMessage(message);
+    }
+
+    public void displayErrorMessage(String message)
+    {
+        statusLog.displayErrorMessage(message);
     }
 
     /**

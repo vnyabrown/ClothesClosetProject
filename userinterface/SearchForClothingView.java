@@ -150,6 +150,7 @@ public class SearchForClothingView extends View
             text.requestFocus();
         }
         else {
+            clearErrorMessage();
             String[] values = new String[2];
             values[0] = (String) text.getText();
             values[1] = (String) "Barcode";
