@@ -20,8 +20,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import model.Color;
-import model.ColorCollection;
+import model.Inventory;
+import model.InventoryCollection;
 
 import java.util.Enumeration;
 import java.util.Properties;
@@ -39,8 +39,7 @@ public class ClothingCollectionView extends View
     protected Button deleteButton;
     protected MessageView statusLog;
 
-    //TODO CHANGE TO CLOTHING ONCE IMPLEMENTED
-    private ColorCollection atc;
+    private InventoryCollection atc;
 
 
 
@@ -77,7 +76,7 @@ public class ClothingCollectionView extends View
         ObservableList<ClothingTableModel> tableData = FXCollections.observableArrayList();
         try
         {
-            atc = (ColorCollection) myModel.getState("InventoryCollection");
+            atc = (InventoryCollection) myModel.getState("InventoryCollection");
 //            bookCollection.display();
 
             Vector entryList = (Vector)atc.getState("getVector");
@@ -85,7 +84,7 @@ public class ClothingCollectionView extends View
 
             while (entries.hasMoreElements() == true)
             {
-                Color nextAT = (Color) entries.nextElement();
+                Inventory nextAT = (Inventory) entries.nextElement();
                 Vector<String> view = nextAT.getFields();
                 System.out.println("---------");
                 for(String str : view) {

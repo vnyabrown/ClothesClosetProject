@@ -275,10 +275,10 @@ public class Closet implements IView, IModel {
         clothColl = new InventoryCollection();
         String target = values[0];
         try {
-            //TODO change to    "Barcode"   once find barcode is implemented
-            if(values[1].equals("Alpha Code")) {
+            //TODO change to    "Barcode"    once find barcode is implemented
+            if(values[1].equals("Barcode")) {
                 //TODO Change to clothColl.findInventoryBarcode once implemented
-                colorColl.findColorAlphaCode(target);
+                clothColl.findInventoryBarcode(target);
             }
             else {
                 System.err.println("string in combo box doesn't match one of correct conditions.");

@@ -148,6 +148,31 @@ public class Inventory extends EntityBase {
         updateStateInDatabase();
     }
 
+    public Vector<String> getFields() {
+        Vector<String> v = new Vector<String>();
+
+        v.addElement(persistentState.getProperty("Barcode"));
+        v.addElement(persistentState.getProperty("Gender"));
+        v.addElement(persistentState.getProperty("Size"));
+        v.addElement(persistentState.getProperty("ArticleType"));
+        v.addElement(persistentState.getProperty("Color1"));
+        v.addElement(persistentState.getProperty("Color2"));
+        v.addElement(persistentState.getProperty("Brand"));
+        v.addElement(persistentState.getProperty("Notes"));
+        v.addElement(persistentState.getProperty("Status"));
+        v.addElement(persistentState.getProperty("DonorLastname"));
+        v.addElement(persistentState.getProperty("DonorFirstname"));
+        v.addElement(persistentState.getProperty("DonorPhone"));
+        v.addElement(persistentState.getProperty("DonorEmail"));
+        v.addElement(persistentState.getProperty("ReceiverNetid"));
+        v.addElement(persistentState.getProperty("ReceiverLastname"));
+        v.addElement(persistentState.getProperty("ReceiverFirstname"));
+        v.addElement(persistentState.getProperty("DateDonated"));
+        v.addElement(persistentState.getProperty("DateTaken"));
+
+        return v;
+    }
+
     private void updateStateInDatabase() {
         try {
             if (persistentState.getProperty("Barcode") != null) {
@@ -170,6 +195,8 @@ public class Inventory extends EntityBase {
         }
         System.out.println("updateStateInDatabase " + updateStatusMessage);
     }
+
+
 
     /* Return Book information as a string */
     // -----------------------------------------------------------------------------------
