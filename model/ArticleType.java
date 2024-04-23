@@ -13,7 +13,9 @@ import impresario.IView;
 
 public class ArticleType extends EntityBase {
     private static final String myTableName = "articletype";
+
     protected Properties dependencies;
+    
     // GUI Components
     private String updateStatusMessage = "empty from ArticleType";
 

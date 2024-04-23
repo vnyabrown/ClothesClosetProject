@@ -18,7 +18,57 @@ public class Color extends EntityBase {
     // Gui components
     private String updateStatusMessage = "";
 
+    // Constructor to initialize Color object from given properties
+    public Color(Properties props)
+        {
+            super(myTableName);
+    
+            setDependencies();
+            persistentState = new Properties();
+            Enumeration allKeys = props.propertyNames();
+    
+            while (allKeys.hasMoreElements() == true)
+            {
+                String nextKey = (String)allKeys.nextElement();
+                String nextValue = props.getProperty(nextKey);
+    
+                if (nextValue!=null)
+                {
+                    persistentState.setProperty(nextKey, nextValue);
+                } // end if
+            } // end while
+            // Set enum for status automatically to "Active"
+            persistentState.setProperty("Status", "Active");
+        } // end of Properties constructor
+
+        // Constructor to initialize empty Color object
+        public Color()
+        {
+            super(myTableName);
+            setDependencies();
+            persistentState = new Properties();
+        } // end of empty constructor
+
+           // DO we need the above constructor if we have this function? This is code repetition?
+    public void processNewColor(Properties props)
+    {
+        setDependencies();
+
+        Enumeration allKeys = props.propertyNames();
+        while (allKeys.hasMoreElements() == true)
+        {
+            String nextKey = (String) allKeys.nextElement();
+            String nextValue = props.getProperty(nextKey);
+
+            if (nextValue != null) {
+                persistentState.setProperty(nextKey, nextValue);
+            }
+        }
+        persistentState.setProperty("Status", "Active");
+    } // end of processNewColor
+
     //Constructor
+    //This is unique to color
     public Color(String colorId) throws InvalidPrimaryKeyException
     {
         super(myTableName);
@@ -60,54 +110,10 @@ public class Color extends EntityBase {
         } // end if
     } // end of constructor
 
-    // Constructor to initialize empty Color object
-    public Color()
-    {
-        super(myTableName);
-        setDependencies();
-        persistentState = new Properties();
-    } // end of empty constructor
 
-    // Constructor to initialize Color object from given properties
-    public Color(Properties props)
-    {
-        super(myTableName);
 
-        setDependencies();
-        persistentState = new Properties();
-        Enumeration allKeys = props.propertyNames();
 
-        while (allKeys.hasMoreElements() == true)
-        {
-            String nextKey = (String)allKeys.nextElement();
-            String nextValue = props.getProperty(nextKey);
-
-            if (nextValue!=null)
-            {
-                persistentState.setProperty(nextKey, nextValue);
-            } // end if
-        } // end while
-        // Set enum for status automatically to "Active"
-        persistentState.setProperty("Status", "Active");
-    } // end of Properties constructor
-
-    // DO we need the above constructor if we have this function? This is code repetition?
-    public void processNewColor(Properties props)
-    {
-        setDependencies();
-
-        Enumeration allKeys = props.propertyNames();
-        while (allKeys.hasMoreElements() == true)
-        {
-            String nextKey = (String) allKeys.nextElement();
-            String nextValue = props.getProperty(nextKey);
-
-            if (nextValue != null) {
-                persistentState.setProperty(nextKey, nextValue);
-            }
-        }
-        persistentState.setProperty("Status", "Active");
-    } // end of processNewColor
+ 
 
     /**
      * This method is needed solely to enable the Color information to be
