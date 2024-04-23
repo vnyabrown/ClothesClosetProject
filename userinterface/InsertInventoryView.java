@@ -20,11 +20,15 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import java.util.Properties;
 
+import model.ArticleType;
+
 public class InsertInventoryView extends View {
    
     Properties props;
-    Properties aritcleProps;
+    Properties articleProps;
     Properties colorProps;
+
+    ArticleType newAT;
 
     private TextField barcodeField;
     private TextField genderField;
@@ -209,35 +213,52 @@ public class InsertInventoryView extends View {
             {
                 String currentDig = Character.toString(barcodeEntered.charAt(parseBC));
                 System.out.println("On Barcode digit: " + Integer.parseInt(barcodeEntered));
-                // Get Gender from 1st digit in Barcode
-                if (parseBC == 0)
-                {
 
-                }
-                switch(Integer.parseInt(currentDig))
+                if (parseBC == 0) // Get Gender from 1st digit in Barcode
                 {
-                    // Populate Gender field according to data found from Barcode
-                    case 0:
-                        System.out.println("Set Gender to Men!");
-                        genderField.setText("M"); 
-                        parseBC = parseBC + 1; // move to next digit in barcode
-                        break;
-                    case 1:
-                        System.out.println("Set Gender to Women!");
-                        genderField.setText("W");
-                        parseBC = parseBC + 1; // move to next digit in barcode
-                        break;
-                    default:
-                        System.out.println("Error parsing Barcode for Gender!");
-                        displayErrorMessage("Error parsing Barcode for Gender!");
-                        barcodeField.requestFocus();
-                        break;
+                    switch(Integer.parseInt(currentDig))
+                    {
+                        // Populate Gender field according to data found from Barcode
+                        case 0:
+                            System.out.println("Set Gender to Men!");
+                            genderField.setText("M"); 
+                            parseBC = parseBC + 1; // move to next digit in barcode
+                            break;
+                        case 1:
+                            System.out.println("Set Gender to Women!");
+                            genderField.setText("W");
+                            parseBC = parseBC + 1; // move to next digit in barcode
+                            break;
+                        default:
+                            System.out.println("Error parsing Barcode for Gender!");
+                            displayErrorMessage("Error parsing Barcode for Gender!");
+                            barcodeField.requestFocus();
+                            break;
+                    } // end switch
                 } // end getGender
-                
+                if ((parseBC == 1) || (parseBC == 2)) // Get Article Type from 2nd & 3rd digits in barcode 
+                {
+                    System.out.println("Getting Article Type...");
+                    currentDig = Character.toString(barcodeEntered.charAt(parseBC)) + Character.toString(barcodeEntered.charAt(parseBC + 1));
+                    int getArticleBPFX = Integer.parseInt(currentDig);
+
+                    // Verify Article Type Barcode Prefix in database
+                    try { 
+                        newAT = new ArticleType(getArticleBPFX);
+                        articleTypeField.setText(currentDig);
+                        System.out.println("Successfully verified Article Type!");
+                    }
+                    catch (Exception ex) {
+                        System.out.println("Error parsing Barcode for Article Type!");
+                        displayErrorMessage("Error parsing Barcode for Article Type!");
+                        articleTypeField.requestFocus();
+                    }
+
+                } // end get Article Type
                 System.out.println(barcodeEntered.charAt(parseBC) + genderField.getText()); // Testing, print Gender
+                System.out.println("Article: " + articleTypeField.getText());
                 parseBC = 6;
 
-                // Get Article Type from 2nd & 3rd digits in barcode 
             }
         } // end getBarcode
         else if (barcodeEntered == null)

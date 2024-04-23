@@ -188,9 +188,7 @@ public class Closet implements IView, IModel {
                     System.out.println("not an option in statechangerequest in modifycolor");
                 }
                 break;
-
-
-
+                
             case "CancelArticleTransaction":
             case "CancelColorTransaction":
             case "CancelInventoryTransaction":
