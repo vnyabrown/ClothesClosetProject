@@ -14,10 +14,14 @@ public class ViewFactory {
 				return new ArticleChoiceView(model);
 			case "ColorChoiceView":
 				return new ColorChoiceView(model);
+			case "InventoryChoiceView":
+				return new InventoryChoiceView(model);
 			case "InsertArticleView":
 				return new InsertArticleView(model);
 			case "InsertColorView":
 				return new InsertColorView(model);
+			case "InsertInventoryView":
+				return new InsertInventoryView(model);
 			case "DeleteArticleView":
 				return new DeleteArticleView(model);
 			case "SearchArticleTypeView":

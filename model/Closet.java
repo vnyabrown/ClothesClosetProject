@@ -104,20 +104,12 @@ public class Closet implements IView, IModel {
                 }
                 break;
 
-            case "Clothing":
+            case "Inventory":
                 if (value != null) {
                     loginErrorMessage = "";
-                    createAndShowChoiceView("ClothingChoiceView");
+                    createAndShowChoiceView("InventoryChoiceView");
                 }
                 break;
-
-            case "Stock":
-                if (value != null) {
-                    loginErrorMessage = "";
-                    createAndShowChoiceView("StockChoiceView");
-                }
-                break;
-
             case "ArticleChoiceView":
                 if (value != null) {
                     loginErrorMessage = "";
@@ -201,8 +193,7 @@ public class Closet implements IView, IModel {
 
             case "CancelArticleTransaction":
             case "CancelColorTransaction":
-            case "CancelClothingTransaction":
-            case "CancelStockTransaction":
+            case "CancelInventoryTransaction":
                 createAndShowChoiceView("ClosetView");
                 break;
 
@@ -211,6 +202,9 @@ public class Closet implements IView, IModel {
                 break;
             case "InsertColorView":
                 createAndShowChoiceView("InsertColorView");
+                break;
+            case "InsertInventoryView":
+                createAndShowChoiceView("InsertInventoryView");
                 break;
             case "InsertArticle":
                 newArticle.processNewArticle((Properties)value);

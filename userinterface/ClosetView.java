@@ -25,8 +25,7 @@ ClosetView extends View {
 
     private Button articleButton;
     private Button colorButton;
-    private Button clothingButton;
-    private Button stockButton;
+    private Button inventoryButton;
     private Button quitButton;
 
     // For showing error message
@@ -94,19 +93,11 @@ ClosetView extends View {
             }
         });
 
-        clothingButton = new Button("Clothing");
-        clothingButton.setOnAction(new EventHandler<ActionEvent>() {
+        inventoryButton = new Button("Inventory");
+        inventoryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Clothing", "");
-            }
-        });
-
-        stockButton = new Button("Stock");
-        stockButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Stock", "");
+                myModel.stateChangeRequest("Inventory", "");
             }
         });
 
@@ -118,8 +109,7 @@ ClosetView extends View {
 
         grid.add(articleButton, 0, 0);
         grid.add(colorButton, 1, 0);
-        grid.add(clothingButton, 0, 1);
-        grid.add(stockButton, 1, 1);
+        grid.add(inventoryButton, 0, 1);
         HBox btnContainer = new HBox(10);
         btnContainer.setAlignment(Pos.BOTTOM_RIGHT);
         btnContainer.getChildren().add(quitButton);
