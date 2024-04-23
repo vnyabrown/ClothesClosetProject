@@ -233,6 +233,7 @@ public class InsertInventoryView extends View {
                         barcodeField.requestFocus();
                         break;
                 } // end getGender
+                
                 System.out.println(barcodeEntered.charAt(parseBC) + genderField.getText()); // Testing, print Gender
                 parseBC = 6;
 

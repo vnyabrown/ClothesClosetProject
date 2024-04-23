@@ -3,3 +3,8 @@
     - Store data in properties objects?
 - Auto-populate textfields with information from given objects
     - Check before processAction for all others, barcode field musn't be empty
+    - Create a method in closet to either 1. Attempt to grab articleType from Barcode Prefix 2. Attempt to grab collection, just need to return whether it worked or not to verify our ArticleType 
+    - Same as above with Color
+- Fix ArticleType
+    - Should have a Constructor to populate ArticleType from ID
+    - Additionally, add constructor to populate ArticleType from BarcodePrefix (Same with Color)
