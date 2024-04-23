@@ -23,6 +23,9 @@ import java.util.Properties;
 public class InsertInventoryView extends View {
    
     Properties props;
+    Properties aritcleProps;
+    Properties colorProps;
+
     private TextField barcodeField;
     private TextField genderField;
     private TextField sizeField;
@@ -87,65 +90,65 @@ public class InsertInventoryView extends View {
         prompt.setFill(Color.BLACK);
         grid.add(prompt, 0, 0, 2, 1);
 
-        Label barcodeLabel = new Label("Inveotry Item Barcode: ");
-        grid.add(barcodeLabel, 0, 0);
+        Label barcodeLabel = new Label("Inventory Item Barcode: ");
+        grid.add(barcodeLabel, 0, 1);
         barcodeField = new TextField();
-        grid.add(barcodeField, 1, 0);
+        grid.add(barcodeField, 1, 1);
 
         Label donorFirstNameLabel = new Label("Donor First Name: ");
-        grid.add(donorFirstNameLabel, 0, 1);
+        grid.add(donorFirstNameLabel, 0, 2);
         donorFirstNameField = new TextField();
-        grid.add(donorFirstNameField, 1, 1);
+        grid.add(donorFirstNameField, 1, 2);
 
         Label donorLastNameLabel = new Label("Donor Last Name: ");
-        grid.add(donorLastNameLabel, 0, 2);
+        grid.add(donorLastNameLabel, 0, 3);
         donorLastNameField = new TextField();
-        grid.add(donorLastNameField, 1, 2);
+        grid.add(donorLastNameField, 1, 3);
 
         Label donorPhoneLabel = new Label("Donor Phone: ");
-        grid.add(donorPhoneLabel, 0, 3);
+        grid.add(donorPhoneLabel, 0, 4);
         donorPhoneField = new TextField();
-        grid.add(donorPhoneField, 1, 3);
+        grid.add(donorPhoneField, 1, 4);
 
         Label donorEmailLabel = new Label("Donor Email: ");
-        grid.add(donorEmailLabel, 0, 4);
+        grid.add(donorEmailLabel, 0, 5);
         donorEmailField = new TextField();
-        grid.add(donorEmailField, 1, 4);
+        grid.add(donorEmailField, 1, 5);
 
         Label articleTypeLabel = new Label("Article Type: ");
-        grid.add(articleTypeLabel, 0, 5);
+        grid.add(articleTypeLabel, 0, 6);
         articleTypeField = new TextField();
-        grid.add(articleTypeField, 1, 5);
+        grid.add(articleTypeField, 1, 6);
 
         Label color1Label = new Label("Primary Color: ");
-        grid.add(color1Label, 0, 6);
+        grid.add(color1Label, 0, 7);
         color1Field = new TextField();
-        grid.add(color1Field, 1, 6);
+        grid.add(color1Field, 1, 7);
 
         Label color2Label = new Label("Secondary Color: ");
-        grid.add(color2Label, 0, 7);
+        grid.add(color2Label, 0, 8);
         color2Field = new TextField();
-        grid.add(color2Field, 1, 7);
+        grid.add(color2Field, 1, 8);
 
         Label brandLabel = new Label("Brand: ");
-        grid.add(brandLabel, 0, 8);
+        grid.add(brandLabel, 0, 9);
         brandField = new TextField();
-        grid.add(brandField, 1, 8);
+        grid.add(brandField, 1, 9);
 
         Label genderLabel = new Label("Gender: ");
-        grid.add(genderLabel, 0, 9);
+        grid.add(genderLabel, 0, 10);
         genderField = new TextField();
-        grid.add(genderField, 1, 9);
+        grid.add(genderField, 1, 10);
 
         Label sizeLabel = new Label("Size: ");
-        grid.add(sizeLabel, 0, 10);
+        grid.add(sizeLabel, 0, 11);
         sizeField = new TextField();
-        grid.add(sizeField, 1, 10);
+        grid.add(sizeField, 1, 11);
 
         Label notesLabel = new Label("Notes: ");
-        grid.add(notesLabel, 0, 11);
+        grid.add(notesLabel, 0, 12);
         notesField = new TextField();
-        grid.add(notesField, 1, 11);
+        grid.add(notesField, 1, 12);
 
         submitButton = new Button("Submit");
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -155,15 +158,15 @@ public class InsertInventoryView extends View {
             }
         });
 
-        grid.add(submitButton, 0, 12);
+        grid.add(submitButton, 0, 13);
         cancelButton = new Button("Cancel");
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Color", "");
+                myModel.stateChangeRequest("Inventory", "");
             }
         });
-        grid.add(cancelButton, 1, 12);
+        grid.add(cancelButton, 1, 13);
         return grid;
     } // end of createFormContents
 
@@ -182,10 +185,14 @@ public class InsertInventoryView extends View {
         //System.out.println("Logic TBA");
 
         // PROCESS FIELDS SUBMITTED
+        String barcodeEntered = barcodeField.getText();
+
+        //These fields will be autopopulated by barcode
         String genderEntered = genderField.getText();
-        String sizeEntered = sizeField.getText();
         String articleTypeEntered = articleTypeField.getText();
         String color1Entered = color1Field.getText();
+        
+        String sizeEntered = sizeField.getText();
         String color2Entered = color2Field.getText();
         String brandEntered = brandField.getText();
         String notesEntered = notesField.getText();
@@ -193,30 +200,75 @@ public class InsertInventoryView extends View {
         String donorLastNameEntered = donorLastNameField.getText();
         String donorPhoneEntered = donorPhoneField.getText();
         String donorEmailEntered = donorEmailField.getText();
+        
+        // Parse barcode to get inventory before any other action
+        if (barcodeEntered != null)
+        {
+            int parseBC = 0; // set a count to keep track of digits of Barcode 
+            while (parseBC <6)
+            {
+                String currentDig = Character.toString(barcodeEntered.charAt(parseBC));
+                System.out.println("On Barcode digit: " + Integer.parseInt(barcodeEntered));
+                // Get Gender from 1st digit in Barcode
+                if (parseBC == 0)
+                {
+
+                }
+                switch(Integer.parseInt(currentDig))
+                {
+                    // Populate Gender field according to data found from Barcode
+                    case 0:
+                        System.out.println("Set Gender to Men!");
+                        genderField.setText("M"); 
+                        parseBC = parseBC + 1; // move to next digit in barcode
+                        break;
+                    case 1:
+                        System.out.println("Set Gender to Women!");
+                        genderField.setText("W");
+                        parseBC = parseBC + 1; // move to next digit in barcode
+                        break;
+                    default:
+                        System.out.println("Error parsing Barcode for Gender!");
+                        displayErrorMessage("Error parsing Barcode for Gender!");
+                        barcodeField.requestFocus();
+                        break;
+                } // end getGender
+                System.out.println(barcodeEntered.charAt(parseBC) + genderField.getText()); // Testing, print Gender
+                parseBC = 6;
+
+                // Get Article Type from 2nd & 3rd digits in barcode 
+            }
+        } // end getBarcode
+        else if (barcodeEntered == null)
+        {
+            displayErrorMessage("Please provide a barcode to get initial Inventory Item information!");
+            barcodeField.requestFocus();
+        } // end getBarcode Error
+
         // Check all fields should not be empty
         if (genderEntered == null) // Description field should not be empty
         {
-            displayErrorMessage("Please enter a Gender for Clothing!");
+            displayErrorMessage("Please provide a Barcode to get Gender for Inventory Item!");
             genderField.requestFocus();
         }
         else if (sizeEntered == null)
         {
-            displayErrorMessage("Please enter a Size for Clothing!");
+            displayErrorMessage("Please enter a Size for Inventory Item!");
             sizeField.requestFocus();
         }
         else if (articleTypeEntered == null)
         {
-            displayErrorMessage("Please enter an Article Type for Clothing!");
+            displayErrorMessage("Please provide a Barcode to get an Article Type for Inventory Item!");
             articleTypeField.requestFocus();
         }
         else if (color1Entered == null)
         {
-            displayErrorMessage("Please enter a Primary Color for Clothing!");
+            displayErrorMessage("Please provide a Barconde to get a Primary Color for Inventory Item!");
             color1Field.requestFocus();
         }
         else if (color2Entered == null)
         {
-            displayErrorMessage("Please enter a Secondary Color for Clothing!");
+            displayErrorMessage("Please enter a Secondary Color for Inventory Item!");
             color2Field.requestFocus();
         }
         else if (brandEntered == null)
@@ -268,7 +320,7 @@ public class InsertInventoryView extends View {
             }
             catch(Exception ex)
             {
-                displayErrorMessage("Failed to insert a Inventory item!");
+                displayErrorMessage("Failed to insert an Inventory item!");
                 ex.printStackTrace();
             }
         }
