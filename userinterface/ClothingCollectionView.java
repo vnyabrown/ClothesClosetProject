@@ -27,6 +27,8 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Vector;
 
+import static userinterface.InventoryChoiceView.modDelCheckFlag;
+
 //==============================================================================
 public class ClothingCollectionView extends View
 {
@@ -37,7 +39,7 @@ public class ClothingCollectionView extends View
     protected Button deleteButton;
     protected MessageView statusLog;
 
-    //CHANGE TO CLOTHING ONCE IMPLEMENTED
+    //TODO CHANGE TO CLOTHING ONCE IMPLEMENTED
     private ColorCollection atc;
 
 
@@ -291,11 +293,15 @@ public class ClothingCollectionView extends View
 
         HBox btnContainer = new HBox(100);
         btnContainer.setAlignment(Pos.CENTER);
-        btnContainer.getChildren().add(cancelButton);
-        btnContainer.getChildren().add(deleteButton);
-        btnContainer.getChildren().add(modifyButton);
-        btnContainer.getChildren().add(checkButton);
 
+        btnContainer.getChildren().add(cancelButton);
+        if( modDelCheckFlag == "del") {
+            btnContainer.getChildren().add(deleteButton);
+        }else if (modDelCheckFlag == "mod") {
+            btnContainer.getChildren().add(modifyButton);
+        }else if (modDelCheckFlag == "check"){
+            btnContainer.getChildren().add(checkButton);
+        }
         vbox.getChildren().add(grid);
         vbox.getChildren().add(scrollPane);
         vbox.getChildren().add(btnContainer);
@@ -317,6 +323,7 @@ public class ClothingCollectionView extends View
 
         if(selectedItem != null)
         {
+            clearErrorMessage();
             String selectedBarcode = selectedItem.getBarcode();
             System.out.println("Selected Barcode: " + selectedBarcode);
             Properties prop = new Properties();
@@ -340,19 +347,20 @@ public class ClothingCollectionView extends View
             prop.setProperty("DateTaken", selectedItem.getDateTaken());
 
             if(str.equals("delete")) {
-                myModel.stateChangeRequest("ColorSelectedForDeletion", prop);
-                displayMessage("Color Deleted.");
+                myModel.stateChangeRequest("ClothingSelectedForDeletion", prop);
+                displayMessage("Clothing Deleted.");
             }
             else if(str.equals("modify")) {
                 System.out.println("in modify in view");
-                myModel.stateChangeRequest("ColorToBeModified", prop);
+                myModel.stateChangeRequest("ClothingToBeModified", prop);
             }
             else {
-                System.out.println("str in processColorSelected is not right");
+                System.out.println("str in processClothingSelected is not right");
             }
         }
         else {
-            System.out.println("selecteditem is null in atc view");
+            System.out.println("selecteditem is null in clothing collection view");
+            displayMessage("Select an Item");
         }
     }
 

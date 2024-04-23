@@ -153,7 +153,6 @@ public class SearchForClothingView extends View
             String[] values = new String[2];
             values[0] = (String) text.getText();
             values[1] = (String) "Barcode";
-            System.out.println("not stuck in SearchForClothingView");
             myModel.stateChangeRequest("SearchClothingCollection", values);
             //myModel.stateChangeRequest("SearchColorCollection", null);
         }

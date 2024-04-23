@@ -275,6 +275,7 @@ public class Closet implements IView, IModel {
         clothColl = new InventoryCollection();
         String target = values[0];
         try {
+            //TODO change to    "Barcode"   once find barcode is implemented
             if(values[1].equals("Alpha Code")) {
                 //TODO Change to clothColl.findInventoryBarcode once implemented
                 colorColl.findColorAlphaCode(target);
