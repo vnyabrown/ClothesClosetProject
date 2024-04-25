@@ -366,17 +366,17 @@ public class ClothingCollectionView extends View
 
             //receiver can be null
             try {
-                prop.setProperty("ReceiverNetid", selectedItem.getDonorFirstname());
+                prop.setProperty("ReceiverNetid", selectedItem.getReceiverNetid());
             } catch (NullPointerException exception){
                 prop.setProperty("ReceiverNetid", "NULL");
             }
             try {
-                prop.setProperty("ReceiverLastname", selectedItem.getDonorFirstname());
+                prop.setProperty("ReceiverLastname", selectedItem.getReceiverLastname());
             } catch (NullPointerException exception){
                 prop.setProperty("ReceiverLastname", "NULL");
             }
             try {
-                prop.setProperty("ReceiverFirstname", selectedItem.getDonorFirstname());
+                prop.setProperty("ReceiverFirstname", selectedItem.getReceiverFirstname());
             } catch (NullPointerException exception){
                 prop.setProperty("ReceiverFirstname", "NULL");
             }
@@ -385,7 +385,7 @@ public class ClothingCollectionView extends View
 
             //date taken can be null
             try {
-                prop.setProperty("DateTaken", selectedItem.getDonorFirstname());
+                prop.setProperty("DateTaken", selectedItem.getDateTaken());
             } catch (NullPointerException exception){
                 prop.setProperty("DateTaken", "NULL");
             }
