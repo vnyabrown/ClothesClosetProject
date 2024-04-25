@@ -1,7 +1,4 @@
-// specify the package
 package userinterface;
-
-// system imports
 
 import impresario.IModel;
 import javafx.event.ActionEvent;
@@ -11,7 +8,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -21,233 +18,248 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import java.util.Properties;
 
-/** The class containing the Account View  for the ATM application */
-//==============================================================
-public class ModifyClothingView extends View
-{
+import static model.Closet.clothMod;
 
-    // GUI components
-    protected TextField bookTitle;
-    protected TextField text;
-    protected ComboBox modificationField;
-    protected Button cancelButton;
-    protected Button submitButton;
+public class ModifyClothingView extends View {
+
+    Properties props = clothMod;
+    private TextField genderField;
+    private TextField sizeField;
+    private TextField articleTypeField;
+    private TextField color1Field;
+    private TextField color2Field;
+    private TextField brandField;
+    private TextField notesField;
+    private TextField donorLastnameField;
+    private TextField donorFirstnameField;
+    private TextField donorPhoneField;
+    private TextField donorEmailField;
+    private TextField receiverNetidField;
+    private TextField receiverLastnameField;
+    private TextField receiverFirstnameField;
+    private TextField dateDonatedField;
+    private TextField dateTakenField;
+
+    private Button submitButton;
+    private Button cancelButton;
 
     // For showing error message
-    protected MessageView statusLog;
+    private MessageView statusLog;
 
-    // constructor for this class -- takes a model object
-    //----------------------------------------------------------
-    public ModifyClothingView(IModel bookCollection)
+    public ModifyClothingView(IModel color)
     {
-        super(bookCollection, "ModifyClothingView");
+        super(color, "ModifyClothingView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
+
         container.setPadding(new Insets(15, 5, 5, 5));
 
-        // Add a title for this panel
+        // create a Node (Text) for showing the title
         container.getChildren().add(createTitle());
 
-        // create our GUI components, add them to this Container
-        container.getChildren().add(createFormContent());
+        // create a Node (GridPane) for showing data entry fields
+        container.getChildren().add(createFormContents());
 
-        container.getChildren().add(createStatusLog("             "));
+        // Error message area
+        container.getChildren().add(createStatusLog("                          "));
 
         getChildren().add(container);
 
-        populateFields();
+        System.out.println(clothMod);
 
-        // These need to be made specific for Book
-        //myModel.subscribe("ServiceCharge", this);
-        //myModel.subscribe("UpdateStatusMessage", this);
+        myModel.subscribe("successfulModify", this);
+        myModel.subscribe("unsuccessfulModify", this);
+
     }
 
+    private Node createTitle() {
 
-    // Create the title container
-    //-------------------------------------------------------------
-    private Node createTitle()
-    {
-        HBox container = new HBox();
-        container.setAlignment(Pos.CENTER);
-
-        Text titleText = new Text("       Brockport Clothes Closet          ");
+        Text titleText = new Text("       Modify Clothing          ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
         titleText.setFill(Color.DARKGREEN);
-        container.getChildren().add(titleText);
 
-        return container;
+        return titleText;
     }
 
-    // Create the main form content
-    //-------------------------------------------------------------
-    private VBox createFormContent()
+    private GridPane createFormContents()
     {
-        VBox vbox = new VBox(10);
-
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("Enter modified data and select field.");
+        Text prompt = new Text("COLOR INFORMATION");
         prompt.setWrappingWidth(400);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
         grid.add(prompt, 0, 0, 2, 1);
 
-        Font myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
+        Label genderLabel = new Label("Gender: ");
+        grid.add(genderLabel, 0, 1);
+        genderField = new TextField();
+        grid.add(genderField, 1, 1);
+        genderField.setText(props.getProperty("Gender"));
 
-        Text textLabel = new Text("Modified Data : ");
-        textLabel.setFont(myFont);
-        textLabel.setWrappingWidth(150);
-        textLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(textLabel, 0, 1);
+        Label sizeLabel = new Label("Size: ");
+        grid.add(sizeLabel, 0, 2);
+        sizeField = new TextField();
+        grid.add(sizeField, 1, 2);
+        sizeField.setText(props.getProperty("Size"));
 
-        text = new TextField();
-        text.setEditable(true);
-        grid.add(text, 1, 1);
+        Label articleTypeLabel = new Label("Article Type: ");
+        grid.add(articleTypeLabel, 0, 3);
+        articleTypeField = new TextField();
+        grid.add(articleTypeField, 1, 3);
+        articleTypeField.setText(props.getProperty("ArticleType"));
 
-        Text modificationFieldLabel = new Text("Modified Field: ");
-        modificationFieldLabel.setFont(myFont);
-        modificationFieldLabel.setWrappingWidth(150);
-        modificationFieldLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(modificationFieldLabel, 0, 2);
+        Label color1Label = new Label("Color 1: ");
+        grid.add(color1Label, 0, 4);
+        color1Field = new TextField();
+        grid.add(color1Field, 1, 4);
+        color1Field.setText(props.getProperty("Color1"));
 
-        modificationField = new ComboBox<String>();
-        modificationField.setMinSize(100, 20);
-        grid.add(modificationField, 1, 2);
+        Label color2Label = new Label("Color 2: ");
+        grid.add(color2Label, 0, 5);
+        color2Field = new TextField();
+        grid.add(color2Field, 1, 5);
+        color2Field.setText(props.getProperty("Color2"));
 
-        HBox doneCont = new HBox(10);
-        doneCont.setAlignment(Pos.CENTER);
-        cancelButton = new Button("Back");
-        cancelButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        Label brandLabel = new Label("Brand: ");
+        grid.add(brandLabel, 0, 6);
+        brandField = new TextField();
+        grid.add(brandField, 1, 6);
+        brandField.setText(props.getProperty("Brand"));
+
+        Label notesLabel = new Label("Notes: ");
+        grid.add(notesLabel, 0, 7);
+        notesField = new TextField();
+        grid.add(notesField, 1, 7);
+        notesField.setText(props.getProperty("Notes"));
+
+        Label donorLastnameLabel = new Label("Donor Last Name: ");
+        grid.add(donorLastnameLabel, 0, 9);
+        donorLastnameField = new TextField();
+        grid.add(donorLastnameField, 1, 9);
+        donorLastnameField.setText(props.getProperty("DonorLastname"));
+
+        Label donorFirstnameLabel = new Label("Donor First Name: ");
+        grid.add(donorFirstnameLabel, 0, 10);
+        donorFirstnameField = new TextField();
+        grid.add(donorFirstnameField, 1, 10);
+        donorFirstnameField.setText(props.getProperty("DonorFirstname"));
+
+        Label donorPhoneLabel = new Label("Donor Phone: ");
+        grid.add(donorPhoneLabel, 0, 11);
+        donorPhoneField = new TextField();
+        grid.add(donorPhoneField, 1, 11);
+        donorPhoneField.setText(props.getProperty("DonorPhone"));
+
+        Label donorEmailLabel = new Label("Donor Email: ");
+        grid.add(donorEmailLabel, 0, 12);
+        donorEmailField = new TextField();
+        grid.add(donorEmailField, 1, 12);
+        donorEmailField.setText(props.getProperty("DonorEmail"));
+
+        Label receiverNetidLabel = new Label("Receiver Netid: ");
+        grid.add(receiverNetidLabel, 0, 13);
+        receiverNetidField = new TextField();
+        grid.add(receiverNetidField, 1, 13);
+        receiverNetidField.setText(props.getProperty("ReceiverNetid"));
+
+        Label receiverLastnameLabel = new Label("Receiver Last Name: ");
+        grid.add(receiverLastnameLabel, 0, 14);
+        receiverLastnameField = new TextField();
+        grid.add(receiverLastnameField, 1, 14);
+        receiverLastnameField.setText(props.getProperty("ReceiverLastname"));
+
+        Label receiverFirstnameLabel = new Label("Receiver First Name: ");
+        grid.add(receiverFirstnameLabel, 0, 15);
+        receiverFirstnameField = new TextField();
+        grid.add(receiverFirstnameField, 1, 15);
+        receiverFirstnameField.setText(props.getProperty("ReceiverFirstname"));
+
+        Label dateDonatedLabel = new Label("Date Donated: ");
+        grid.add(dateDonatedLabel, 0, 16);
+        dateDonatedField = new TextField();
+        grid.add(dateDonatedField, 1, 16);
+        dateDonatedField.setText(props.getProperty("DateDonated"));
+
+        Label dateTakenLabel = new Label("Date Taken: ");
+        grid.add(dateTakenLabel, 0, 17);
+        dateTakenField = new TextField();
+        grid.add(dateTakenField, 1, 17);
+        dateTakenField.setText(props.getProperty("DateTaken"));
+
+
+        submitButton = new Button("Submit");
+        submitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                processAction(e);
+            }
+        });
+
+        grid.add(submitButton, 0, 18);
+        cancelButton = new Button("Cancel");
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                clearErrorMessage();
-                myModel.stateChangeRequest("SearchForClothing", "");
+                myModel.stateChangeRequest("Inventory", "");
             }
         });
-        doneCont.getChildren().add(cancelButton);
-
-        submitButton = new Button("Submit");
-        submitButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        submitButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                System.out.println("submit clicked");
-                processAction(actionEvent);
-            }
-        });
-        doneCont.getChildren().add(submitButton);
-
-        vbox.getChildren().add(grid);
-        vbox.getChildren().add(doneCont);
-
-        return vbox;
+        grid.add(cancelButton, 1, 18);
+        return grid;
     }
 
-    // Process user input
-    public void processAction(Event event) {
-
-        if(text.getText() == null || text.getText().isEmpty()) {
-            displayErrorMessage("Please enter modification data.");
-            text.requestFocus();
-        }
-        else {
-            String[] values = new String[2];
-            values[0] = (String) text.getText();
-            values[1] = (String) modificationField.getValue();
-            myModel.stateChangeRequest("ModifyClothing", values);
-            displayMessage("Clothing Modified.");
-            //myModel.stateChangeRequest("SearchBooksCollection", null);
-        }
-    }
-
-    private boolean pubYearHasLetter(String str) {
-        for(int i = 0; i < str.length(); i++) {
-            if(Character.isLetter(str.charAt(i))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // Create the status log field
-    //-------------------------------------------------------------
-    protected MessageView createStatusLog(String initialMessage)
+    private MessageView createStatusLog(String initialMessage)
     {
+
         statusLog = new MessageView(initialMessage);
 
         return statusLog;
     }
 
-    //-------------------------------------------------------------
-    public void populateFields()
-    {
-        modificationField.getItems().add("Description");
-        modificationField.getItems().add("Gender");
-        modificationField.getItems().add("Size");
-        modificationField.getItems().add("ArticleType");
-        modificationField.getItems().add("Color1");
-        modificationField.getItems().add("Color2");
-        modificationField.getItems().add("Brand");
-        modificationField.getItems().add("Notes");
-        modificationField.getItems().add("Status");
-        modificationField.getItems().add("DonorLastname");
-        modificationField.getItems().add("DonorFirstname");
-        modificationField.getItems().add("DonorPhone");
-        modificationField.getItems().add("DonorEmail");
-        modificationField.getItems().add("ReceiverNetid");
-        modificationField.getItems().add("ReceiverLastname");
-        modificationField.getItems().add("ReceiverFirstname");
-        modificationField.getItems().add("DateDonated");
-        modificationField.getItems().add("DateTaken");
-
-//        status.getItems().add("Active");
-//        status.getItems().add("Inactive");
-
-        //bookId.setText((String)myModel.getState("bookId"));
-//		bookTitle.setText((String)myModel.getState("bookTtitle"));
-//		author.setText((String)myModel.getState("author"));
-//	 	pubYear.setText((String)myModel.getState("pubYear"));
-    }
-
-    /**
-     * Update method
-     */
-    //---------------------------------------------------------
-    public void updateState(String key, Object value)
+    public void processAction(Event evt)
     {
         clearErrorMessage();
+        // DEBUG: System.out.println("InsertArticleView.actionPerformed()");
+        //System.out.println("Logic TBA");
 
-        //if (key.equals("ServiceCharge") == true)
-        //{
-        //	String val = (String)value;
-        //	pubYear.setText(val);
-        //	displayMessage("Service Charge Imposed: $ " + val);
-        //}
+        // PROCESS FIELDS SUBMITTED
+        String[] values = new String[]{genderField.getText(), sizeField.getText(), articleTypeField.getText(),
+                color1Field.getText(), color2Field.getText(), brandField.getText(), notesField.getText(),
+                donorLastnameField.getText(), donorFirstnameField.getText(), donorPhoneField.getText(),
+                donorEmailField.getText(), receiverNetidField.getText(), receiverLastnameField.getText(),
+                receiverFirstnameField.getText(), dateDonatedField.getText(), dateTakenField.getText()};
+
+
+        myModel.stateChangeRequest("ModifyClothing", values);
+
     }
 
-    /**
-     * Display error message
-     */
-    //----------------------------------------------------------
+    @Override
+    public void updateState(String key, Object value) {
+        clearErrorMessage();
+        if(key.equals("successfulModify")){
+            displaySuccessMessage("update successfully in db");
+        } else if(key.equals("unsuccessfulModify")){
+            displayErrorMessage("unsuccessfull update");
+        } else {
+            displaySuccessMessage("something went wrong, find else in update state");
+        }
+    }
+
     public void displayErrorMessage(String message)
     {
         statusLog.displayErrorMessage(message);
     }
 
-    /**
-     * Display info message
-     */
-    //----------------------------------------------------------
-    public void displayMessage(String message)
+    public void displaySuccessMessage(String message)
     {
         statusLog.displayMessage(message);
     }
@@ -260,11 +272,4 @@ public class ModifyClothingView extends View
     {
         statusLog.clearErrorMessage();
     }
-
 }
-
-//---------------------------------------------------------------
-//	Revision History:
-//
-
-

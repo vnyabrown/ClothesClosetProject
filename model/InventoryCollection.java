@@ -11,6 +11,8 @@ public class InventoryCollection extends EntityBase implements IView{
     private static final String myTableName = "inventory";
     private Vector<Inventory> invenList;
 
+    private String updateStatusMessage;
+
     // Constructor
     public InventoryCollection() {
         super(myTableName);
@@ -62,14 +64,16 @@ public class InventoryCollection extends EntityBase implements IView{
         stateChangeRequest(key, value);
     }
 
-    @Override
-    public Object getState(String key) {
-        if (key.equals("Inventory"))
-            return invenList;
+    public Object getState(String key)
+    {
+        if (key.equals("UpdateStatusMessage")) {
+            return updateStatusMessage;
+        }
         else if (key.equals("getVector")) {
             return this.invenList;
         }
-        return null;
+
+        return persistentState.getProperty(key);
     }
 
 

@@ -37,6 +37,9 @@ public class ClothingCollectionView extends View
     protected TableView<ClothingTableModel> tableOfClothing;
     protected Button cancelButton;
     protected Button deleteButton;
+    protected Button modifyButton;
+    protected Button checkButton;
+
     protected MessageView statusLog;
 
     private InventoryCollection atc;
@@ -86,11 +89,15 @@ public class ClothingCollectionView extends View
             {
                 Inventory nextAT = (Inventory) entries.nextElement();
                 Vector<String> view = nextAT.getFields();
+
+                /* this print is slowing things down
                 System.out.println("---------");
                 for(String str : view) {
                     System.out.println(str);
                 }
                 System.out.println("---------");
+                */
+
 
                 // add this list entry to the list
                 ClothingTableModel nextTableRowData = new ClothingTableModel(view);
@@ -272,7 +279,7 @@ public class ClothingCollectionView extends View
             }
         });
 
-        Button modifyButton = new Button("Modify");
+        modifyButton = new Button("Modify");
         modifyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -281,8 +288,8 @@ public class ClothingCollectionView extends View
             }
         });
 
-        Button checkButton = new Button("Checkout");
-        modifyButton.setOnAction(new EventHandler<ActionEvent>() {
+        checkButton = new Button("Checkout");
+        checkButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
@@ -333,24 +340,63 @@ public class ClothingCollectionView extends View
             prop.setProperty("Color1", selectedItem.getColor1());
             prop.setProperty("Color2", selectedItem.getColor2());
             prop.setProperty("Brand", selectedItem.getBrand());
-            prop.setProperty("Notes", selectedItem.getNotes());
+
+            //Notes can be null
+            try {
+                prop.setProperty("Notes", selectedItem.getNotes());
+            } catch (NullPointerException exception){
+                prop.setProperty("Notes", "NULL");
+            }
             prop.setProperty("Status", selectedItem.getStatus());
-            prop.setProperty("DonorLastname", selectedItem.getDonorLastname());
-            prop.setProperty("DonorFirstname", selectedItem.getDonorFirstname());
+
+            //Donor name can be null
+            try{
+                prop.setProperty("DonorLastname", selectedItem.getDonorLastname());
+            } catch (NullPointerException exception){
+                prop.setProperty("DonorLastname", "NULL");
+            }
+            try {
+                prop.setProperty("DonorFirstname", selectedItem.getDonorFirstname());
+            } catch (NullPointerException exception){
+                prop.setProperty("DonorFirstname", "NULL");
+            }
+
             prop.setProperty("DonorPhone", selectedItem.getDonorPhone());
             prop.setProperty("DonorEmail", selectedItem.getDonorEmail());
-            prop.setProperty("ReceiverNetid", selectedItem.getReceiverNetid());
-            prop.setProperty("ReceiverLastname", selectedItem.getReceiverLastname());
-            prop.setProperty("ReceiverFirstname", selectedItem.getReceiverFirstname());
-            prop.setProperty("DateDonated", selectedItem.getDateDonated());
-            prop.setProperty("DateTaken", selectedItem.getDateTaken());
 
+            //receiver can be null
+            try {
+                prop.setProperty("ReceiverNetid", selectedItem.getDonorFirstname());
+            } catch (NullPointerException exception){
+                prop.setProperty("ReceiverNetid", "NULL");
+            }
+            try {
+                prop.setProperty("ReceiverLastname", selectedItem.getDonorFirstname());
+            } catch (NullPointerException exception){
+                prop.setProperty("ReceiverLastname", "NULL");
+            }
+            try {
+                prop.setProperty("ReceiverFirstname", selectedItem.getDonorFirstname());
+            } catch (NullPointerException exception){
+                prop.setProperty("ReceiverFirstname", "NULL");
+            }
+
+            prop.setProperty("DateDonated", selectedItem.getDateDonated());
+
+            //date taken can be null
+            try {
+                prop.setProperty("DateTaken", selectedItem.getDonorFirstname());
+            } catch (NullPointerException exception){
+                prop.setProperty("DateTaken", "NULL");
+            }
+
+            System.out.println(str);
             if(str.equals("delete")) {
                 myModel.stateChangeRequest("ClothingSelectedForDeletion", prop);
                 displayMessage("Clothing Deleted.");
             }
             else if(str.equals("modify")) {
-                System.out.println("in modify in view");
+                System.out.println("clothing in modify in view");
                 myModel.stateChangeRequest("ClothingToBeModified", prop);
             }
             else {
@@ -402,7 +448,7 @@ public class ClothingCollectionView extends View
 		{
 			processArticleTypeselected();
 		}
-	}
+	} in modify in view
    */
 
 }

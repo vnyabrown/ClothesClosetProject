@@ -18,6 +18,8 @@ public class Closet implements IView, IModel {
     private Inventory cloth;
     private InventoryCollection clothColl;
 
+    public static Properties clothMod;
+
 
     private ArticleTypeCollection atc;
     private ArticleType at;
@@ -66,6 +68,8 @@ public class Closet implements IView, IModel {
         dependencies.setProperty("Login", "LoginError");
         dependencies.setProperty("InsertArticle", "TransactionError");
         dependencies.setProperty("ModifyButton", "ModifyButton");
+        dependencies.setProperty("successfulModify", "successfulModify");
+        dependencies.setProperty("unsuccessfulModify", "unsuccessfulModify");
 
         myRegistry.setDependencies(dependencies);
     }
@@ -78,6 +82,10 @@ public class Closet implements IView, IModel {
         else if (key.equals("ArticleTypeCollection"))
         {
             return atc;
+        }
+        else if (key.equals("InventoryCollection"))
+        {
+            return clothColl;
         }
         else {
             return "nothing from getState in Closet";
@@ -122,6 +130,28 @@ public class Closet implements IView, IModel {
                 break;
             case"SearchClothingCollection":
                 searchClothingCollection((String[]) value);
+                break;
+            case "ClothingSelectedForDeletion":
+                cloth = new Inventory((Properties) value);
+                cloth.markRemoved();
+                break;
+            case "ClothingToBeModified":
+                clothMod = (Properties) value;
+                cloth = new Inventory((Properties) value);
+                createAndShowChoiceView("ModifyClothingView");
+                break;
+            case "ModifyClothing":
+                array = (String[]) value;
+                cloth.modifyInventory(array[0], array[1], array[2], array[3], array[4], array[5],
+                        array[6], array[7], array[8], array[9], array[10], array[11], array[12],
+                        array[13], array[14], array[15]);
+                cloth.updateStateInDatabase();
+                String str = (String)cloth.getState("UpdateStatusMessage");
+                if(str.equals("ok")){
+                    stateChangeRequest("successfulModify", "yahoo");
+                } else {
+                    stateChangeRequest("unsuccessfulModify", "yahoo");
+                }
                 break;
 
             case "ArticleChoiceView":
@@ -275,13 +305,11 @@ public class Closet implements IView, IModel {
         clothColl = new InventoryCollection();
         String target = values[0];
         try {
-            //TODO change to    "Barcode"    once find barcode is implemented
             if(values[1].equals("Barcode")) {
-                //TODO Change to clothColl.findInventoryBarcode once implemented
                 clothColl.findInventoryBarcode(target);
             }
             else {
-                System.err.println("string in combo box doesn't match one of correct conditions.");
+                System.err.println("Somethings wrong reciving: " + values[1] + " instead of 'Barcode'");
             }
             clothColl.display();
             createAndShowClothingCollectionView();

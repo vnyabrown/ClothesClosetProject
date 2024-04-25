@@ -173,7 +173,7 @@ public class Inventory extends EntityBase {
         return v;
     }
 
-    private void updateStateInDatabase() {
+    public void updateStateInDatabase() {
         try {
             if (persistentState.getProperty("Barcode") != null) {
                 // update
@@ -183,17 +183,44 @@ public class Inventory extends EntityBase {
                 updatePersistentState(mySchema, persistentState, whereClause);
                 updateStatusMessage = "Inventory data for Barcode number : " + persistentState.getProperty("Barcode")
                         + " updated successfully in database!";
+                updateStatusMessage = "ok";
             } else {
                 // insert
                 Integer barNumber = insertAutoIncrementalPersistentState(mySchema, persistentState);
                 persistentState.setProperty("Barcode", "" + barNumber.intValue());
                 updateStatusMessage = "Inventory data for new Item : " + persistentState.getProperty("Barcode")
                         + "installed successfully in database!";
+                updateStatusMessage = "ok";
             }
         } catch (SQLException ex) {
             updateStatusMessage = "Error in installing Inventory data in database!";
         }
         System.out.println("updateStateInDatabase " + updateStatusMessage);
+    }
+
+    public void modifyInventory(String genderEntered,String sizeEntered,String articleTypeEntered,
+                                String color1Entered, String color2Entered, String brandEntered,
+                                String notesEntered, String donorLastnameEntered,
+                                String donorFirstnameEntered, String donorPhoneEntered, String donorEmailEntered,
+                                String receiverNetidEntered, String receiverLastnameEntered, String receiverFirstnameEntered,
+                                String dateDonatedEntered, String dateTakenEntered) {
+        persistentState.setProperty("Gender", genderEntered);
+        persistentState.setProperty("Size", sizeEntered);
+        persistentState.setProperty("ArticleType", articleTypeEntered);
+        persistentState.setProperty("Color1", color1Entered);
+        persistentState.setProperty("Color2", color2Entered);
+        persistentState.setProperty("Brand", brandEntered);
+        persistentState.setProperty("Notes", notesEntered);
+        persistentState.setProperty("DonorLastname", donorLastnameEntered);
+        persistentState.setProperty("DonorFirstname", donorFirstnameEntered);
+        persistentState.setProperty("DonorPhone", donorPhoneEntered);
+        persistentState.setProperty("DonorEmail", donorEmailEntered);
+        persistentState.setProperty("ReceiverNetid", receiverNetidEntered);
+        persistentState.setProperty("ReceiverLastname", receiverLastnameEntered);
+        persistentState.setProperty("ReceiverFirstname", receiverFirstnameEntered);
+        persistentState.setProperty("DateDonated", dateDonatedEntered);
+        persistentState.setProperty("DateTaken", dateTakenEntered);
+        System.out.println("Inventory modified.");
     }
 
 
@@ -248,7 +275,14 @@ public class Inventory extends EntityBase {
 
     @Override
     public void stateChangeRequest(String key, Object value) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'stateChangeRequest'");
+        if(key == "markRemoved") {
+            markRemoved();
+        }
+        myRegistry.updateSubscribers(key, this);
+    }
+
+    public void markRemoved() {
+        persistentState.setProperty("Status", "Removed");
+        updateStateInDatabase();
     }
 }
