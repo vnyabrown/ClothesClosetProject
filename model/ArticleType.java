@@ -113,7 +113,7 @@ public class ArticleType extends EntityBase {
                 } // end while
             } // end if else
         } // end if
-    } // end of Constructor by ID
+    } // end of Constructor by Barcode Prefix
 
     public ArticleType()
     {

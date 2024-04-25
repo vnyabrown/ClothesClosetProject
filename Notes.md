@@ -1,3 +1,4 @@
+- 4/23/24
 - Add constructors to ArticleType & Color
     - Create object from barcode (like from id)
     - Store data in properties objects?
@@ -8,3 +9,6 @@
 - Fix ArticleType
     - Should have a Constructor to populate ArticleType from ID
     - Additionally, add constructor to populate ArticleType from BarcodePrefix (Same with Color)
+
+- 4/25/24
+    - requestFocus if/else not working, try to figure out how to fix this

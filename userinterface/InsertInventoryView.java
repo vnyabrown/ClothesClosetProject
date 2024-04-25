@@ -13,7 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -21,14 +20,18 @@ import javafx.scene.text.TextAlignment;
 import java.util.Properties;
 
 import model.ArticleType;
+import model.Color;
 
 public class InsertInventoryView extends View {
    
+    javafx.scene.paint.Color color;
+
     Properties props;
     Properties articleProps;
     Properties colorProps;
 
     ArticleType newAT;
+    Color newCo;
 
     private TextField barcodeField;
     private TextField genderField;
@@ -75,7 +78,7 @@ public class InsertInventoryView extends View {
         Text titleText = new Text("       Insert an Inventory Item          ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleText.setTextAlignment(TextAlignment.CENTER);
-        titleText.setFill(Color.DARKGREEN);
+        titleText.setFill(color.DARKGREEN);
 
         return titleText;
     } // end of createTitle
@@ -91,7 +94,7 @@ public class InsertInventoryView extends View {
         Text prompt = new Text("INVENTORY INFORMATION");
         prompt.setWrappingWidth(400);
         prompt.setTextAlignment(TextAlignment.CENTER);
-        prompt.setFill(Color.BLACK);
+        prompt.setFill(color.BLACK);
         grid.add(prompt, 0, 0, 2, 1);
 
         Label barcodeLabel = new Label("Inventory Item Barcode: ");
@@ -209,7 +212,7 @@ public class InsertInventoryView extends View {
         if (barcodeEntered != null)
         {
             int parseBC = 0; // set a count to keep track of digits of Barcode 
-            while (parseBC <6)
+            while (parseBC < 5)
             {
                 String currentDig = Character.toString(barcodeEntered.charAt(parseBC));
                 System.out.println("On Barcode digit: " + Integer.parseInt(barcodeEntered));
@@ -222,17 +225,19 @@ public class InsertInventoryView extends View {
                         case 0:
                             System.out.println("Set Gender to Men!");
                             genderField.setText("M"); 
-                            parseBC = parseBC + 1; // move to next digit in barcode
+                            parseBC = parseBC + 1; // move to next digits in barcode
+                            System.out.println(barcodeEntered.charAt(parseBC) + genderField.getText()); // Testing, print Gender
                             break;
                         case 1:
                             System.out.println("Set Gender to Women!");
                             genderField.setText("W");
-                            parseBC = parseBC + 1; // move to next digit in barcode
+                            parseBC = parseBC + 1; // move to next digits in barcode
                             break;
                         default:
                             System.out.println("Error parsing Barcode for Gender!");
                             displayErrorMessage("Error parsing Barcode for Gender!");
                             barcodeField.requestFocus();
+                            System.out.println(barcodeEntered.charAt(parseBC) + genderField.getText()); // Testing, print Gender
                             break;
                     } // end switch
                 } // end getGender
@@ -244,9 +249,13 @@ public class InsertInventoryView extends View {
 
                     // Verify Article Type Barcode Prefix in database
                     try { 
-                        newAT = new ArticleType(getArticleBPFX);
+                        newAT = new ArticleType(getArticleBPFX); //Use constructor to instantiate ArticleType from barcode prefix
+                        System.out.println(newAT.toString());
                         articleTypeField.setText(currentDig);
                         System.out.println("Successfully verified Article Type!");
+                        parseBC = parseBC + 2; // move to next digits in barcode
+                        // Testing, print Article Type
+                        System.out.println("\nArticle: " + articleTypeField.getText());
                     }
                     catch (Exception ex) {
                         System.out.println("Error parsing Barcode for Article Type!");
@@ -255,11 +264,28 @@ public class InsertInventoryView extends View {
                     }
 
                 } // end get Article Type
-                System.out.println(barcodeEntered.charAt(parseBC) + genderField.getText()); // Testing, print Gender
-                System.out.println("Article: " + articleTypeField.getText());
-                parseBC = 6;
+                if ((parseBC == 3) || (parseBC == 4)) // Get Color from 4th & fifth digits in barcode
+                {
+                    System.out.println("Getting Color...");
+                    currentDig = Character.toString(barcodeEntered.charAt(parseBC)) + Character.toString(barcodeEntered.charAt(parseBC + 1));
+                    int getColorBPFX = Integer.parseInt(currentDig);
 
-            }
+                    try { 
+                        newCo = new Color(getColorBPFX); // Use constructor to instantiate Color from barcode prefix
+                        color1Field.setText(currentDig);
+                        System.out.println(newCo.toString());
+                        System.out.println("Successfully verified Color!");
+                        parseBC = parseBC + 2; // move to next digits in barcode
+                        // Testing, print Color
+                        System.out.println("\nColor: " + color1Field.getText());
+                    }
+                    catch (Exception ex) {
+                        System.out.println("Error parsing Barcode for Color!");
+                        displayErrorMessage("Error parsing Barcode for Color!");
+                        color1Field.requestFocus();
+                    }
+                } // end get Color
+            } // end while parsing Barcode
         } // end getBarcode
         else if (barcodeEntered == null)
         {
@@ -270,26 +296,31 @@ public class InsertInventoryView extends View {
         // Check all fields should not be empty
         if (genderEntered == null) // Description field should not be empty
         {
+            System.out.println("Please provide a Barcode to get Gender for Inventory Item!");
             displayErrorMessage("Please provide a Barcode to get Gender for Inventory Item!");
             genderField.requestFocus();
         }
         else if (sizeEntered == null)
         {
+            System.out.println("Please enter a Size for Inventory Item!");
             displayErrorMessage("Please enter a Size for Inventory Item!");
             sizeField.requestFocus();
         }
         else if (articleTypeEntered == null)
-        {
+        {  
+            System.out.println("Please provide a Barcode to get an Article Type for Inventory Item!");
             displayErrorMessage("Please provide a Barcode to get an Article Type for Inventory Item!");
             articleTypeField.requestFocus();
         }
         else if (color1Entered == null)
         {
+            System.out.println("Please provide a Barconde to get a Primary Color for Inventory Item!");
             displayErrorMessage("Please provide a Barconde to get a Primary Color for Inventory Item!");
             color1Field.requestFocus();
         }
         else if (color2Entered == null)
         {
+            System.out.println();
             displayErrorMessage("Please enter a Secondary Color for Inventory Item!");
             color2Field.requestFocus();
         }
@@ -338,7 +369,7 @@ public class InsertInventoryView extends View {
             {
                 // TODO: need to finalize this state request within Closet
                 myModel.stateChangeRequest("InsertInventory", props); // Call stateChangeRequest to insert an inventoryItem
-                displaySuccessMessage("Successfully inserted a new Inventory item!");
+                //displaySuccessMessage("Successfully inserted a new Inventory item!");
             }
             catch(Exception ex)
             {
