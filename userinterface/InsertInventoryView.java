@@ -307,12 +307,6 @@ public class InsertInventoryView extends View {
             displayErrorMessage("Please provide a Barcode to get Gender for Inventory Item!");
             genderField.requestFocus();
         }
-        else if (sizeEntered == null || sizeEntered.isEmpty())
-        {
-            System.out.println("Please enter a Size for Inventory Item!");
-            displayErrorMessage("Please enter a Size for Inventory Item!");
-            sizeField.requestFocus();
-        }
         else if (articleTypeEntered == null || articleTypeEntered.isEmpty())
         {  
             System.out.println("Please provide a Barcode to get an Article Type for Inventory Item!");
@@ -324,19 +318,6 @@ public class InsertInventoryView extends View {
             System.out.println("Please provide a Barconde to get a Primary Color for Inventory Item!");
             displayErrorMessage("Please provide a Barconde to get a Primary Color for Inventory Item!");
             color1Field.requestFocus();
-        }
-        else if (color2Entered == null || color2Entered.isEmpty())
-        {
-            System.out.println();
-            System.out.println("Please enter a Secondary Color for Inventory Item!");
-            displayErrorMessage("Please enter a Secondary Color for Inventory Item!");
-            color2Field.requestFocus();
-        }
-        else if (brandEntered == null || brandEntered.isEmpty())
-        {
-            System.out.println("Please enter a Brand for Clothing!");
-            displayErrorMessage("Please enter a Brand for Clothing!");
-            brandField.requestFocus();
         }
         else if (donorFirstNameEntered == null || donorFirstNameEntered.isEmpty())
         {
@@ -361,6 +342,25 @@ public class InsertInventoryView extends View {
             System.out.println("Please enter a Donor Email for Clothing!");
             displayErrorMessage("Please enter a Donor Email for Clothing!");
             donorEmailField.requestFocus();
+        }
+        else if (color2Entered == null || color2Entered.isEmpty())
+        {
+            System.out.println();
+            System.out.println("Please enter a Secondary Color for Inventory Item!");
+            displayErrorMessage("Please enter a Secondary Color for Inventory Item!");
+            color2Field.requestFocus();
+        }
+        else if (brandEntered == null || brandEntered.isEmpty())
+        {
+            System.out.println("Please enter a Brand for Clothing!");
+            displayErrorMessage("Please enter a Brand for Clothing!");
+            brandField.requestFocus();
+        }
+        else if (sizeEntered == null || sizeEntered.isEmpty())
+        {
+            System.out.println("Please enter a Size for Inventory Item!");
+            displayErrorMessage("Please enter a Size for Inventory Item!");
+            sizeField.requestFocus();
         }
         else
         {
