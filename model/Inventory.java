@@ -113,6 +113,7 @@ public class Inventory extends EntityBase {
         persistentState.setProperty("Status", "Donated");
         persistentState.setProperty("DateDonated", date);
         System.out.println("Successfully process inventory OBject");
+        this.display();
         existingFlag = false; // It is not a pre-existing inventory item in database
     } // end processNewInventory
 

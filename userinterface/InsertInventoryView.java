@@ -236,6 +236,7 @@ public class InsertInventoryView extends View {
                         default:
                             System.out.println("Error parsing Barcode for Gender!");
                             displayErrorMessage("Error parsing Barcode for Gender!");
+                            parseBC = 6;
                             barcodeField.requestFocus();
                             System.out.println(barcodeEntered.charAt(parseBC) + genderField.getText()); // Testing, print Gender
                             break;
@@ -259,6 +260,7 @@ public class InsertInventoryView extends View {
                     }
                     catch (Exception ex) {
                         System.out.println("Error parsing Barcode for Article Type!");
+                        parseBC = 6;
                         displayErrorMessage("Error parsing Barcode for Article Type!");
                         articleTypeField.requestFocus();
                     }
@@ -281,6 +283,7 @@ public class InsertInventoryView extends View {
                     }
                     catch (Exception ex) {
                         System.out.println("Error parsing Barcode for Color!");
+                        parseBC = 6;
                         displayErrorMessage("Error parsing Barcode for Color!");
                         color1Field.requestFocus();
                     }
@@ -289,6 +292,7 @@ public class InsertInventoryView extends View {
             genderEntered = genderField.getText();
             articleTypeEntered = articleTypeField.getText();
             color1Entered = color1Field.getText();
+            barcodeField.setEditable(false);
         } // end getBarcode
         if (barcodeEntered == null || barcodeEntered.isEmpty())
         {
@@ -369,13 +373,13 @@ public class InsertInventoryView extends View {
             props.setProperty("Color2", color2Entered);
             props.setProperty("Brand", brandEntered);
             props.setProperty("Notes", notesEntered);
-            props.setProperty("DonorLastName", donorLastNameEntered);
-            props.setProperty("DonorFirstName", donorFirstNameEntered);
+            props.setProperty("DonorLastname", donorLastNameEntered);
+            props.setProperty("DonorFirstname", donorFirstNameEntered);
             props.setProperty("DonorPhone", donorPhoneEntered);
             props.setProperty("DonorEmail", donorEmailEntered);
 
             //Set empty fields
-            props.setProperty("ReceiverNetId", "");
+            props.setProperty("ReceiverNetid", "");
             props.setProperty("ReceiverLastname", "");
             props.setProperty("ReceiverFirstname", "");
             props.setProperty("DateDonated", "");
