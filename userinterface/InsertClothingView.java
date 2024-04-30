@@ -156,7 +156,7 @@ public class InsertClothingView extends View {
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Color", "");
+                myModel.stateChangeRequest("CancelClothingTransaction", "");
             }
         });
         grid.add(cancelButton, 1, 12);

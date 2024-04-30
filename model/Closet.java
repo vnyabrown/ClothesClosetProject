@@ -263,6 +263,12 @@ public class Closet implements IView, IModel {
                 String transType = key;
                 doTransaction(transType);
                 break;
+            case "ListInventoryView":
+                listInventoryCollection();
+                break;
+            case "ListCheckoutView":
+                listCheckoutCollection();
+                break;
             case "Logout":
                 myViews.remove("CancelArticleTransaction");
                 myViews.remove("CancelColorTransaction");
@@ -335,6 +341,30 @@ public class Closet implements IView, IModel {
             }
             atc.display();
             createAndShowArticleTypeCollectionView();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void listInventoryCollection() {
+        clothColl = new InventoryCollection();
+        try {
+            clothColl.listInventory();
+            clothColl.display();
+            createAndShowClothingCollectionView();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void listCheckoutCollection() {
+        clothColl = new InventoryCollection();
+        try {
+            clothColl.listCheckout();
+            clothColl.display();
+            createAndShowClothingCollectionView();
 
         } catch(Exception e) {
             e.printStackTrace();

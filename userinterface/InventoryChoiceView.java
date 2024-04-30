@@ -136,7 +136,7 @@ public class InventoryChoiceView extends View {
         listCheckoutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("ListInventoryView", null);
+                myModel.stateChangeRequest("ListCheckoutView", null);
             }
         });
         quitButton = new Button("Back");

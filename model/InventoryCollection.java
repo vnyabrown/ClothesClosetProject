@@ -47,6 +47,18 @@ public class InventoryCollection extends EntityBase implements IView{
         return this.invenList;
     }
 
+
+
+    public void listInventory() throws Exception {
+        String query = "SELECT * FROM " + myTableName + " WHERE Status LIKE 'Donated'";
+        updateInventoryListFromSQL(query);
+    }
+
+    public void listCheckout() throws Exception {
+        String query = "SELECT * FROM " + myTableName + " WHERE Status LIKE 'Received'";
+        updateInventoryListFromSQL(query);
+    }
+
     public void display(){
         if (invenList.isEmpty())
         {
