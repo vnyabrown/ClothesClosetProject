@@ -45,7 +45,6 @@ public class Color_Article extends EntityBase {
 
     // For Both
     public Color_Article() {
-
         // Todo: I wonder if the set dependencies need to be commented out
         // Or do you always have to set it. Color and Article is different
         super(myTableName);
@@ -124,7 +123,6 @@ public class Color_Article extends EntityBase {
         v.addElement(persistentState.getProperty("BarcodePrefix"));
         v.addElement(persistentState.getProperty("AlphaCode"));
         v.addElement(persistentState.getProperty("Status"));
-
         return v;
     } // end of getEntryListView
 
