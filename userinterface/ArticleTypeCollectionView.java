@@ -153,6 +153,9 @@ public class ArticleTypeCollectionView extends View
 
         tableOfArticleTypes = new TableView<ArticleTypeTableModel>();
         tableOfArticleTypes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        Label placeholder = new Label("No Results");
+        placeholder.setAlignment(Pos.TOP_LEFT);
+        tableOfArticleTypes.setPlaceholder(placeholder);
 
         TableColumn accountNumberColumn = new TableColumn("Id") ;
         accountNumberColumn.setMinWidth(100);

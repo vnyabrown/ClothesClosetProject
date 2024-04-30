@@ -151,6 +151,9 @@ public class ClothingCollectionView extends View
 
         tableOfClothing = new TableView<ClothingTableModel>();
         tableOfClothing.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        Label placeholder = new Label("No Results");
+        placeholder.setAlignment(Pos.TOP_LEFT);
+        tableOfClothing.setPlaceholder(placeholder);
 
         TableColumn barcodeColumn = new TableColumn("Barcode");
         barcodeColumn.setMinWidth(100);
