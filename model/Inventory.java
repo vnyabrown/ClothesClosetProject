@@ -92,7 +92,7 @@ public class Inventory extends EntityBase {
             }
         }
         System.out.println("Successfully populate inventory OBject");
-        existingFlag = false;
+        existingFlag = false; // It is not a pre-existing inventory item in database
     } // End constructor properties
 
     // DO we need the above constructor if we have this function? This is code repetition...
@@ -112,7 +112,8 @@ public class Inventory extends EntityBase {
         String date = java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         persistentState.setProperty("Status", "Donated");
         persistentState.setProperty("DateDonated", date);
-        existingFlag = false;
+        System.out.println("Successfully process inventory OBject");
+        existingFlag = false; // It is not a pre-existing inventory item in database
     } // end processNewInventory
 
     public static int compare(Inventory a, Inventory b) {
@@ -159,7 +160,8 @@ public class Inventory extends EntityBase {
 
     private void updateStateInDatabase() {
         try {
-            if (persistentState.getProperty("Barcode") != null) {
+            // update, we run this if the properties object already exists in the databse
+            if (persistentState.getProperty("Barcode") != null && existingFlag == true) {
                 // update
                 Properties whereClause = new Properties();
                 whereClause.setProperty("Barcode",
@@ -167,10 +169,10 @@ public class Inventory extends EntityBase {
                 updatePersistentState(mySchema, persistentState, whereClause);
                 updateStatusMessage = "Inventory data for Barcode number : " + persistentState.getProperty("Barcode")
                         + " updated successfully in database!";
-            } else {
-                // insert
-                Integer barNumber = insertPersistentState(mySchema, persistentState); // We cannot use the autoincrement
-                persistentState.setProperty("Barcode", "" + barNumber.intValue());
+            } else if (existingFlag == false) {
+                // insert, we run this if inventory is not existing in database
+                insertPersistentState(mySchema, persistentState); // We cannot use the autoincrement
+                persistentState.setProperty("Barcode", "" + persistentState.getProperty("Barcode"));
                 updateStatusMessage = "Inventory data for new Item : " + persistentState.getProperty("Barcode")
                         + "installed successfully in database!";
             }
