@@ -13,3 +13,9 @@
 - 4/25/24
     - requestFocus if/else not working, try to figure out how to fix this
         - Move requestFocus if/else-es, depending on checking barcode
+
+- 4/30/24
+    - working addInventory
+    - set parseBarcode in creation of insertInventoryView
+    - If invalid barcode, submit button will lock and request cancelling and entering a new barcode
+    - Need to have fields reset so upon cancelling they can be repopulated again (bc the cancel will issues w/ this)

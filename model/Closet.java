@@ -25,6 +25,7 @@ public class Closet implements IView, IModel {
     private ArticleType newArticle = new ArticleType();
     private Color newColor = new Color();
     private Inventory newInv = new Inventory();
+    public static String barcode = "";
     //private Inventory newInventory;
 
     // GUI Components
@@ -156,6 +157,9 @@ public class Closet implements IView, IModel {
             case "SearchForColor":
                 createAndShowChoiceView("SearchColorView");
                 break;
+            case "SearchForClothing":
+                createAndShowChoiceView("SearchForClothingView");
+                break;
             // value in this case is not a string but an array
             // first value is search text
             // second is whether to search by alphaCode or description
@@ -203,6 +207,7 @@ public class Closet implements IView, IModel {
                 createAndShowChoiceView("InsertColorView");
                 break;
             case "InsertInventoryView":
+                barcode = (String)value;
                 createAndShowChoiceView("InsertInventoryView");
                 break;
             case "InsertArticle":

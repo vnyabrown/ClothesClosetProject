@@ -19,6 +19,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import java.util.Properties;
 
+import static model.Closet.barcode;
+
 import model.ArticleType;
 import model.Color;
 
@@ -32,6 +34,13 @@ public class InsertInventoryView extends View {
 
     ArticleType newAT;
     Color newCo;
+
+    private String barcodeEntered;
+
+    //These fields will be autopopulated by barcode
+    String genderEntered = new String();
+    String articleTypeEntered = new String();
+    String color1Entered = new String();
 
     private TextField barcodeField;
     private TextField genderField;
@@ -48,6 +57,8 @@ public class InsertInventoryView extends View {
 
     private Button submitButton;
     private Button cancelButton;
+
+    private boolean validBarcode = false;
 
     // For showing error message
     private MessageView statusLog;
@@ -69,6 +80,10 @@ public class InsertInventoryView extends View {
 
         // Error message area
         container.getChildren().add(createStatusLog("                          "));
+
+        barcodeEntered = barcode;
+        barcodeField.setText(barcode);
+        parseBarcode();
 
         getChildren().add(container);
     } // end of Constructor
@@ -161,7 +176,13 @@ public class InsertInventoryView extends View {
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                processAction(e);
+                if (validBarcode == true)
+                    processAction(e);
+                else if (validBarcode == false)
+                    {
+                        submitButton.setDisable(true);
+                        displayErrorMessage("Invalid barcode! Cancel and enter new Barcode!");
+                    }
             }
         });
 
@@ -170,6 +191,7 @@ public class InsertInventoryView extends View {
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+                submitButton.setDisable(false); // Let submit be reset
                 myModel.stateChangeRequest("Inventory", "");
             }
         });
@@ -191,14 +213,7 @@ public class InsertInventoryView extends View {
         // DEBUG: System.out.println("InsertArticleView.actionPerformed()");
         //System.out.println("Logic TBA");
 
-        // PROCESS FIELDS SUBMITTED
-        String barcodeEntered = barcodeField.getText();
-
-        //These fields will be autopopulated by barcode
-        String genderEntered = new String();
-        String articleTypeEntered = new String();
-        String color1Entered = new String();
-        
+        // PROCESS FIELDS SUBMITTED        
         String sizeEntered = sizeField.getText();
         String color2Entered = color2Field.getText();
         String brandEntered = brandField.getText();
@@ -208,92 +223,6 @@ public class InsertInventoryView extends View {
         String donorPhoneEntered = donorPhoneField.getText();
         String donorEmailEntered = donorEmailField.getText();
         
-        // Parse barcode to get inventory before any other action
-        if (barcodeEntered != null)
-        {
-            int parseBC = 0; // set a count to keep track of digits of Barcode 
-            while (parseBC < 5)
-            {
-                String currentDig = Character.toString(barcodeEntered.charAt(parseBC));
-                System.out.println("On Barcode digit: " + Integer.parseInt(barcodeEntered));
-
-                if (parseBC == 0) // Get Gender from 1st digit in Barcode
-                {
-                    switch(Integer.parseInt(currentDig))
-                    {
-                        // Populate Gender field according to data found from Barcode
-                        case 0:
-                            System.out.println("Set Gender to Men!");
-                            genderField.setText("M"); 
-                            parseBC = parseBC + 1; // move to next digits in barcode
-                            System.out.println(barcodeEntered.charAt(parseBC) + genderField.getText()); // Testing, print Gender
-                            break;
-                        case 1:
-                            System.out.println("Set Gender to Women!");
-                            genderField.setText("W");
-                            parseBC = parseBC + 1; // move to next digits in barcode
-                            break;
-                        default:
-                            System.out.println("Error parsing Barcode for Gender!");
-                            displayErrorMessage("Error parsing Barcode for Gender!");
-                            parseBC = 6;
-                            barcodeField.requestFocus();
-                            System.out.println(barcodeEntered.charAt(parseBC) + genderField.getText()); // Testing, print Gender
-                            break;
-                    } // end switch
-                } // end getGender
-                if ((parseBC == 1) || (parseBC == 2)) // Get Article Type from 2nd & 3rd digits in barcode 
-                {
-                    System.out.println("Getting Article Type...");
-                    currentDig = Character.toString(barcodeEntered.charAt(parseBC)) + Character.toString(barcodeEntered.charAt(parseBC + 1));
-                    int getArticleBPFX = Integer.parseInt(currentDig);
-
-                    // Verify Article Type Barcode Prefix in database
-                    try { 
-                        newAT = new ArticleType(getArticleBPFX); //Use constructor to instantiate ArticleType from barcode prefix
-                        System.out.println(newAT.toString());
-                        articleTypeField.setText(currentDig);
-                        System.out.println("Successfully verified Article Type!");
-                        parseBC = parseBC + 2; // move to next digits in barcode
-                        // Testing, print Article Type
-                        System.out.println("\nArticle: " + articleTypeField.getText());
-                    }
-                    catch (Exception ex) {
-                        System.out.println("Error parsing Barcode for Article Type!");
-                        parseBC = 6;
-                        displayErrorMessage("Error parsing Barcode for Article Type!");
-                        articleTypeField.requestFocus();
-                    }
-
-                } // end get Article Type
-                if ((parseBC == 3) || (parseBC == 4)) // Get Color from 4th & fifth digits in barcode
-                {
-                    System.out.println("Getting Color...");
-                    currentDig = Character.toString(barcodeEntered.charAt(parseBC)) + Character.toString(barcodeEntered.charAt(parseBC + 1));
-                    int getColorBPFX = Integer.parseInt(currentDig);
-
-                    try { 
-                        newCo = new Color(getColorBPFX); // Use constructor to instantiate Color from barcode prefix
-                        color1Field.setText(currentDig);
-                        System.out.println(newCo.toString());
-                        System.out.println("Successfully verified Color!");
-                        parseBC = parseBC + 2; // move to next digits in barcode
-                        // Testing, print Color
-                        System.out.println("\nColor: " + color1Field.getText());
-                    }
-                    catch (Exception ex) {
-                        System.out.println("Error parsing Barcode for Color!");
-                        parseBC = 6;
-                        displayErrorMessage("Error parsing Barcode for Color!");
-                        color1Field.requestFocus();
-                    }
-                } // end get Color
-            } // end while parsing Barcode
-            genderEntered = genderField.getText();
-            articleTypeEntered = articleTypeField.getText();
-            color1Entered = color1Field.getText();
-            barcodeField.setEditable(false);
-        } // end getBarcode
         if (barcodeEntered == null || barcodeEntered.isEmpty())
         {
             displayErrorMessage("Please provide a barcode to get initial Inventory Item information!");
@@ -400,6 +329,98 @@ public class InsertInventoryView extends View {
             }
         }
     } // end of processAction
+
+    public void parseBarcode()
+    {
+        // Parse barcode to get inventory before any other action
+        if (barcodeEntered != null)
+        {
+            int parseBC = 0; // set a count to keep track of digits of Barcode 
+            while (parseBC < 5)
+            {
+                String currentDig = Character.toString(barcodeEntered.charAt(parseBC));
+                System.out.println("On Barcode digit: " + Integer.parseInt(barcodeEntered));
+
+                if (parseBC == 0) // Get Gender from 1st digit in Barcode
+                {
+                    switch(Integer.parseInt(currentDig))
+                    {
+                        // Populate Gender field according to data found from Barcode
+                        case 0:
+                            System.out.println("Set Gender to Men!");
+                            genderField.setText("M"); 
+                            parseBC = parseBC + 1; // move to next digits in barcode
+                            System.out.println(barcodeEntered.charAt(parseBC) + genderField.getText()); // Testing, print Gender
+                            break;
+                        case 1:
+                            System.out.println("Set Gender to Women!");
+                            genderField.setText("W");
+                            parseBC = parseBC + 1; // move to next digits in barcode
+                            break;
+                        default:
+                            System.out.println("Error parsing Barcode for Gender!");
+                            displayErrorMessage("Error parsing Barcode for Gender!");
+                            parseBC = 6;
+                            barcodeField.requestFocus();
+                            System.out.println(barcodeEntered.charAt(parseBC) + genderField.getText()); // Testing, print Gender
+                            break;
+                    } // end switch
+                } // end getGender
+                if ((parseBC == 1) || (parseBC == 2)) // Get Article Type from 2nd & 3rd digits in barcode 
+                {
+                    System.out.println("Getting Article Type...");
+                    currentDig = Character.toString(barcodeEntered.charAt(parseBC)) + Character.toString(barcodeEntered.charAt(parseBC + 1));
+                    int getArticleBPFX = Integer.parseInt(currentDig);
+
+                    // Verify Article Type Barcode Prefix in database
+                    try { 
+                        newAT = new ArticleType(getArticleBPFX); //Use constructor to instantiate ArticleType from barcode prefix
+                        System.out.println(newAT.toString());
+                        articleTypeField.setText(currentDig);
+                        System.out.println("Successfully verified Article Type!");
+                        parseBC = parseBC + 2; // move to next digits in barcode
+                        // Testing, print Article Type
+                        System.out.println("\nArticle: " + articleTypeField.getText());
+                    }
+                    catch (Exception ex) {
+                        System.out.println("Error parsing Barcode for Article Type!");
+                        parseBC = 6;
+                        displayErrorMessage("Error parsing Barcode for Article Type!");
+                        articleTypeField.requestFocus();
+                    }
+
+                } // end get Article Type
+                if ((parseBC == 3) || (parseBC == 4)) // Get Color from 4th & fifth digits in barcode
+                {
+                    System.out.println("Getting Color...");
+                    currentDig = Character.toString(barcodeEntered.charAt(parseBC)) + Character.toString(barcodeEntered.charAt(parseBC + 1));
+                    int getColorBPFX = Integer.parseInt(currentDig);
+
+                    try { 
+                        newCo = new Color(getColorBPFX); // Use constructor to instantiate Color from barcode prefix
+                        color1Field.setText(currentDig);
+                        System.out.println(newCo.toString());
+                        System.out.println("Successfully verified Color!");
+                        parseBC = parseBC + 2; // move to next digits in barcode
+                        // Testing, print Color
+                        System.out.println("\nColor: " + color1Field.getText());
+                    }
+                    catch (Exception ex) {
+                        System.out.println("Error parsing Barcode for Color!");
+                        parseBC = 6;
+                        displayErrorMessage("Error parsing Barcode for Color!");
+                        color1Field.requestFocus();
+                    }
+                } // end get Color
+            } // end while parsing Barcode
+            genderEntered = genderField.getText();
+            articleTypeEntered = articleTypeField.getText();
+            color1Entered = color1Field.getText();
+            barcodeField.setEditable(false);
+            barcodeField.setDisable(true);
+            validBarcode = true;
+        } // end getBarcode
+    } // end of parseBarcode
 
     @Override
     public void updateState(String key, Object value) {}

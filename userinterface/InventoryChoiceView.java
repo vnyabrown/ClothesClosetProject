@@ -25,6 +25,8 @@ public class InventoryChoiceView extends View {
     private Button listCheckoutButton;
     private Button quitButton;
 
+    public static String modDelCheckFlag = null;
+
     // For showing error message
     private MessageView statusLog;
 
@@ -84,7 +86,8 @@ public class InventoryChoiceView extends View {
         addInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("InsertInventoryView", null);
+                myModel.stateChangeRequest("SearchForClothing", null);
+                modDelCheckFlag = "ins";
             }
         });
         modInventoryButton = new Button("Modify Inventory Item");
@@ -92,6 +95,7 @@ public class InventoryChoiceView extends View {
             @Override
             public void handle(ActionEvent e) {
                 myModel.stateChangeRequest("SearchForInventory", null);
+                modDelCheckFlag = "mod";
             }
         });
         delInventoryButton = new Button("Delete Inventory Item");
@@ -99,6 +103,7 @@ public class InventoryChoiceView extends View {
             @Override
             public void handle(ActionEvent e) {
                 myModel.stateChangeRequest("SearchForInventory", null);
+                modDelCheckFlag = "del";
             }
         });
         quitButton = new Button("Back");
