@@ -41,3 +41,12 @@
 [4/4/24, 1:09 PM]|JDBCBroker|JDBCBroker|Error|NOTAG|null<Could not load driver class[org.mariadb.jdbc.Driver]>
 [4/4/24, 1:09 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
 [4/15/24, 1:03 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+[4/29/24, 8:06 PM]|Inventory|updatePersistentState|Error|NOTAG|null<SQL Exception: 1292: (conn=224) Incorrect date value: 'NULL' for column `csdbClothesClosetSystem`.`inventory`.`DateTaken` at row 1>
+[4/29/24, 8:08 PM]|Inventory|updatePersistentState|Error|NOTAG|null<SQL Exception: 1292: (conn=237) Incorrect date value: 'NULL' for column `csdbClothesClosetSystem`.`inventory`.`DateTaken` at row 1>
+[4/29/24, 8:50 PM]|Inventory|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1364: (conn=345) Field 'Barcode' doesn't have a default value>
+[4/29/24, 8:56 PM]|Inventory|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1364: (conn=351) Field 'Barcode' doesn't have a default value>
+[4/29/24, 8:56 PM]|Inventory|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1364: (conn=351) Field 'Barcode' doesn't have a default value>
+[4/29/24, 8:56 PM]|Inventory|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1364: (conn=351) Field 'Barcode' doesn't have a default value>
+[4/29/24, 8:58 PM]|Inventory|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1364: (conn=352) Field 'Barcode' doesn't have a default value>
+[4/29/24, 8:58 PM]|Inventory|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1364: (conn=352) Field 'Barcode' doesn't have a default value>
+[4/29/24, 9:00 PM]|Inventory|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1364: (conn=353) Field 'Barcode' doesn't have a default value>

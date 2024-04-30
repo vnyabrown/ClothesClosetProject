@@ -3,6 +3,7 @@ package model;
 
 // system imports
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Vector;
@@ -284,5 +285,14 @@ public class Inventory extends EntityBase {
     public void markRemoved() {
         persistentState.setProperty("Status", "Removed");
         updateStateInDatabase();
+    }
+
+    public void checkout(Properties prop) {
+        LocalDate date = LocalDate.now();
+        persistentState.setProperty("Status", "Received");
+        persistentState.setProperty("ReceiverNetid", prop.getProperty("ReceiverNetid"));
+        persistentState.setProperty("ReceiverFirstname", prop.getProperty("ReceiverFirstname"));
+        persistentState.setProperty("ReceiverLastname", prop.getProperty("ReceiverLastname"));
+        persistentState.setProperty("DateTaken", date.toString());
     }
 }

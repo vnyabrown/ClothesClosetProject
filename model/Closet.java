@@ -153,7 +153,20 @@ public class Closet implements IView, IModel {
                     stateChangeRequest("unsuccessfulModify", "yahoo");
                 }
                 break;
-
+            case "checkoutClothingView":
+                cloth = new Inventory((Properties) value);
+                createAndShowChoiceView("CheckoutClothingView");
+                break;
+            case "checkoutClothing":
+                cloth.checkout((Properties) value);
+                cloth.updateStateInDatabase();
+                String checkoutSucessful = cloth.getState("UpdateStatusMessage");
+                if(checkoutSucessful.equals("ok")){
+                    stateChangeRequest("successfulModify", "yahoo");
+                } else {
+                    stateChangeRequest("unsuccessfulModify", "yahoo");
+                }
+                break;
             case "ArticleChoiceView":
                 if (value != null) {
                     loginErrorMessage = "";
