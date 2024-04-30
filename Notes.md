@@ -12,3 +12,4 @@
 
 - 4/25/24
     - requestFocus if/else not working, try to figure out how to fix this
+        - Move requestFocus if/else-es, depending on checking barcode

@@ -24,6 +24,7 @@ public class Closet implements IView, IModel {
 
     private ArticleType newArticle = new ArticleType();
     private Color newColor = new Color();
+    private Inventory newInv = new Inventory();
     //private Inventory newInventory;
 
     // GUI Components
@@ -211,6 +212,15 @@ public class Closet implements IView, IModel {
             case "InsertColor":
                 newColor.processNewColor((Properties)value);
                 newColor.updateStateInDatabase();
+                break;
+            case "InsertInventory":
+                try {
+                    newInv.processNewInventory((Properties)value); // populate Inventory with new inventory data
+                    newInv.save(); // Save Inventory record to databse
+                } catch (Exception e) {
+                    System.out.println("Error in Closet.insertInventory: Could not create inventory object");
+                    e.printStackTrace();
+                }
                 break;
             case "DeleteArticle":
                 String transType = key;

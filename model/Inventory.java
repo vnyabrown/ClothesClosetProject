@@ -15,6 +15,9 @@ import exception.InvalidPrimaryKeyException;
 public class Inventory extends EntityBase {
     private static final String myTableName = "inventory";
 
+    // Flag to tell us if we are instantiating an Inventory from database or given properties
+    private boolean existingFlag = false;
+
     protected Properties dependencies;
 
     // GUI Components
@@ -54,14 +57,15 @@ public class Inventory extends EntityBase {
                     }
                 }
 
-            }
+            } //end else
+            existingFlag = true; //Now we know it is an existing Inventory object
         }
         // If no item found for this barcode, throw an exception
         else {
             throw new InvalidPrimaryKeyException("No item matching barcode : "
                     + Barcode + " found.");
         }
-    }
+    } // Constructor instantiate from Barcode / Existing Inventory Item
 
     // Constructor to initialize empty Inventory object
     public Inventory()
@@ -69,7 +73,8 @@ public class Inventory extends EntityBase {
         super(myTableName);
         setDependencies();
         persistentState = new Properties();
-    }
+        existingFlag = false;
+    } // end Constructor empty
 
     // Constructor to initialize Inventory object with given properties
     public Inventory(Properties props) {
@@ -86,7 +91,9 @@ public class Inventory extends EntityBase {
                 persistentState.setProperty(nextKey, nextValue);
             }
         }
-    }
+        System.out.println("Successfully populate inventory OBject");
+        existingFlag = false;
+    } // End constructor properties
 
     // DO we need the above constructor if we have this function? This is code repetition...
     public void processNewInventory(Properties props)
@@ -102,9 +109,11 @@ public class Inventory extends EntityBase {
                 persistentState.setProperty(nextKey, nextValue);
             }
         }
+        String date = java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         persistentState.setProperty("Status", "Donated");
-        persistentState.setProperty("DateDonated", java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd")));
-    }
+        persistentState.setProperty("DateDonated", date);
+        existingFlag = false;
+    } // end processNewInventory
 
     public static int compare(Inventory a, Inventory b) {
         String aStr = (String)a.getState("Id");
@@ -160,7 +169,7 @@ public class Inventory extends EntityBase {
                         + " updated successfully in database!";
             } else {
                 // insert
-                Integer barNumber = insertAutoIncrementalPersistentState(mySchema, persistentState);
+                Integer barNumber = insertPersistentState(mySchema, persistentState); // We cannot use the autoincrement
                 persistentState.setProperty("Barcode", "" + barNumber.intValue());
                 updateStatusMessage = "Inventory data for new Item : " + persistentState.getProperty("Barcode")
                         + "installed successfully in database!";
