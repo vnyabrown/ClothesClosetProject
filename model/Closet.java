@@ -70,6 +70,7 @@ public class Closet implements IView, IModel {
         dependencies.setProperty("ModifyButton", "ModifyButton");
         dependencies.setProperty("successfulModify", "successfulModify");
         dependencies.setProperty("unsuccessfulModify", "unsuccessfulModify");
+        dependencies.setProperty("updateText", "update");
 
         myRegistry.setDependencies(dependencies);
     }
@@ -139,6 +140,8 @@ public class Closet implements IView, IModel {
                 clothMod = (Properties) value;
                 cloth = new Inventory((Properties) value);
                 createAndShowChoiceView("ModifyClothingView");
+                stateChangeRequest("updateText", "update");
+                //ModifyClothingView.fillTextFields();
                 break;
             case "ModifyClothing":
                 array = (String[]) value;
@@ -311,7 +314,7 @@ public class Closet implements IView, IModel {
             else {
                 System.err.println("Somethings wrong reciving: " + values[1] + " instead of 'Barcode'");
             }
-            clothColl.display();
+            //clothColl.display();
             createAndShowClothingCollectionView();
 
         } catch(Exception e) {
