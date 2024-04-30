@@ -309,7 +309,7 @@ public class Closet implements IView, IModel {
         String target = values[0];
         try {
             if(values[1].equals("Barcode")) {
-                clothColl.findInventoryBarcode(target);
+                clothColl.findInventoryBarcode(target, "Donated");
             }
             else {
                 System.err.println("Somethings wrong reciving: " + values[1] + " instead of 'Barcode'");

@@ -34,10 +34,19 @@ public class InventoryCollection extends EntityBase implements IView{
     }
 
 
-    public Vector<Inventory> findInventoryBarcode(String pfx)  {
+    public Vector<Inventory> findInventoryBarcode(String pfx, String status)  {
 
+        String query = "";
         // The query to get all the colors
-        String query = "SELECT * FROM " + myTableName + " WHERE Barcode LIKE '%" + pfx + "%'";
+        if(status.equals("Donated")) {
+            query = "SELECT * FROM " + myTableName + " WHERE Barcode LIKE '%" + pfx + "%' AND Status LIKE 'Donated'";
+        } else if (status.equals("Received")){
+            query = "SELECT * FROM " + myTableName + " WHERE Barcode LIKE '%" + pfx + "%' AND Status LIKE 'Received'";
+        }else if (status.equals("Removed")){
+            query = "SELECT * FROM " + myTableName + " WHERE Barcode LIKE '%" + pfx + "%' AND Status LIKE 'Removed'";
+        } else {
+            System.out.println("Something went wrong in the Inventory Collection findInventoryBarcode function");
+        }
         try {
             updateInventoryListFromSQL(query);
         } catch (Exception e) {
