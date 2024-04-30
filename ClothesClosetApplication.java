@@ -14,6 +14,7 @@ import userinterface.WindowPosition;
 public class ClothesClosetApplication extends Application {
     private Closet myCloset;
     private Stage mainStage;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -21,7 +22,7 @@ public class ClothesClosetApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         System.out.println("Clothes Closet Version 1.00");
-//        System.out.println("Copyright 2004/2015 Sandeep Mitra and T M Rao");
+        // System.out.println("Copyright 2004/2015 Sandeep Mitra and T M Rao");
 
         // Create the top-level container (main frame) and add contents to it.
         MainStageContainer.setStage(primaryStage, "Brockport Clothes Closet");
@@ -38,12 +39,9 @@ public class ClothesClosetApplication extends Application {
             }
         });
 
-        try
-        {
+        try {
             myCloset = new Closet();
-        }
-        catch(Exception exc)
-        {
+        } catch (Exception exc) {
             System.err.println("ClothesClosetProject.ClothesClosetApplication - could not create Closet!");
             new Event(Event.getLeafLevelClassName(this), "ClothesClosetApplication.<init>",
                     "Unable to create Closet object", Event.ERROR);
@@ -51,8 +49,8 @@ public class ClothesClosetApplication extends Application {
         }
 
         WindowPosition.placeCenter(mainStage);
-//        mainStage.setHeight(1000);
-//        mainStage.setWidth(1000);
+        // mainStage.setHeight(1000);
+        // mainStage.setWidth(1000);
 
         mainStage.show();
     }

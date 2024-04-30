@@ -23,15 +23,6 @@ public class Color_Article extends EntityBase {
     private String updateStatusMessage = "Empty from Table";
 
     // Assign the value of my table
-    public Color_Article(int tableInt) {
-        super(myTableName);
-        // If the int == 0, then it is color, else it is article
-        if (tableInt == 0) {
-            myTableName = "color";
-        } else {
-            myTableName = "articletype";
-        }
-    }
 
     // For Both
     public Color_Article(Properties color_article_Properties) {
@@ -137,8 +128,8 @@ public class Color_Article extends EntityBase {
         return v;
     } // end of getEntryListView
 
-    public void save() {
-        updateStateInDatabase();
+    public void save(String myTableName) {
+        updateStateInDatabase(myTableName);
     } // end of save
 
     // For article
@@ -150,7 +141,7 @@ public class Color_Article extends EntityBase {
     }
 
     @SuppressWarnings("unused")
-    public void updateStateInDatabase() {
+    public void updateStateInDatabase(String myTableName) {
         if (myTableName == "color") {
             try {
                 if (persistentState.getProperty("Id") != null) {
@@ -274,14 +265,14 @@ public class Color_Article extends EntityBase {
 
     public void stateChangeRequest(String key, Object value) {
         if (key == "markInactive") {
-            markInactive();
+            markInactive(key.toLowerCase());
         }
         myRegistry.updateSubscribers(key, this);
     }
 
-    public void markInactive() {
+    public void markInactive(String myTableName) {
         persistentState.setProperty("Status", "Inactive");
-        updateStateInDatabase();
+        updateStateInDatabase(myTableName);
     }
 
     /** Called via the IView relationship */
@@ -295,4 +286,5 @@ public class Color_Article extends EntityBase {
 
         myRegistry.setDependencies(dependencies);
     }
+
 }

@@ -11,12 +11,15 @@ import userinterface.*;
 import java.util.Hashtable;
 import java.util.Properties;
 
+//Test closet and try and set the 0 and 1 for color or article
+
 public class Closet implements IView, IModel {
     // State variables
     private ArticleTypeCollection atc;
-    private ArticleType at;
+    private Color_Article at;
     private ColorCollection colorColl;
-    private Color color;
+    private Color_Article color;
+
     String[] array;
     // For Impresario
     private Properties dependencies;
@@ -24,7 +27,7 @@ public class Closet implements IView, IModel {
 
     private ArticleType newArticle = new ArticleType();
     private Color newColor = new Color();
-    //private Inventory newInventory;
+    // private Inventory newInventory;
 
     // GUI Components
     private Hashtable<String, Scene> myViews;
@@ -41,8 +44,7 @@ public class Closet implements IView, IModel {
         // EntityBase, this is done for you. Otherwise, you do it yourself
         myRegistry = new ModelRegistry("Closet");
 
-        if(myRegistry == null)
-        {
+        if (myRegistry == null) {
             new Event(Event.getLeafLevelClassName(this), "Closet",
                     "Could not instantiate Registry", Event.ERROR);
         }
@@ -52,10 +54,10 @@ public class Closet implements IView, IModel {
 
         // Set up the initial view
         createAndShowChoiceView("ClosetView");
-//        System.out.println("LibrarianView Shown");
+        // System.out.println("LibrarianView Shown");
     }
-    private void setDependencies()
-    {
+
+    private void setDependencies() {
         dependencies = new Properties();
         dependencies.setProperty("Login", "LoginError");
         dependencies.setProperty("InsertArticle", "TransactionError");
@@ -65,14 +67,11 @@ public class Closet implements IView, IModel {
 
     @Override
     public Object getState(String key) {
-        if(key.equals("ColorCollection")) {
+        if (key.equals("ColorCollection")) {
             return colorColl;
-        }
-        else if (key.equals("ArticleTypeCollection"))
-        {
+        } else if (key.equals("ArticleTypeCollection")) {
             return atc;
-        }
-        else {
+        } else {
             return "nothing from getState in Closet";
         }
     }
@@ -130,33 +129,30 @@ public class Closet implements IView, IModel {
             // value in this case is not a string but an array
             // first value is search text
             // second is whether to search by alphaCode or description
-            case"SearchArticleTypeCollection":
+            case "SearchArticleTypeCollection":
                 searchArticleTypeCollection((String[]) value);
                 break;
             case "ArticleTypeSelectedForDeletion":
-                at = new ArticleType((Properties) value);
-                at.markInactive();
+                at = new Color_Article((Properties) value);
+                at.markInactive("article");// Article
                 break;
             case "ArticleTypeToBeModified":
-                at = new ArticleType((Properties) value);
+                at = new Color_Article((Properties) value);
                 System.out.println("here");
                 createAndShowChoiceView("ModifyArticleTypeView");
                 break;
             case "ModifyArticleType":
                 array = (String[]) value;
-                if(array[1].equals("Description")) {
+                if (array[1].equals("Description")) {
                     at.modifyDescription(array[0]);
-                    at.updateStateInDatabase();
-                }
-                else if(array[1].equals("Barcode Prefix")) {
+                    at.updateStateInDatabase("article");
+                } else if (array[1].equals("Barcode Prefix")) {
                     at.modifyBarcodePrefix(array[0]);
-                    at.updateStateInDatabase();
-                }
-                else if(array[1].equals("Alpha Code")) {
+                    at.updateStateInDatabase("article");
+                } else if (array[1].equals("Alpha Code")) {
                     at.modifyAlphaCode(array[0]);
-                    at.updateStateInDatabase();
-                }
-                else {
+                    at.updateStateInDatabase("article");
+                } else {
                     System.out.println("not an option in statechangerequest in modifyarticletype");
                 }
                 break;
@@ -166,38 +162,33 @@ public class Closet implements IView, IModel {
             // value in this case is not a string but an array
             // first value is search text
             // second is whether to search by alphaCode or description
-            case"SearchColorCollection":
+            case "SearchColorCollection":
                 searchColorCollection((String[]) value);
                 break;
             case "ColorSelectedForDeletion":
-                color = new Color((Properties) value);
-                color.markInactive();
+                color = new Color_Article((Properties) value);
+                color.markInactive("color");
                 break;
             case "ColorToBeModified":
-                color = new Color((Properties) value);
+                color = new Color_Article((Properties) value);
                 System.out.println("here");
                 createAndShowChoiceView("ModifyColorView");
                 break;
             case "ModifyColor":
                 array = (String[]) value;
-                if(array[1].equals("Description")) {
+                if (array[1].equals("Description")) {
                     color.modifyDescription(array[0]);
-                    color.updateStateInDatabase();
-                }
-                else if(array[1].equals("Barcode Prefix")) {
+                    color.updateStateInDatabase("color");
+                } else if (array[1].equals("Barcode Prefix")) {
                     color.modifyBarcodePrefix(array[0]);
-                    color.updateStateInDatabase();
-                }
-                else if(array[1].equals("Alpha Code")) {
+                    color.updateStateInDatabase("color");
+                } else if (array[1].equals("Alpha Code")) {
                     color.modifyAlphaCode(array[0]);
-                    color.updateStateInDatabase();
-                }
-                else {
+                    color.updateStateInDatabase("color");
+                } else {
                     System.out.println("not an option in statechangerequest in modifycolor");
                 }
                 break;
-
-
 
             case "CancelArticleTransaction":
             case "CancelColorTransaction":
@@ -213,11 +204,11 @@ public class Closet implements IView, IModel {
                 createAndShowChoiceView("InsertColorView");
                 break;
             case "InsertArticle":
-                newArticle.processNewArticle((Properties)value);
+                newArticle.processNewArticle((Properties) value);
                 newArticle.updateStateInDatabase();
                 break;
             case "InsertColor":
-                newColor.processNewColor((Properties)value);
+                newColor.processNewColor((Properties) value);
                 newColor.updateStateInDatabase();
                 break;
             case "DeleteArticle":
@@ -235,7 +226,6 @@ public class Closet implements IView, IModel {
         myRegistry.updateSubscribers(key, this);
     }
 
-
     // argument is array
     // first element is search string
     // second is whether to search by alphaCode or description
@@ -244,19 +234,17 @@ public class Closet implements IView, IModel {
         colorColl = new ColorCollection();
         String target = values[0];
         try {
-            if(values[1].equals("Alpha Code")) {
+            if (values[1].equals("Alpha Code")) {
                 colorColl.findColorAlphaCode(target);
-            }
-            else if(values[1].equals("Description")) {
+            } else if (values[1].equals("Description")) {
                 colorColl.findColorDescription(target);
-            }
-            else {
+            } else {
                 System.err.println("string in combo box doesn't match one of correct conditions.");
             }
             colorColl.display();
             createAndShowColorCollectionView();
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -266,19 +254,17 @@ public class Closet implements IView, IModel {
         atc = new ArticleTypeCollection();
         String target = values[0];
         try {
-            if(values[1].equals("Alpha Code")) {
+            if (values[1].equals("Alpha Code")) {
                 atc.findArticleTypeWithAlphaCode(target);
-            }
-            else if(values[1].equals("Description")) {
+            } else if (values[1].equals("Description")) {
                 atc.findArticleTypeWithDescription(target);
-            }
-            else {
+            } else {
                 System.err.println("string in combo box doesn't match one of correct conditions.");
             }
             atc.display();
             createAndShowArticleTypeCollectionView();
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -301,18 +287,15 @@ public class Closet implements IView, IModel {
         swapToView(currentScene);
     }
 
-    private void createAndShowChoiceView(String view)
-    {
-        Scene currentScene = (Scene)myViews.get(view);
+    private void createAndShowChoiceView(String view) {
+        Scene currentScene = (Scene) myViews.get(view);
 
-        if (currentScene == null)
-        {
+        if (currentScene == null) {
             // create our initial view
             View newView = ViewFactory.createView(view, this); // USE VIEW FACTORY
             currentScene = new Scene(newView);
             myViews.put(view, currentScene);
         }
-
 
         // make the view visible by installing it into the frame
         swapToView(currentScene);
@@ -324,19 +307,15 @@ public class Closet implements IView, IModel {
      * withdraw, transfer, etc.). Use the AccountHolder holder data to do the
      * create.
      */
-    //----------------------------------------------------------
-    public void doTransaction(String transactionType)
-    {
-        try
-        {
+    // ----------------------------------------------------------
+    public void doTransaction(String transactionType) {
+        try {
 
             Transaction trans = TransactionFactory.createTransaction(transactionType);
 
             trans.subscribe("CancelTransaction", this);
             trans.stateChangeRequest("DoYourJob", "");
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             transactionErrorMessage = "FATAL ERROR: TRANSACTION FAILURE: Unrecognized transaction!!";
             new Event(Event.getLeafLevelClassName(this), "createTransaction",
                     "Transaction Creation Failure: Unrecognized transaction " + ex.toString(),
@@ -349,12 +328,9 @@ public class Closet implements IView, IModel {
 
     }
 
-    public void swapToView(Scene newScene)
-    {
+    public void swapToView(Scene newScene) {
 
-
-        if (newScene == null)
-        {
+        if (newScene == null) {
             System.out.println("Closet.swapToView(): Missing view for display");
             new Event(Event.getLeafLevelClassName(this), "swapToView",
                     "Missing view for display ", Event.ERROR);
@@ -364,9 +340,9 @@ public class Closet implements IView, IModel {
         myStage.setScene(newScene);
         myStage.sizeToScene();
 
-
-        //Place in center
+        // Place in center
         WindowPosition.placeCenter(myStage);
 
     }
+
 }
