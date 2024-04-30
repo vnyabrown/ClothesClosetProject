@@ -215,8 +215,9 @@ public class Closet implements IView, IModel {
                 break;
             case "InsertInventory":
                 try {
+                    System.out.println(value.toString());
                     newInv.processNewInventory((Properties)value); // populate Inventory with new inventory data
-                    newInv.save(); // Save Inventory record to databse
+                    newInv.updateStateInDatabase(); // Save Inventory record to databse
                 } catch (Exception e) {
                     System.out.println("Error in Closet.insertInventory: Could not create inventory object");
                     e.printStackTrace();

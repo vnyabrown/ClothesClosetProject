@@ -374,6 +374,14 @@ public class InsertInventoryView extends View {
             props.setProperty("DonorPhone", donorPhoneEntered);
             props.setProperty("DonorEmail", donorEmailEntered);
 
+            //Set empty fields
+            props.setProperty("ReceiverNetId", "");
+            props.setProperty("ReceiverLastname", "");
+            props.setProperty("ReceiverFirstname", "");
+            props.setProperty("DateDonated", "");
+            props.setProperty("DateTaken", "");
+            props.setProperty("Status", "Donated");
+
 
             try
             {

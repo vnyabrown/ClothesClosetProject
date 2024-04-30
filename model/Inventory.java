@@ -158,7 +158,7 @@ public class Inventory extends EntityBase {
         updateStateInDatabase();
     }
 
-    private void updateStateInDatabase() {
+    public void updateStateInDatabase() {
         try {
             // update, we run this if the properties object already exists in the databse
             if (persistentState.getProperty("Barcode") != null && existingFlag == true) {
