@@ -180,7 +180,7 @@ public class ColorCollectionView extends View
             public void handle(MouseEvent event)
             {
                 if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
-                    processColorSelected("");
+                    processColorSelected("modify");
                 }
             }
         });
@@ -193,7 +193,7 @@ public class ColorCollectionView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("SearchForColor", null);
+                myModel.stateChangeRequest("SearchForColor", "");
             }
         });
 

@@ -152,7 +152,7 @@ public class InsertClothingView extends View {
         });
 
         grid.add(submitButton, 0, 12);
-        cancelButton = new Button("Cancel");
+        cancelButton = new Button("Back");
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {

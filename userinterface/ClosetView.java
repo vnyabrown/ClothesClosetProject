@@ -3,6 +3,7 @@ package userinterface;
 import impresario.IModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -103,13 +104,13 @@ ClosetView extends View {
             public void handle(ActionEvent e) {System.exit(0);}
         });
 
-        grid.add(articleButton, 0, 0);
-        grid.add(colorButton, 1, 0);
-        grid.add(inventoryButton, 0, 1);
-        HBox btnContainer = new HBox(10);
-        btnContainer.setAlignment(Pos.BOTTOM_RIGHT);
-        btnContainer.getChildren().add(quitButton);
-        grid.add(btnContainer, 0, 2);
+        grid.add(articleButton, 0, 0, 1, 1);
+        grid.add(colorButton, 1, 0, 1, 1);
+        grid.add(inventoryButton, 0, 1, 2, 1);
+        GridPane.setHalignment(inventoryButton, HPos.CENTER);
+
+        grid.add(quitButton, 0, 3, 2, 1);
+        GridPane.setHalignment(quitButton,HPos.CENTER);
 
         return grid;
     }

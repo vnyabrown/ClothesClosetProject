@@ -190,7 +190,7 @@ public class ArticleTypeCollectionView extends View
             public void handle(MouseEvent event)
             {
                 if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
-                    processArticleTypeSelected("");
+                    processArticleTypeSelected("modify");
                 }
             }
         });
@@ -203,7 +203,7 @@ public class ArticleTypeCollectionView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("SearchForArticleType", null);
+                myModel.stateChangeRequest("SearchForArticleType", "");
             }
         });
 

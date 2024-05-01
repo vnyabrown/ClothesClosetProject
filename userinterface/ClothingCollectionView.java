@@ -24,6 +24,7 @@ import model.Inventory;
 import model.InventoryCollection;
 
 import java.util.Enumeration;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -256,7 +257,11 @@ public class ClothingCollectionView extends View
             public void handle(MouseEvent event)
             {
                 if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
-                    processClothingSelected("");
+                    switch (modDelCheckFlag) {
+                        case "del" -> processClothingSelected("delete");
+                        case "mod" -> processClothingSelected("modify");
+                        case "check" -> processClothingSelected("Checkout");
+                    }
                 }
             }
         });
@@ -269,7 +274,7 @@ public class ClothingCollectionView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("Inventory", null);
+                myModel.stateChangeRequest("Inventory", "");
             }
         });
 
@@ -304,12 +309,10 @@ public class ClothingCollectionView extends View
         btnContainer.setAlignment(Pos.CENTER);
 
         btnContainer.getChildren().add(cancelButton);
-        if( modDelCheckFlag == "del") {
-            btnContainer.getChildren().add(deleteButton);
-        }else if (modDelCheckFlag == "mod") {
-            btnContainer.getChildren().add(modifyButton);
-        }else if (modDelCheckFlag == "check"){
-            btnContainer.getChildren().add(checkButton);
+        switch (modDelCheckFlag) {
+            case "del" -> btnContainer.getChildren().add(deleteButton);
+            case "mod" -> btnContainer.getChildren().add(modifyButton);
+            case "check" -> btnContainer.getChildren().add(checkButton);
         }
         vbox.getChildren().add(grid);
         vbox.getChildren().add(scrollPane);

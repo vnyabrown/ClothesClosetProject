@@ -46,3 +46,8 @@
 [4/30/24, 2:48 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
 [4/30/24, 2:48 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
 [4/30/24, 2:49 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+[5/1/24, 1:03 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+[5/1/24, 1:03 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+[5/1/24, 1:04 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+[5/1/24, 1:04 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+[5/1/24, 1:11 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>

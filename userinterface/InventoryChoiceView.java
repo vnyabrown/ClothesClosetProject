@@ -130,6 +130,7 @@ public class InventoryChoiceView extends View {
             @Override
             public void handle(ActionEvent e) {
                 myModel.stateChangeRequest("ListInventoryView", null);
+                modDelCheckFlag = "listInventory";
             }
         });
         listCheckoutButton = new Button("List Checkout");
@@ -137,12 +138,13 @@ public class InventoryChoiceView extends View {
             @Override
             public void handle(ActionEvent e) {
                 myModel.stateChangeRequest("ListCheckoutView", null);
+                modDelCheckFlag = "listCheckout";
             }
         });
         quitButton = new Button("Back");
         quitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent e) {myModel.stateChangeRequest("CancelInventoryTransaction", null);}
+            public void handle(ActionEvent e) {myModel.stateChangeRequest("CancelInventoryTransaction", "");}
         });
 
         grid.add(addClothingButton, 0, 0);
