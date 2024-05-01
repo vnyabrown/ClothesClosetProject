@@ -17,8 +17,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import static userinterface.InventoryChoiceView.modDelCheckFlag;
 
+import static userinterface.InventoryChoiceView.modDelCheckFlag;
 
 // project imports
 import impresario.IModel;
@@ -160,8 +160,11 @@ public class SearchForClothingView extends View
             {
                 myModel.stateChangeRequest("InsertInventoryView", values[0]);
             }
-            myModel.stateChangeRequest("SearchClothingCollection", values);
+            else 
+            {
+                myModel.stateChangeRequest("SearchClothingCollection", values);
             //myModel.stateChangeRequest("SearchColorCollection", null);
+            }
         }
     }
 

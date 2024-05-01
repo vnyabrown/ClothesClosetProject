@@ -38,8 +38,12 @@ public class ViewFactory {
 				return new ColorCollectionView(model);
 			case "ModifyColorView":
 				return new ModifyColorView(model);
-			case "SearchForClothingView":
+			case "SearchForClothing":
 				return new SearchForClothingView(model);
+			case "ClothingCollectionView":
+				return new ClothingCollectionView(model);
+			case "ModifyClothingView":
+				return new ModifyClothingView(model);
 			default:
 				System.out.println("No view found matching " + viewName + " in view factory.");
 				return null;

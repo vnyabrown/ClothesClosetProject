@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Vector;
-import java.time.LocalDateTime;  
-import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 // project imports
 import exception.InvalidPrimaryKeyException;
@@ -57,15 +57,15 @@ public class Inventory extends EntityBase {
                     }
                 }
 
-            } //end else
-            existingFlag = true; //Now we know it is an existing Inventory object
+            }
+            existingFlag = true; //Now we know it is an existing Inventory objec
         }
         // If no item found for this barcode, throw an exception
         else {
             throw new InvalidPrimaryKeyException("No item matching barcode : "
                     + Barcode + " found.");
         }
-    } // Constructor instantiate from Barcode / Existing Inventory Item
+    }
 
     // Constructor to initialize empty Inventory object
     public Inventory()
@@ -74,7 +74,7 @@ public class Inventory extends EntityBase {
         setDependencies();
         persistentState = new Properties();
         existingFlag = false;
-    } // end Constructor empty
+    }
 
     // Constructor to initialize Inventory object with given properties
     public Inventory(Properties props) {
@@ -93,7 +93,14 @@ public class Inventory extends EntityBase {
         }
         System.out.println("Successfully populate inventory OBject");
         existingFlag = false; // It is not a pre-existing inventory item in database
-    } // End constructor properties
+    }
+
+    public static int compare(Inventory a, Inventory b) {
+        String aStr = (String)a.getState("ArticleType");
+        String bStr = (String)b.getState("ArticleType");
+
+        return aStr.compareTo(bStr);
+    }
 
     // DO we need the above constructor if we have this function? This is code repetition...
     public void processNewInventory(Properties props)
@@ -115,13 +122,6 @@ public class Inventory extends EntityBase {
         System.out.println("Successfully process inventory OBject");
         this.display();
         existingFlag = false; // It is not a pre-existing inventory item in database
-    } // end processNewInventory
-
-    public static int compare(Inventory a, Inventory b) {
-        String aStr = (String)a.getState("Id");
-        String bStr = (String)b.getState("Id");
-
-        return aStr.compareTo(bStr);
     }
 
     /**
@@ -159,6 +159,31 @@ public class Inventory extends EntityBase {
         updateStateInDatabase();
     }
 
+    public Vector<String> getFields() {
+        Vector<String> v = new Vector<String>();
+
+        v.addElement(persistentState.getProperty("Barcode"));
+        v.addElement(persistentState.getProperty("Gender"));
+        v.addElement(persistentState.getProperty("Size"));
+        v.addElement(persistentState.getProperty("ArticleType"));
+        v.addElement(persistentState.getProperty("Color1"));
+        v.addElement(persistentState.getProperty("Color2"));
+        v.addElement(persistentState.getProperty("Brand"));
+        v.addElement(persistentState.getProperty("Notes"));
+        v.addElement(persistentState.getProperty("Status"));
+        v.addElement(persistentState.getProperty("DonorLastname"));
+        v.addElement(persistentState.getProperty("DonorFirstname"));
+        v.addElement(persistentState.getProperty("DonorPhone"));
+        v.addElement(persistentState.getProperty("DonorEmail"));
+        v.addElement(persistentState.getProperty("ReceiverNetid"));
+        v.addElement(persistentState.getProperty("ReceiverLastname"));
+        v.addElement(persistentState.getProperty("ReceiverFirstname"));
+        v.addElement(persistentState.getProperty("DateDonated"));
+        v.addElement(persistentState.getProperty("DateTaken"));
+
+        return v;
+    }
+
     public void updateStateInDatabase() {
         try {
             // update, we run this if the properties object already exists in the databse
@@ -183,6 +208,33 @@ public class Inventory extends EntityBase {
         System.out.println("updateStateInDatabase " + updateStatusMessage);
     }
 
+    public void modifyInventory(String genderEntered,String sizeEntered,String articleTypeEntered,
+                                String color1Entered, String color2Entered, String brandEntered,
+                                String notesEntered, String donorLastnameEntered,
+                                String donorFirstnameEntered, String donorPhoneEntered, String donorEmailEntered,
+                                String receiverNetidEntered, String receiverLastnameEntered, String receiverFirstnameEntered,
+                                String dateDonatedEntered, String dateTakenEntered) {
+        persistentState.setProperty("Gender", genderEntered);
+        persistentState.setProperty("Size", sizeEntered);
+        persistentState.setProperty("ArticleType", articleTypeEntered);
+        persistentState.setProperty("Color1", color1Entered);
+        persistentState.setProperty("Color2", color2Entered);
+        persistentState.setProperty("Brand", brandEntered);
+        persistentState.setProperty("Notes", notesEntered);
+        persistentState.setProperty("DonorLastname", donorLastnameEntered);
+        persistentState.setProperty("DonorFirstname", donorFirstnameEntered);
+        persistentState.setProperty("DonorPhone", donorPhoneEntered);
+        persistentState.setProperty("DonorEmail", donorEmailEntered);
+        persistentState.setProperty("ReceiverNetid", receiverNetidEntered);
+        persistentState.setProperty("ReceiverLastname", receiverLastnameEntered);
+        persistentState.setProperty("ReceiverFirstname", receiverFirstnameEntered);
+        persistentState.setProperty("DateDonated", dateDonatedEntered);
+        persistentState.setProperty("DateTaken", dateTakenEntered);
+        System.out.println("Inventory modified.");
+    }
+
+
+
     /* Return Book information as a string */
     // -----------------------------------------------------------------------------------
     public String toString()
@@ -198,7 +250,7 @@ public class Inventory extends EntityBase {
                 " DateDonated: " + persistentState.getProperty("DateDonated") + " DateTaken: " + persistentState.getProperty("DateTaken");
     }
 
-    /* Display Book information to user  */
+    /* Display Inventory information to user  */
     // -----------------------------------------------------------------------------------
     public void display()
     {
@@ -233,7 +285,14 @@ public class Inventory extends EntityBase {
 
     @Override
     public void stateChangeRequest(String key, Object value) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'stateChangeRequest'");
+        if(key == "markRemoved") {
+            markRemoved();
+        }
+        myRegistry.updateSubscribers(key, this);
+    }
+
+    public void markRemoved() {
+        persistentState.setProperty("Status", "Removed");
+        updateStateInDatabase();
     }
 }

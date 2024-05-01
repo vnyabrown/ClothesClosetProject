@@ -39,8 +39,8 @@ public class TransactionFactory
 
             case "Checkout":
                 //return new CheckoutTransaction();
-            case "ListStock":
-                //return new ListStockTransaction();
+            case "ListInventory":
+                //return new ListInventoryTransaction();
             case "ListCheckout":
                 //return new ListCheckoutTransaction();
             default:

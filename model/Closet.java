@@ -13,6 +13,14 @@ import java.util.Properties;
 
 public class Closet implements IView, IModel {
     // State variables
+
+
+    private Inventory cloth;
+    private InventoryCollection clothColl;
+
+    public static Properties clothMod;
+
+
     private ArticleTypeCollection atc;
     private ArticleType at;
     private ColorCollection colorColl;
@@ -61,6 +69,10 @@ public class Closet implements IView, IModel {
         dependencies = new Properties();
         dependencies.setProperty("Login", "LoginError");
         dependencies.setProperty("InsertArticle", "TransactionError");
+        dependencies.setProperty("ModifyButton", "ModifyButton");
+        dependencies.setProperty("successfulModify", "successfulModify");
+        dependencies.setProperty("unsuccessfulModify", "unsuccessfulModify");
+        dependencies.setProperty("updateText", "update");
 
         myRegistry.setDependencies(dependencies);
     }
@@ -74,6 +86,10 @@ public class Closet implements IView, IModel {
         {
             return atc;
         }
+        else if (key.equals("InventoryCollection"))
+        {
+            return clothColl;
+        }
         else {
             return "nothing from getState in Closet";
         }
@@ -81,7 +97,7 @@ public class Closet implements IView, IModel {
 
     @Override
     public void subscribe(String key, IView subscriber) {
-
+        myRegistry.subscribe(key, subscriber);
     }
 
     @Override
@@ -110,6 +126,36 @@ public class Closet implements IView, IModel {
                 if (value != null) {
                     loginErrorMessage = "";
                     createAndShowChoiceView("InventoryChoiceView");
+                }
+                break;
+            case "SearchForClothing":
+                createAndShowChoiceView("SearchForClothing");
+                break;
+            case"SearchClothingCollection":
+                searchClothingCollection((String[]) value);
+                break;
+            case "ClothingSelectedForDeletion":
+                cloth = new Inventory((Properties) value);
+                cloth.markRemoved();
+                break;
+            case "ClothingToBeModified":
+                clothMod = (Properties) value;
+                cloth = new Inventory((Properties) value);
+                createAndShowChoiceView("ModifyClothingView");
+                stateChangeRequest("updateText", "update");
+                //ModifyClothingView.fillTextFields();
+                break;
+            case "ModifyClothing":
+                array = (String[]) value;
+                cloth.modifyInventory(array[0], array[1], array[2], array[3], array[4], array[5],
+                        array[6], array[7], array[8], array[9], array[10], array[11], array[12],
+                        array[13], array[14], array[15]);
+                cloth.updateStateInDatabase();
+                String str = (String)cloth.getState("UpdateStatusMessage");
+                if(str.equals("ok")){
+                    stateChangeRequest("successfulModify", "yahoo");
+                } else {
+                    stateChangeRequest("unsuccessfulModify", "yahoo");
                 }
                 break;
             case "ArticleChoiceView":
@@ -157,9 +203,6 @@ public class Closet implements IView, IModel {
             case "SearchForColor":
                 createAndShowChoiceView("SearchColorView");
                 break;
-            case "SearchForClothing":
-                createAndShowChoiceView("SearchForClothingView");
-                break;
             // value in this case is not a string but an array
             // first value is search text
             // second is whether to search by alphaCode or description
@@ -196,6 +239,7 @@ public class Closet implements IView, IModel {
                 
             case "CancelArticleTransaction":
             case "CancelColorTransaction":
+            case "CancelClothingTransaction":
             case "CancelInventoryTransaction":
                 createAndShowChoiceView("ClosetView");
                 break;
@@ -236,7 +280,7 @@ public class Closet implements IView, IModel {
                 myViews.remove("CancelArticleTransaction");
                 myViews.remove("CancelColorTransaction");
                 myViews.remove("CancelClothingTransaction");
-                myViews.remove("CancelStockTransaction");
+                myViews.remove("CancelInventoryTransaction");
                 createAndShowChoiceView("ClosetView");
                 break;
         }
@@ -263,6 +307,25 @@ public class Closet implements IView, IModel {
             }
             colorColl.display();
             createAndShowColorCollectionView();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void searchClothingCollection(String[] values) {
+        System.out.println(values[0] + " " + values[1]);
+        clothColl = new InventoryCollection();
+        String target = values[0];
+        try {
+            if(values[1].equals("Barcode")) {
+                clothColl.findInventoryBarcode(target);
+            }
+            else {
+                System.err.println("Somethings wrong reciving: " + values[1] + " instead of 'Barcode'");
+            }
+            //clothColl.display();
+            createAndShowClothingCollectionView();
 
         } catch(Exception e) {
             e.printStackTrace();
@@ -304,6 +367,14 @@ public class Closet implements IView, IModel {
     private void createAndShowColorCollectionView() {
         // create our initial view
         View newView = ViewFactory.createView("ColorCollectionView", this); // USE VIEW FACTORY
+        Scene currentScene = new Scene(newView);
+
+        swapToView(currentScene);
+    }
+
+    private void createAndShowClothingCollectionView() {
+        // create our initial view
+        View newView = ViewFactory.createView("ClothingCollectionView", this); // USE VIEW FACTORY
         Scene currentScene = new Scene(newView);
 
         swapToView(currentScene);

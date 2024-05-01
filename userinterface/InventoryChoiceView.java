@@ -17,15 +17,15 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 public class InventoryChoiceView extends View {
-    private Button addInventoryButton;
-    private Button modInventoryButton;
-    private Button delInventoryButton;
+
+    private Button addClothingButton;
+    private Button modClothingButton;
+    private Button delClothingButton;
     private Button checkoutButton;
     private Button listInventoryButton;
     private Button listCheckoutButton;
     private Button quitButton;
-
-    public static String modDelCheckFlag = null;
+     public static String modDelCheckFlag = null;
 
     // For showing error message
     private MessageView statusLog;
@@ -53,18 +53,18 @@ public class InventoryChoiceView extends View {
 
         // STEP 0: Be sure you tell your model what keys you are interested in
         myModel.subscribe("LoginError", this);
-    } // end of Constructor
+    }
 
     private Node createTitle() {
 
-        Text titleText = new Text("       SELECT AN INVENTORY OPTION          ");
+        Text titleText = new Text("       Select an Inventory Option          ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleText.setTextAlignment(TextAlignment.CENTER);
         titleText.setFill(Color.DARKGREEN);
 
 
         return titleText;
-    } // end of Create Title
+    }
 
     private MessageView createStatusLog(String initialMessage)
     {
@@ -72,6 +72,13 @@ public class InventoryChoiceView extends View {
         statusLog = new MessageView(initialMessage);
 
         return statusLog;
+    }
+
+    public void processAction(Event evt)
+    {
+        // DEBUG: System.out.println("ClosetView.actionPerformed()");
+        System.out.println("Yay buttons!");
+
     }
 
     private GridPane createFormContents()
@@ -82,40 +89,41 @@ public class InventoryChoiceView extends View {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        addInventoryButton = new Button("Insert Inventory Item");
-        addInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
+        addClothingButton = new Button("Insert Inventory Item");
+        addClothingButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 myModel.stateChangeRequest("SearchForClothing", null);
                 modDelCheckFlag = "ins";
             }
         });
-        modInventoryButton = new Button("Modify Inventory Item");
-        modInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
+        modClothingButton = new Button("Modify Clothing");
+        modClothingButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("SearchForInventory", null);
+                myModel.stateChangeRequest("SearchForClothing", null);
                 modDelCheckFlag = "mod";
             }
         });
-        delInventoryButton = new Button("Delete Inventory Item");
-        delInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
+        delClothingButton = new Button("Delete Clothing");
+        delClothingButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("SearchForInventory", null);
+                myModel.stateChangeRequest("SearchForClothing", null);
                 modDelCheckFlag = "del";
             }
         });
         quitButton = new Button("Back");
         quitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent e) {myModel.stateChangeRequest("CancelInventoryTransaction", null);}
+            public void handle(ActionEvent e) {myModel.stateChangeRequest("CancelClothingTransaction", null);}
         });
         checkoutButton = new Button("Checkout");
         checkoutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("CheckoutView", null);
+                myModel.stateChangeRequest("SearchForClothing", null);
+                modDelCheckFlag = "check";
             }
         });
         listInventoryButton = new Button("List Inventory");
@@ -129,7 +137,7 @@ public class InventoryChoiceView extends View {
         listCheckoutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("ListCheckoutView", null);
+                myModel.stateChangeRequest("ListInventoryView", null);
             }
         });
         quitButton = new Button("Back");
@@ -138,9 +146,9 @@ public class InventoryChoiceView extends View {
             public void handle(ActionEvent e) {myModel.stateChangeRequest("CancelInventoryTransaction", null);}
         });
 
-        grid.add(addInventoryButton, 0, 0);
-        grid.add(modInventoryButton, 0, 1);
-        grid.add(delInventoryButton, 0, 2);
+        grid.add(addClothingButton, 0, 0);
+        grid.add(modClothingButton, 0, 1);
+        grid.add(delClothingButton, 0, 2);
         grid.add(checkoutButton, 1, 0);
         grid.add(listInventoryButton, 1, 1);
         grid.add(listCheckoutButton, 1, 2);
@@ -153,4 +161,4 @@ public class InventoryChoiceView extends View {
     public void updateState(String key, Object value) {
 
     }
-} // end of InventoryChoiceView
+}
