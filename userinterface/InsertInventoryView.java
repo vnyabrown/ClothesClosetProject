@@ -191,7 +191,12 @@ public class InsertInventoryView extends View {
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                submitButton.setDisable(false); // Let submit be reset
+                //Unlock fields
+                submitButton.setDisable(false);
+                barcodeField.setDisable(false);
+                articleTypeField.setDisable(false);
+                color1Field.setDisable(false);
+                genderField.setDisable(false);
                 myModel.stateChangeRequest("Inventory", "");
             }
         });
@@ -416,8 +421,12 @@ public class InsertInventoryView extends View {
             genderEntered = genderField.getText();
             articleTypeEntered = articleTypeField.getText();
             color1Entered = color1Field.getText();
-            barcodeField.setEditable(false);
+
+            // Lock auto-set fields
             barcodeField.setDisable(true);
+            articleTypeField.setDisable(true);
+            color1Field.setDisable(true);
+            genderField.setDisable(true);
             validBarcode = true;
         } // end getBarcode
     } // end of parseBarcode
