@@ -59,6 +59,7 @@ public class Inventory extends EntityBase {
 
             }
             existingFlag = true; //Now we know it is an existing Inventory objec
+            System.out.print("Existingflag in Constructor given Barcode: " + existingFlag);
         }
         // If no item found for this barcode, throw an exception
         else {
@@ -74,6 +75,7 @@ public class Inventory extends EntityBase {
         setDependencies();
         persistentState = new Properties();
         existingFlag = false;
+        System.out.print("Existingflag in Empty Consctructor: " + existingFlag);
     }
 
     // Constructor to initialize Inventory object with given properties
@@ -92,7 +94,8 @@ public class Inventory extends EntityBase {
             }
         }
         System.out.println("Successfully populate inventory OBject");
-        existingFlag = false; // It is not a pre-existing inventory item in database
+        existingFlag = true; // It is not a pre-existing inventory item in database, but we are using it for collection
+        System.out.print("Existingflag in Conscturctor given properties: " + existingFlag);
     }
 
     public static int compare(Inventory a, Inventory b) {
@@ -122,6 +125,7 @@ public class Inventory extends EntityBase {
         System.out.println("Successfully process inventory OBject");
         this.display();
         existingFlag = false; // It is not a pre-existing inventory item in database
+        System.out.print("Existingflag in processNewInventory: " + existingFlag);
     }
 
     /**
@@ -189,6 +193,7 @@ public class Inventory extends EntityBase {
             // update, we run this if the properties object already exists in the databse
             if (persistentState.getProperty("Barcode") != null && existingFlag == true) {
                 // update
+                System.out.print("Existingflag in update: " + existingFlag);
                 Properties whereClause = new Properties();
                 whereClause.setProperty("Barcode",
                         persistentState.getProperty("Barcode"));
@@ -197,6 +202,7 @@ public class Inventory extends EntityBase {
                         + " updated successfully in database!";
             } else if (existingFlag == false) {
                 // insert, we run this if inventory is not existing in database
+                System.out.print("Existingflag in insert: " + existingFlag);
                 insertPersistentState(mySchema, persistentState); // We cannot use the autoincrement
                 persistentState.setProperty("Barcode", "" + persistentState.getProperty("Barcode"));
                 updateStatusMessage = "Inventory data for new Item : " + persistentState.getProperty("Barcode")
