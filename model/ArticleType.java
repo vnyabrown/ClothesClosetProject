@@ -35,7 +35,85 @@ public class ArticleType extends EntityBase {
         // Set enum for status automatically to "Active"
         persistentState.setProperty("Status", "Active");
         System.out.println("article created");
-    }
+    } // Consturctor by given Properties
+
+    public ArticleType(String articleID) throws InvalidPrimaryKeyException
+    {
+        super(myTableName);
+
+        String query = "SELECT * FROM " + myTableName + " WHERE (Id = " + articleID + ")";
+        Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
+
+        // You must get one item at least
+        if (allDataRetrieved != null)
+        {
+            int size = allDataRetrieved.size();
+
+            // There should be EXACTLY one item, more than that is an error
+            if (size!=1)
+            {
+                throw new InvalidPrimaryKeyException("Multiple ArticleTypes matching Article Id: " + articleID + " found.");
+            }
+
+            else
+            {
+                // Copy all retrieved data into persistent state
+                Properties retrievedColorData = allDataRetrieved.elementAt(0);
+                persistentState = new Properties();
+
+                Enumeration allKeys = retrievedColorData.propertyNames();
+                while(allKeys.hasMoreElements() == true)
+                {
+                    String nextKey = (String)allKeys.nextElement();
+                    String nextValue = retrievedColorData.getProperty(nextKey);
+
+                    if (nextValue != null)
+                    {
+                        persistentState.setProperty(nextKey, nextValue);
+                    } // end if
+                } // end while
+            } // end if else
+        } // end if
+    } // end of Constructor by ID
+
+    public ArticleType(int BPFX) throws InvalidPrimaryKeyException
+    {
+        super(myTableName);
+
+        String query = "SELECT * FROM " + myTableName + " WHERE (BarcodePrefix = " + Integer.toString(BPFX) + ")";
+        Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
+
+        // You must get one item at least
+        if (allDataRetrieved != null)
+        {
+            int size = allDataRetrieved.size();
+
+            // There should be EXACTLY one item, more than that is an error
+            if (size!=1)
+            {
+                throw new InvalidPrimaryKeyException("Multiple ArticleTypes matching BarcodePrefix: " + Integer.toString(BPFX) + " found.");
+            }
+
+            else
+            {
+                // Copy all retrieved data into persistent state
+                Properties retrievedColorData = allDataRetrieved.elementAt(0);
+                persistentState = new Properties();
+
+                Enumeration allKeys = retrievedColorData.propertyNames();
+                while(allKeys.hasMoreElements() == true)
+                {
+                    String nextKey = (String)allKeys.nextElement();
+                    String nextValue = retrievedColorData.getProperty(nextKey);
+
+                    if (nextValue != null)
+                    {
+                        persistentState.setProperty(nextKey, nextValue);
+                    } // end if
+                } // end while
+            } // end if else
+        } // end if
+    } // end of Constructor by Barcode Prefix
 
     public ArticleType()
     {

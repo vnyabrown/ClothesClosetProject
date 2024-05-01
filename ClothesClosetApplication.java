@@ -27,7 +27,6 @@ public class ClothesClosetApplication extends Application {
         MainStageContainer.setStage(primaryStage, "Brockport Clothes Closet");
         mainStage = MainStageContainer.getInstance();
         mainStage.setResizable(true);
-        mainStage.setMaximized(true);
 
         // Finish setting up the stage (ENABLE THE GUI TO BE CLOSED USING THE TOP RIGHT
         // 'X' IN THE WINDOW), and show it.

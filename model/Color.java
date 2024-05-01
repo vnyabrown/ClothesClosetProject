@@ -58,7 +58,48 @@ public class Color extends EntityBase {
                 } // end while
             } // end if else
         } // end if
-    } // end of constructor
+    } // end of Constructor by ID
+
+    public Color(int BPFX) throws InvalidPrimaryKeyException
+    {
+        super(myTableName);
+        
+        setDependencies();
+        String query = "SELECT * FROM " + myTableName + " WHERE (BarcodePrefix = " + Integer.toString(BPFX) + ")";
+
+        Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
+
+        // You must get one item at least
+        if (allDataRetrieved != null)
+        {
+            int size = allDataRetrieved.size();
+
+            // There should be EXACTLY one item, more than that is an error
+            if (size!=1)
+            {
+                throw new InvalidPrimaryKeyException("Multiple Colors with matching Barcode Prefix: " + Integer.toString(BPFX) + " found.");
+            }
+
+            else
+            {
+                // Copy all retrieved data into persistent state
+                Properties retrievedColorData = allDataRetrieved.elementAt(0);
+                persistentState = new Properties();
+
+                Enumeration allKeys = retrievedColorData.propertyNames();
+                while(allKeys.hasMoreElements() == true)
+                {
+                    String nextKey = (String)allKeys.nextElement();
+                    String nextValue = retrievedColorData.getProperty(nextKey);
+
+                    if (nextValue != null)
+                    {
+                        persistentState.setProperty(nextKey, nextValue);
+                    } // end if
+                } // end while
+            } // end if else
+        } // end if
+    } // end of Constructor by Barcode Prefix
 
     // Constructor to initialize empty Color object
     public Color()
