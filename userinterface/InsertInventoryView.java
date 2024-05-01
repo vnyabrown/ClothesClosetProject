@@ -192,11 +192,6 @@ public class InsertInventoryView extends View {
             @Override
             public void handle(ActionEvent e) {
                 //Unlock fields
-                submitButton.setDisable(false);
-                barcodeField.setDisable(false);
-                articleTypeField.setDisable(false);
-                color1Field.setDisable(false);
-                genderField.setDisable(false);
                 myModel.stateChangeRequest("Inventory", "");
             }
         });
