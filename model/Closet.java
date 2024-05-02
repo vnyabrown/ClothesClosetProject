@@ -265,6 +265,7 @@ public class Closet implements IView, IModel {
                     }
                 } catch(Exception e) {
                     createAndShowChoiceView("InsertInventoryView");
+                    stateChangeRequest("updateText", "update");
                     e.printStackTrace();
                 }
                 break;
@@ -333,7 +334,7 @@ public class Closet implements IView, IModel {
         String target = values[0];
         try {
             if(values[1].equals("Barcode")) {
-                clothColl.findInventoryBarcode(target);
+                clothColl.findInventoryBarcodeDonated(target);
                 Vector<Inventory> invVec = (Vector<Inventory>) clothColl.getState("getVector");
                 if(invVec.isEmpty()) {
                     stateChangeRequest("noBarcodeFound", "nnnnn");

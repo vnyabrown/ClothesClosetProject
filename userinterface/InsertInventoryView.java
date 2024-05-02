@@ -20,6 +20,7 @@ import javafx.scene.text.TextAlignment;
 import java.util.Properties;
 
 import static model.Closet.barcode;
+import static model.Closet.clothMod;
 
 import model.ArticleType;
 import model.Color;
@@ -84,6 +85,9 @@ public class InsertInventoryView extends View {
         barcodeEntered = barcode;
         barcodeField.setText(barcode);
         parseBarcode();
+
+        myModel.subscribe("updateText", this);
+
 
         getChildren().add(container);
     } // end of Constructor
@@ -427,7 +431,15 @@ public class InsertInventoryView extends View {
     } // end of parseBarcode
 
     @Override
-    public void updateState(String key, Object value) {}
+    public void updateState(String key, Object value) {
+        if(key.equals("updateText")){
+            clearTextFields();
+            System.out.println("Updating Text");
+            barcodeEntered = barcode;
+            barcodeField.setText(barcode);
+            parseBarcode();
+        }
+    }
 
     public void displayErrorMessage(String message)
     {
@@ -447,5 +459,17 @@ public class InsertInventoryView extends View {
     {
         statusLog.clearErrorMessage();
     } // end of clearMessage
+
+    private void clearTextFields(){
+        sizeField.clear();
+        color2Field.clear();
+        brandField.clear();
+        notesField.clear();
+        donorFirstNameField.clear();
+        donorLastNameField.clear();
+        donorPhoneField.clear();
+        donorEmailField.clear();
+
+    };
 
 } // end of InsertInventoryView
