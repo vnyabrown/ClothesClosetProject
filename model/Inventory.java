@@ -122,6 +122,7 @@ public class Inventory extends EntityBase {
         String date = java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         persistentState.setProperty("Status", "Donated");
         persistentState.setProperty("DateDonated", date);
+        persistentState.setProperty("DateTaken", "0000-00-00");
         System.out.println("Successfully process inventory OBject");
         this.display();
         existingFlag = false; // It is not a pre-existing inventory item in database
@@ -203,7 +204,9 @@ public class Inventory extends EntityBase {
             } else if (existingFlag == false) {
                 // insert, we run this if inventory is not existing in database
                 System.out.print("Existingflag in insert: " + existingFlag);
+                System.out.println("before");
                 insertPersistentState(mySchema, persistentState); // We cannot use the autoincrement
+                System.out.println("after");
                 persistentState.setProperty("Barcode", "" + persistentState.getProperty("Barcode"));
                 updateStatusMessage = "Inventory data for new Item : " + persistentState.getProperty("Barcode")
                         + "installed successfully in database!";
