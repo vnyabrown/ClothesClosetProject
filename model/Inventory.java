@@ -208,6 +208,8 @@ public class Inventory extends EntityBase {
                 updatePersistentState(mySchema, persistentState, whereClause);
                 updateStatusMessage = "Inventory data for Barcode number : " + persistentState.getProperty("Barcode")
                         + " updated successfully in database!";
+                System.out.println("updateStateInDatabase " + updateStatusMessage);
+                updateStatusMessage = "ok";
             } else if (existingFlag == false) {
                 // insert, we run this if inventory is not existing in database
                 System.out.print("Existingflag in insert: " + existingFlag);
@@ -217,11 +219,14 @@ public class Inventory extends EntityBase {
                 persistentState.setProperty("Barcode", "" + persistentState.getProperty("Barcode"));
                 updateStatusMessage = "Inventory data for new Item : " + persistentState.getProperty("Barcode")
                         + "installed successfully in database!";
+                System.out.println("updateStateInDatabase " + updateStatusMessage);
+                updateStatusMessage = "ok";
             }
         } catch (SQLException ex) {
             updateStatusMessage = "Error in installing Inventory data in database!";
+            System.out.println("updateStateInDatabase " + updateStatusMessage);
         }
-        System.out.println("updateStateInDatabase " + updateStatusMessage);
+
     }
 
     public void modifyInventory(String genderEntered,String sizeEntered,String articleTypeEntered,
