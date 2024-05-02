@@ -39,11 +39,7 @@ public class ModifyClothingView extends View {
     private TextField donorFirstnameField;
     private TextField donorPhoneField;
     private TextField donorEmailField;
-    private TextField receiverNetidField;
-    private TextField receiverLastnameField;
-    private TextField receiverFirstnameField;
     private TextField dateDonatedField;
-    private TextField dateTakenField;
 
     private Button submitButton;
     private Button cancelButton;
@@ -151,57 +147,33 @@ public class ModifyClothingView extends View {
 
 
         Label donorLastnameLabel = new Label("Donor Last Name: ");
-        grid.add(donorLastnameLabel, 0, 9);
+        grid.add(donorLastnameLabel, 0, 8);
         donorLastnameField = new TextField();
-        grid.add(donorLastnameField, 1, 9);
+        grid.add(donorLastnameField, 1, 8);
 
 
         Label donorFirstnameLabel = new Label("Donor First Name: ");
-        grid.add(donorFirstnameLabel, 0, 10);
+        grid.add(donorFirstnameLabel, 0, 9);
         donorFirstnameField = new TextField();
-        grid.add(donorFirstnameField, 1, 10);
+        grid.add(donorFirstnameField, 1, 9);
 
 
         Label donorPhoneLabel = new Label("Donor Phone: ");
-        grid.add(donorPhoneLabel, 0, 11);
+        grid.add(donorPhoneLabel, 0, 10);
         donorPhoneField = new TextField();
-        grid.add(donorPhoneField, 1, 11);
+        grid.add(donorPhoneField, 1, 10);
 
 
         Label donorEmailLabel = new Label("Donor Email: ");
-        grid.add(donorEmailLabel, 0, 12);
+        grid.add(donorEmailLabel, 0, 11);
         donorEmailField = new TextField();
-        grid.add(donorEmailField, 1, 12);
-
-
-        Label receiverNetidLabel = new Label("Receiver Netid: ");
-        grid.add(receiverNetidLabel, 0, 13);
-        receiverNetidField = new TextField();
-        grid.add(receiverNetidField, 1, 13);
-
-
-        Label receiverLastnameLabel = new Label("Receiver Last Name: ");
-        grid.add(receiverLastnameLabel, 0, 14);
-        receiverLastnameField = new TextField();
-        grid.add(receiverLastnameField, 1, 14);
-
-
-        Label receiverFirstnameLabel = new Label("Receiver First Name: ");
-        grid.add(receiverFirstnameLabel, 0, 15);
-        receiverFirstnameField = new TextField();
-        grid.add(receiverFirstnameField, 1, 15);
+        grid.add(donorEmailField, 1, 11);
 
 
         Label dateDonatedLabel = new Label("Date Donated: ");
-        grid.add(dateDonatedLabel, 0, 16);
+        grid.add(dateDonatedLabel, 0, 12);
         dateDonatedField = new TextField();
-        grid.add(dateDonatedField, 1, 16);
-
-
-        Label dateTakenLabel = new Label("Date Taken: ");
-        grid.add(dateTakenLabel, 0, 17);
-        dateTakenField = new TextField();
-        grid.add(dateTakenField, 1, 17);
+        grid.add(dateDonatedField, 1, 12);
 
 
 
@@ -213,7 +185,7 @@ public class ModifyClothingView extends View {
             }
         });
 
-        grid.add(submitButton, 0, 18);
+        grid.add(submitButton, 0, 13);
         cancelButton = new Button("Cancel");
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -224,7 +196,7 @@ public class ModifyClothingView extends View {
                 myModel.stateChangeRequest("Inventory", "");
             }
         });
-        grid.add(cancelButton, 1, 18);
+        grid.add(cancelButton, 1, 13);
 
         fillTextFields();
 
@@ -249,8 +221,7 @@ public class ModifyClothingView extends View {
         String[] values = new String[]{genderField.getText(), sizeField.getText(), articleTypeField.getText(),
                 color1Field.getText(), color2Field.getText(), brandField.getText(), notesField.getText(),
                 donorLastnameField.getText(), donorFirstnameField.getText(), donorPhoneField.getText(),
-                donorEmailField.getText(), receiverNetidField.getText(), receiverLastnameField.getText(),
-                receiverFirstnameField.getText(), dateDonatedField.getText(), dateTakenField.getText()};
+                donorEmailField.getText(), dateDonatedField.getText()};
 
 
         myModel.stateChangeRequest("ModifyClothing", values);
@@ -304,11 +275,7 @@ public class ModifyClothingView extends View {
         donorFirstnameField.setText(props.getProperty("DonorFirstname"));
         donorPhoneField.setText(props.getProperty("DonorPhone"));
         donorEmailField.setText(props.getProperty("DonorEmail"));
-        receiverNetidField.setText(props.getProperty("ReceiverNetid"));
-        receiverLastnameField.setText(props.getProperty("ReceiverLastname"));
-        receiverFirstnameField.setText(props.getProperty("ReceiverFirstname"));
         dateDonatedField.setText(props.getProperty("DateDonated"));
-        dateTakenField.setText(props.getProperty("DateTaken"));
 
     }
 
@@ -324,10 +291,6 @@ public class ModifyClothingView extends View {
         donorFirstnameField.clear();
         donorPhoneField.clear();
         donorEmailField.clear();
-        receiverNetidField.clear();
-        receiverLastnameField.clear();
-        receiverFirstnameField.clear();
         dateDonatedField.clear();
-        dateTakenField.clear();
     }
 }
