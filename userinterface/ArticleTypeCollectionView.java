@@ -1,6 +1,7 @@
 package userinterface;
 
 // system imports
+import impresario.IModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +12,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import java.util.Optional;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -208,8 +213,15 @@ public class ArticleTypeCollectionView extends View
         deleteButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                clearErrorMessage();
-                processArticleTypeSelected("delete");
+                // Request Confirmation before deletion
+                Alert confirmDel = new Alert(AlertType.CONFIRMATION, "Are you sure you want to delete this Clothing Item?", ButtonType.OK, ButtonType.CANCEL);
+                confirmDel.setTitle("Confirm deleting Clothing Item");
+                Optional<ButtonType> result = confirmDel.showAndWait();
+                if (result.get() == ButtonType.OK)
+                {
+                    clearErrorMessage();
+                    processArticleTypeSelected("delete");
+                }
             }
         });
 
