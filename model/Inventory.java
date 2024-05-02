@@ -129,7 +129,7 @@ public class Inventory extends EntityBase {
         String date = java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         persistentState.setProperty("Status", "Donated");
         persistentState.setProperty("DateDonated", date);
-        persistentState.setProperty("DateTaken", "0000-00-00");
+        //persistentState.setProperty("DateTaken", "0000-00-00");
         System.out.println("Successfully process inventory OBject");
         this.display();
         existingFlag = false; // It is not a pre-existing inventory item in database
