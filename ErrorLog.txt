@@ -44,3 +44,4 @@
 [4/29/24 9:03 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
 [4/29/24 9:04 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
 [5/1/24 1:37 PM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=12794) Duplicate entry '10210001' for key 'PRIMARY'>
+[5/1/24 11:43 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>

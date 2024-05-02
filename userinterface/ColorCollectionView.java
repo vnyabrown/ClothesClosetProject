@@ -9,15 +9,18 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Alert;
 //import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -27,6 +30,7 @@ import javafx.scene.text.TextAlignment;
 import java.util.Properties;
 import java.util.Vector;
 import java.util.Enumeration;
+import java.util.Optional;
 
 // project imports
 import impresario.IModel;
@@ -253,8 +257,15 @@ public class ColorCollectionView extends View
             prop.setProperty("Status", selectedItem.getStatus());
 
             if(str.equals("delete")) {
-                myModel.stateChangeRequest("ColorSelectedForDeletion", prop);
-                displayMessage("Color Deleted.");
+                // Request Confirmation before deletion
+                Alert confirmDel = new Alert(AlertType.CONFIRMATION, "Are you sure you want to delete this Color?", ButtonType.OK, ButtonType.CANCEL);
+                confirmDel.setTitle("Confirm deleting Color");
+                Optional<ButtonType> result = confirmDel.showAndWait();
+                if (result.get() == ButtonType.OK)
+                {
+                    myModel.stateChangeRequest("ColorSelectedForDeletion", prop);
+                    displayMessage("Color Deleted.");
+                }
             }
             else if(str.equals("modify")) {
                 System.out.println("in modify in view");
