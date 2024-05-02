@@ -36,12 +36,18 @@ public class Inventory extends EntityBase {
         // You must get one item at least
         if (allDataRetrieved != null) {
             int size = allDataRetrieved.size();
+            System.out.println("size: " + size);
+            updateStatusMessage = "";
 
             // There should be EXACTLY one item. More than that is an error
-            if (size != 1) {
+            if(size == 0) {
+                updateStatusMessage = "noBarcodeFound";
+                throw new InvalidPrimaryKeyException("No item matching barcode : "
+                        + Barcode + " found.");
+            } else if (size != 1) {
                 throw new InvalidPrimaryKeyException("Multiple Items matching barcode : "
                         + Barcode + " found.");
-            } else {
+            }else {
                 // copy all the retrieved data into persistent state
                 Properties retrievedInventoryData = allDataRetrieved.elementAt(0);
                 persistentState = new Properties();
@@ -56,6 +62,7 @@ public class Inventory extends EntityBase {
                         persistentState.setProperty(nextKey, nextValue);
                     }
                 }
+                updateStatusMessage = "duplicateBarcode";
 
             }
             existingFlag = true; //Now we know it is an existing Inventory objec
@@ -122,6 +129,7 @@ public class Inventory extends EntityBase {
         String date = java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         persistentState.setProperty("Status", "Donated");
         persistentState.setProperty("DateDonated", date);
+        persistentState.setProperty("DateTaken", "0000-00-00");
         System.out.println("Successfully process inventory OBject");
         this.display();
         existingFlag = false; // It is not a pre-existing inventory item in database
@@ -203,7 +211,9 @@ public class Inventory extends EntityBase {
             } else if (existingFlag == false) {
                 // insert, we run this if inventory is not existing in database
                 System.out.print("Existingflag in insert: " + existingFlag);
+                System.out.println("before");
                 insertPersistentState(mySchema, persistentState); // We cannot use the autoincrement
+                System.out.println("after");
                 persistentState.setProperty("Barcode", "" + persistentState.getProperty("Barcode"));
                 updateStatusMessage = "Inventory data for new Item : " + persistentState.getProperty("Barcode")
                         + "installed successfully in database!";
