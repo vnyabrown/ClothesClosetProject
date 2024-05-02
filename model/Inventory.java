@@ -36,12 +36,18 @@ public class Inventory extends EntityBase {
         // You must get one item at least
         if (allDataRetrieved != null) {
             int size = allDataRetrieved.size();
+            System.out.println("size: " + size);
+            updateStatusMessage = "";
 
             // There should be EXACTLY one item. More than that is an error
-            if (size != 1) {
+            if(size == 0) {
+                updateStatusMessage = "noBarcodeFound";
+                throw new InvalidPrimaryKeyException("No item matching barcode : "
+                        + Barcode + " found.");
+            } else if (size != 1) {
                 throw new InvalidPrimaryKeyException("Multiple Items matching barcode : "
                         + Barcode + " found.");
-            } else {
+            }else {
                 // copy all the retrieved data into persistent state
                 Properties retrievedInventoryData = allDataRetrieved.elementAt(0);
                 persistentState = new Properties();
@@ -56,6 +62,7 @@ public class Inventory extends EntityBase {
                         persistentState.setProperty(nextKey, nextValue);
                     }
                 }
+                updateStatusMessage = "duplicateBarcode";
 
             }
             existingFlag = true; //Now we know it is an existing Inventory objec

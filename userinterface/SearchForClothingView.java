@@ -62,6 +62,8 @@ public class SearchForClothingView extends View
 
         // These need to be made specific for Book
         myModel.subscribe("ModifyButton", this);
+        myModel.subscribe("duplicateBarcode", this);
+        myModel.subscribe("noBarcodeFound", this);
         //myModel.subscribe("UpdateStatusMessage", this);
     }
 
@@ -207,6 +209,12 @@ public class SearchForClothingView extends View
     public void updateState(String key, Object value)
     {
         clearErrorMessage();
+
+        switch (key) {
+            case "duplicateBarcode":
+                displayErrorMessage("Duplicate Barcode");
+                break;
+        }
 
         //if (key.equals("ServiceCharge") == true)
         //{

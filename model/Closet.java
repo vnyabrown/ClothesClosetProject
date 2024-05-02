@@ -73,6 +73,9 @@ public class Closet implements IView, IModel {
         dependencies.setProperty("successfulModify", "successfulModify");
         dependencies.setProperty("unsuccessfulModify", "unsuccessfulModify");
         dependencies.setProperty("updateText", "update");
+        dependencies.setProperty("duplicateBarcode", "duplicateBarcode");
+        dependencies.setProperty("noBarcodeFound", "noBarcodeFound");
+
 
         myRegistry.setDependencies(dependencies);
     }
@@ -252,7 +255,17 @@ public class Closet implements IView, IModel {
                 break;
             case "InsertInventoryView":
                 barcode = (String)value;
-                createAndShowChoiceView("InsertInventoryView");
+                try {
+                    Inventory inv = new Inventory(barcode);
+                    String result = inv.getState("UpdateStatusMessage");
+                    if(result.equals("duplicateBarcode")) {
+                        System.out.println("hereeeeeeeeeee");
+                        stateChangeRequest("duplicateBarcode", "nada");
+                    }
+                } catch(Exception e) {
+                    createAndShowChoiceView("InsertInventoryView");
+                    e.printStackTrace();
+                }
                 break;
             case "InsertArticle":
                 newArticle.processNewArticle((Properties)value);
