@@ -214,6 +214,9 @@ public class SearchForClothingView extends View
             case "duplicateBarcode":
                 displayErrorMessage("Duplicate Barcode");
                 break;
+            case "noBarcodeFound":
+                displayErrorMessage("No Barcode Found");
+                break;
         }
 
         //if (key.equals("ServiceCharge") == true)

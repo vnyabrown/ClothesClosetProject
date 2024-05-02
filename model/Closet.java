@@ -10,6 +10,7 @@ import userinterface.*;
 
 import java.util.Hashtable;
 import java.util.Properties;
+import java.util.Vector;
 
 public class Closet implements IView, IModel {
     // State variables
@@ -333,12 +334,18 @@ public class Closet implements IView, IModel {
         try {
             if(values[1].equals("Barcode")) {
                 clothColl.findInventoryBarcode(target);
+                Vector<Inventory> invVec = (Vector<Inventory>) clothColl.getState("getVector");
+                if(invVec.isEmpty()) {
+                    stateChangeRequest("noBarcodeFound", "nnnnn");
+                } else {
+                    createAndShowClothingCollectionView();
+                }
             }
             else {
                 System.err.println("Somethings wrong reciving: " + values[1] + " instead of 'Barcode'");
             }
             //clothColl.display();
-            createAndShowClothingCollectionView();
+
 
         } catch(Exception e) {
             e.printStackTrace();
