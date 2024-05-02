@@ -262,9 +262,9 @@ public class ModifyClothingView extends View {
     public void updateState(String key, Object value) {
         clearErrorMessage();
         if(key.equals("successfulModify")){
-            displaySuccessMessage("update successfully in db");
+            displaySuccessMessage("Successfully updated item with barcode " + props.getProperty("Barcode"));
         } else if(key.equals("unsuccessfulModify")){
-            displayErrorMessage("unsuccessfull update");
+            displayErrorMessage("Failed to update item with barcode " + props.getProperty("Barcode"));
         } else {
             displaySuccessMessage("something went wrong, find else in update state");
         }

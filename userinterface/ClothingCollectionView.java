@@ -399,7 +399,7 @@ public class ClothingCollectionView extends View
             System.out.println(str);
             if(str.equals("delete")) {
                 myModel.stateChangeRequest("ClothingSelectedForDeletion", prop);
-                displayMessage("Clothing Deleted.");
+                displayMessage("Item with barcode " + prop.getProperty("Barcode") + " successfully removed");
             }
             else if(str.equals("modify")) {
                 System.out.println("clothing in modify in view");

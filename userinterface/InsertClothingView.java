@@ -260,11 +260,11 @@ public class InsertClothingView extends View {
             {
                 // TODO: need to finalize this state request within Closet
                 myModel.stateChangeRequest("InsertClothing", props); // Call stateChangeRequest to insert an article
-                displaySuccessMessage("Successfully inserted a new Clothing item!");
+                displaySuccessMessage("Item with barcode " + props.getProperty("Barcode") + " successfully inserted");
             }
             catch(Exception ex)
             {
-                displayErrorMessage("Failed to insert a Clothing item!");
+                displayErrorMessage("Failed to insert item with barcode " + props.getProperty("Barcode"));
                 ex.printStackTrace();
             }
         }

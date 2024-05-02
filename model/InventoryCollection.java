@@ -37,7 +37,7 @@ public class InventoryCollection extends EntityBase implements IView{
     public Vector<Inventory> findInventoryBarcode(String pfx)  {
 
         // The query to get all the colors
-        String query = "SELECT * FROM " + myTableName + " WHERE Barcode LIKE '%" + pfx + "%'";
+        String query = "SELECT * FROM " + myTableName + " WHERE Barcode LIKE '%" + pfx + "%' AND Status NOT LIKE 'Removed'";
         try {
             updateInventoryListFromSQL(query);
         } catch (Exception e) {
