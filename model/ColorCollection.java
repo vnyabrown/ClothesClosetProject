@@ -5,7 +5,6 @@ import java.util.Vector;
 import exception.InvalidPrimaryKeyException;
 import impresario.IView;
 import java.util.Properties;
-import model.Color;
 
 public class ColorCollection extends EntityBase implements IView {
     private static final String myTableName = "color";
@@ -43,6 +42,22 @@ public class ColorCollection extends EntityBase implements IView {
         for (int i = 0; i < allDataRetrieved.size(); i++) {
             this.colorList.add(new Color(allDataRetrieved.elementAt(i)));
         }
+    }
+
+    public String getColorDescriptionFromPFX(String PFX){
+        String query = "SELECT Description FROM "+ myTableName + " WHERE BarcodePrefix LIKE '" + PFX + "'";
+        Vector<Properties> result = getSelectQueryResult(query);
+        String realResult = result.getFirst().getProperty("Description");
+
+        return realResult;
+    }
+
+    public String getColorPFXFromDescription(String desc){
+        String query = "SELECT BarcodePrefix FROM "+ myTableName + " WHERE Description LIKE '" + desc + "'";
+        Vector<Properties> result = getSelectQueryResult(query);
+        String realResult = result.getFirst().getProperty("BarcodePrefix");
+
+        return realResult;
     }
 
     /* Display each color information from Book in Collection to user */
@@ -88,6 +103,17 @@ public class ColorCollection extends EntityBase implements IView {
             updateColorListFromSQL(query);
         } catch (Exception e) {
             System.out.println("ERROR: Invalid BarcodePrefix. '" + descr + "' is not valid!");
+        }
+
+        return this.colorList;
+    }
+
+    public Vector<Color> getAllColors(){
+        String query = "SELECT * FROM " + myTableName + " WHERE Status LIKE 'Active'";
+        try {
+            updateColorListFromSQL(query);
+        } catch (Exception e) {
+            System.out.println("ERROR: Failed getting Colors");
         }
 
         return this.colorList;

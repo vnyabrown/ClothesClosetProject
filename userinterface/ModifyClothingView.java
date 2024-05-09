@@ -1,7 +1,6 @@
 package userinterface;
 
 import impresario.IModel;
-import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -9,19 +8,21 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.ArticleTypeCollection;
+import model.ColorCollection;
 
-import javax.swing.event.ChangeEvent;
 import java.util.Properties;
+import java.util.Vector;
 
 import static model.Closet.clothMod;
 
@@ -31,8 +32,8 @@ public class ModifyClothingView extends View {
     private TextField genderField;
     private TextField sizeField;
     private TextField articleTypeField;
-    private TextField color1Field;
-    private TextField color2Field;
+    private ComboBox color1Field;
+    private ComboBox color2Field;
     private TextField brandField;
     private TextField notesField;
     private TextField donorLastnameField;
@@ -40,6 +41,10 @@ public class ModifyClothingView extends View {
     private TextField donorPhoneField;
     private TextField donorEmailField;
     private TextField dateDonatedField;
+
+    private Vector<model.Color> colorObj = null;
+    ColorCollection colorCollection = new ColorCollection();
+    ArticleTypeCollection articleTypeCollection = new ArticleTypeCollection();
 
     private Button submitButton;
     private Button cancelButton;
@@ -77,6 +82,9 @@ public class ModifyClothingView extends View {
         myModel.subscribe("successfulModify", this);
         myModel.subscribe("unsuccessfulModify", this);
         myModel.subscribe("updateText", this);
+
+        colorObj = colorCollection.getAllColors();
+        populateComboBoxes();
 
     }
 
@@ -124,13 +132,15 @@ public class ModifyClothingView extends View {
 
         Label color1Label = new Label("Color 1: ");
         grid.add(color1Label, 0, 4);
-        color1Field = new TextField();
+        color1Field = new ComboBox<String>();
+        color1Field.setMinSize(100, 20);
         grid.add(color1Field, 1, 4);
 
 
         Label color2Label = new Label("Color 2: ");
         grid.add(color2Label, 0, 5);
-        color2Field = new TextField();
+        color2Field = new ComboBox<String>();
+        color2Field.setMinSize(100, 20);
         grid.add(color2Field, 1, 5);
 
 
@@ -199,6 +209,7 @@ public class ModifyClothingView extends View {
         grid.add(cancelButton, 1, 13);
 
         fillTextFields();
+        articleTypeField.setDisable(true);
 
         return grid;
     }
@@ -217,9 +228,13 @@ public class ModifyClothingView extends View {
         // DEBUG: System.out.println("InsertArticleView.actionPerformed()");
         //System.out.println("Logic TBA");
 
+        //Convert comboBox descriptions back to barcode prefixes
+        String color1 = colorCollection.getColorPFXFromDescription((String)color1Field.getValue());
+        String color2 = colorCollection.getColorPFXFromDescription((String)color2Field.getValue());
+
         // PROCESS FIELDS SUBMITTED
-        String[] values = new String[]{genderField.getText(), sizeField.getText(), articleTypeField.getText(),
-                color1Field.getText(), color2Field.getText(), brandField.getText(), notesField.getText(),
+        String[] values = new String[]{genderField.getText(), sizeField.getText(),
+                color1, color2, brandField.getText(), notesField.getText(),
                 donorLastnameField.getText(), donorFirstnameField.getText(), donorPhoneField.getText(),
                 donorEmailField.getText(), dateDonatedField.getText()};
 
@@ -266,9 +281,12 @@ public class ModifyClothingView extends View {
     public void fillTextFields(){
         genderField.setText(props.getProperty("Gender"));
         sizeField.setText(props.getProperty("Size"));
-        articleTypeField.setText(props.getProperty("ArticleType"));
-        color1Field.setText(props.getProperty("Color1"));
-        color2Field.setText(props.getProperty("Color2"));
+
+        //pulling barcodePFX from props and converting to descriptions
+        articleTypeField.setText(articleTypeCollection.getArticleDescriptionFromPFX(props.getProperty("ArticleType")));
+        color1Field.getSelectionModel().select(colorCollection.getColorDescriptionFromPFX(props.getProperty("Color1")));
+        color2Field.getSelectionModel().select(colorCollection.getColorDescriptionFromPFX(props.getProperty("Color2")));
+
         brandField.setText(props.getProperty("Brand"));
         notesField.setText(props.getProperty("Notes"));
         donorLastnameField.setText(props.getProperty("DonorLastname"));
@@ -283,8 +301,6 @@ public class ModifyClothingView extends View {
         genderField.clear();
         sizeField.clear();
         articleTypeField.clear();
-        color1Field.clear();
-        color2Field.clear();
         brandField.clear();
         notesField.clear();
         donorLastnameField.clear();
@@ -292,5 +308,17 @@ public class ModifyClothingView extends View {
         donorPhoneField.clear();
         donorEmailField.clear();
         dateDonatedField.clear();
+    }
+
+    public void populateComboBoxes()
+    {
+        for (int num = 0; num < colorObj.size(); num++) {
+            Vector<String> filler = colorObj.elementAt(num).getFields();
+            //System.out.println(filler);
+            color1Field.getItems().add(filler.get(1));
+            color2Field.getItems().add(filler.get(1));
+
+        }
+
     }
 }

@@ -102,6 +102,14 @@ public class ArticleTypeCollection extends EntityBase implements IView{
         return low;
     }
 
+    public String getArticleDescriptionFromPFX(String PFX){
+        String query = "SELECT Description FROM "+ myTableName + " WHERE BarcodePrefix LIKE '" + PFX + "'";
+        Vector<Properties> result = getSelectQueryResult(query);
+        String realResult = result.getFirst().getProperty("Description");
+
+        return realResult;
+    }
+
 
     public void findArticleTypeWithAlphaCode(String alphaCode) throws InvalidPrimaryKeyException{
         String query = "SELECT * FROM " + myTableName + " WHERE AlphaCode LIKE '%" + alphaCode + "%'";
