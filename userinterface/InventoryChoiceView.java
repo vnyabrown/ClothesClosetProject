@@ -131,13 +131,15 @@ public class InventoryChoiceView extends View {
             @Override
             public void handle(ActionEvent e) {
                 myModel.stateChangeRequest("ListInventoryView", null);
+                modDelCheckFlag = "listInventory";
             }
         });
         listCheckoutButton = new Button("List Checkout");
         listCheckoutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("ListInventoryView", null);
+                myModel.stateChangeRequest("ListCheckoutView", null);
+                modDelCheckFlag = "listCheckout";
             }
         });
         quitButton = new Button("Back");

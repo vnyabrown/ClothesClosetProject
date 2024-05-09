@@ -158,6 +158,9 @@ public class ArticleTypeCollectionView extends View
 
         tableOfArticleTypes = new TableView<ArticleTypeTableModel>();
         tableOfArticleTypes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        Label placeholder = new Label("No Results");
+        placeholder.setAlignment(Pos.TOP_LEFT);
+        tableOfArticleTypes.setPlaceholder(placeholder);
 
         TableColumn accountNumberColumn = new TableColumn("Id") ;
         accountNumberColumn.setMinWidth(100);
@@ -192,7 +195,7 @@ public class ArticleTypeCollectionView extends View
             public void handle(MouseEvent event)
             {
                 if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
-                    processArticleTypeSelected("");
+                    processArticleTypeSelected("modify");
                 }
             }
         });
@@ -205,7 +208,7 @@ public class ArticleTypeCollectionView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("SearchForArticleType", null);
+                myModel.stateChangeRequest("SearchForArticleType", "");
             }
         });
 

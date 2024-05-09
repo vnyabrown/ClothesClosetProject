@@ -8,12 +8,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -151,6 +147,9 @@ public class ColorCollectionView extends View
 
         tableOfColors = new TableView<ColorTableModel>();
         tableOfColors.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        Label placeholder = new Label("No Results");
+        placeholder.setAlignment(Pos.TOP_LEFT);
+        tableOfColors.setPlaceholder(placeholder);
 
         TableColumn colorNumberColumn = new TableColumn("Id") ;
         colorNumberColumn.setMinWidth(100);

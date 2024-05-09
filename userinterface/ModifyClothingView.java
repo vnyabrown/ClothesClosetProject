@@ -112,96 +112,125 @@ public class ModifyClothingView extends View {
         grid.add(genderLabel, 0, 1);
         genderField = new TextField();
         grid.add(genderField, 1, 1);
-
+        genderField.clear();
+        genderField.setText(props.getProperty("Gender"));
 
         Label sizeLabel = new Label("Size: ");
         grid.add(sizeLabel, 0, 2);
         sizeField = new TextField();
         grid.add(sizeField, 1, 2);
+        sizeField.clear();
+        sizeField.setText(props.getProperty("Size"));
 
 
         Label articleTypeLabel = new Label("Article Type: ");
         grid.add(articleTypeLabel, 0, 3);
         articleTypeField = new TextField();
         grid.add(articleTypeField, 1, 3);
+        articleTypeField.clear();
+        articleTypeField.setText(props.getProperty("ArticleType"));
 
 
         Label color1Label = new Label("Color 1: ");
         grid.add(color1Label, 0, 4);
         color1Field = new TextField();
         grid.add(color1Field, 1, 4);
+        color1Field.clear();
+        color1Field.setText(props.getProperty("Color1"));
 
 
         Label color2Label = new Label("Color 2: ");
         grid.add(color2Label, 0, 5);
         color2Field = new TextField();
         grid.add(color2Field, 1, 5);
+        color2Field.clear();
+        color2Field.setText(props.getProperty("Color2"));
 
 
         Label brandLabel = new Label("Brand: ");
         grid.add(brandLabel, 0, 6);
         brandField = new TextField();
         grid.add(brandField, 1, 6);
+        brandField.clear();
+        brandField.setText(props.getProperty("Brand"));
 
 
         Label notesLabel = new Label("Notes: ");
         grid.add(notesLabel, 0, 7);
         notesField = new TextField();
         grid.add(notesField, 1, 7);
-
+        notesField.clear();
+        notesField.setText(props.getProperty("Notes"));
 
         Label donorLastnameLabel = new Label("Donor Last Name: ");
         grid.add(donorLastnameLabel, 0, 9);
         donorLastnameField = new TextField();
         grid.add(donorLastnameField, 1, 9);
+        donorLastnameField.clear();
+        donorLastnameField.setText(props.getProperty("DonorLastname"));
 
 
         Label donorFirstnameLabel = new Label("Donor First Name: ");
         grid.add(donorFirstnameLabel, 0, 10);
         donorFirstnameField = new TextField();
         grid.add(donorFirstnameField, 1, 10);
+        donorFirstnameField.clear();
+        donorFirstnameField.setText(props.getProperty("DonorFirstname"));
 
 
         Label donorPhoneLabel = new Label("Donor Phone: ");
         grid.add(donorPhoneLabel, 0, 11);
         donorPhoneField = new TextField();
         grid.add(donorPhoneField, 1, 11);
+        donorPhoneField.clear();
+        donorPhoneField.setText(props.getProperty("DonorPhone"));
 
 
         Label donorEmailLabel = new Label("Donor Email: ");
         grid.add(donorEmailLabel, 0, 12);
         donorEmailField = new TextField();
         grid.add(donorEmailField, 1, 12);
+        donorEmailField.clear();
+        donorEmailField.setText(props.getProperty("DonorEmail"));
 
 
         Label receiverNetidLabel = new Label("Receiver Netid: ");
         grid.add(receiverNetidLabel, 0, 13);
         receiverNetidField = new TextField();
         grid.add(receiverNetidField, 1, 13);
+        receiverNetidField.clear();
+        receiverNetidField.setText(props.getProperty("ReceiverNetid"));
 
 
         Label receiverLastnameLabel = new Label("Receiver Last Name: ");
         grid.add(receiverLastnameLabel, 0, 14);
         receiverLastnameField = new TextField();
         grid.add(receiverLastnameField, 1, 14);
+        receiverLastnameField.clear();
+        receiverLastnameField.setText(props.getProperty("ReceiverLastname"));
 
 
         Label receiverFirstnameLabel = new Label("Receiver First Name: ");
         grid.add(receiverFirstnameLabel, 0, 15);
         receiverFirstnameField = new TextField();
         grid.add(receiverFirstnameField, 1, 15);
+        receiverFirstnameField.clear();
+        receiverFirstnameField.setText(props.getProperty("ReceiverFirstname"));
 
 
         Label dateDonatedLabel = new Label("Date Donated: ");
         grid.add(dateDonatedLabel, 0, 16);
         dateDonatedField = new TextField();
         grid.add(dateDonatedField, 1, 16);
-
+        dateDonatedField.clear();
+        dateDonatedField.setText(props.getProperty("DateDonated"));
 
         Label dateTakenLabel = new Label("Date Taken: ");
         grid.add(dateTakenLabel, 0, 17);
         dateTakenField = new TextField();
         grid.add(dateTakenField, 1, 17);
+        dateTakenField.clear();
+        dateTakenField.setText(props.getProperty("DateTaken"));
 
 
 
