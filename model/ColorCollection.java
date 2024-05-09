@@ -93,6 +93,17 @@ public class ColorCollection extends EntityBase implements IView {
         return this.colorList;
     }
 
+    public Vector<Color> getAllValidColors() {
+        String query = "SELECT DISTINCT * FROM " + myTableName;
+        try {
+            updateColorListFromSQL(query);
+        } catch (Exception e) {
+            System.out.println("ERROR: Failed to retrieve all valid colors!");
+        }
+
+        return this.colorList;
+    }
+
 
     public void display(){
         if (colorList.isEmpty())

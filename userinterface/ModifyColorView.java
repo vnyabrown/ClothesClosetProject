@@ -163,7 +163,7 @@ public class ModifyColorView extends View
             values[0] = (String) text.getText();
             values[1] = (String) modificationField.getValue();
             myModel.stateChangeRequest("ModifyColor", values);
-            displayMessage("Color Modified.");
+            displayMessage("Successfully modified color.");
             //myModel.stateChangeRequest("SearchBooksCollection", null);
         }
     }

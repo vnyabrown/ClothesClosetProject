@@ -134,4 +134,17 @@ public class ArticleTypeCollection extends EntityBase implements IView{
             throw new InvalidPrimaryKeyException("Articles not found");
         }
     }
+
+
+
+    public Vector<ArticleType> getAllValidArticleTypes() {
+        String query = "SELECT DISTINCT * FROM " + myTableName;
+        try {
+            populateArticleTypesWithQuery(query);
+        } catch (Exception e) {
+            System.out.println("ERROR: Failed to retrieve all valid colors!");
+        }
+
+        return this.articleTypes;
+    }
 }

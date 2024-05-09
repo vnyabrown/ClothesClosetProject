@@ -229,7 +229,7 @@ public class Closet implements IView, IModel {
                     color.updateStateInDatabase();
                 }
                 else {
-                    System.out.println("not an option in statechangerequest in modifycolor");
+                    System.out.println("`not` an option in statechangerequest in modifycolor");
                 }
                 break;
 

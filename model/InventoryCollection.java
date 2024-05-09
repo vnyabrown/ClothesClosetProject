@@ -2,14 +2,13 @@ package model;
 
 import java.util.Vector;
 
-import exception.InvalidPrimaryKeyException;
 import impresario.IView;
 import java.util.Properties;
-import model.Inventory;
 
 public class InventoryCollection extends EntityBase implements IView{
     private static final String myTableName = "inventory";
     private Vector<Inventory> invenList;
+    private Vector<ArticleType> articleList;
 
     private String updateStatusMessage;
 
@@ -17,11 +16,12 @@ public class InventoryCollection extends EntityBase implements IView{
     public InventoryCollection() {
         super(myTableName);
         invenList = new Vector<>();
+        articleList = new Vector<>();
     }
 
 
     public void updateInventoryListFromSQL(String query) throws Exception {
-        // Reset bookList
+        // Reset invenList
         this.invenList = new Vector<Inventory>();
 
         // Pull the data
