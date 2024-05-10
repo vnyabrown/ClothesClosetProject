@@ -154,6 +154,10 @@ public class ClothingCollectionView extends View
         tableOfClothing = new TableView<ClothingTableModel>();
         tableOfClothing.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
+        // Set width and height of table
+        vbox.setMinWidth(1500);
+        vbox.setMinHeight(1000);
+
         TableColumn barcodeColumn = new TableColumn("Barcode");
         barcodeColumn.setMinWidth(100);
         barcodeColumn.setCellValueFactory(
@@ -322,6 +326,7 @@ public class ClothingCollectionView extends View
         vbox.getChildren().add(grid);
         vbox.getChildren().add(scrollPane);
         vbox.getChildren().add(btnContainer);
+
 
         return vbox;
     }
