@@ -151,23 +151,29 @@ public class SearchForClothingView extends View
 
         if(text.getText() == null || text.getText().isEmpty()) {
             displayErrorMessage("Please enter a Barcode.");
-            text.requestFocus();
+        } else if (text.getText().length() != 8) {
+            displayErrorMessage("Barcode must be 8 digits long");
+        } else if(!checkGender(text.getText())) {
+            displayErrorMessage("First letter of the barcode can be 0 (male) or 1 (female)");
         }
         else {
             clearErrorMessage();
             String[] values = new String[2];
             values[0] = (String) text.getText();
             values[1] = (String) "Barcode";
-            if(modDelCheckFlag == "ins")
-            {
-                myModel.stateChangeRequest("InsertInventoryView", values[0]);
-            }
-            else 
-            {
+            if(modDelCheckFlag == "ins") {
+                    myModel.stateChangeRequest("InsertInventoryView", values[0]);
+            } else {
                 myModel.stateChangeRequest("SearchClothingCollection", values);
             //myModel.stateChangeRequest("SearchColorCollection", null);
             }
         }
+    }
+
+    // Checks first digit of barcode to make sure gender can be parsed correctly when adding
+    private boolean checkGender(String barcode) {
+        Character firstDigit = barcode.charAt(0);
+        return firstDigit.equals('0') || firstDigit.equals('1');
     }
 
     private boolean pubYearHasLetter(String str) {
@@ -234,6 +240,7 @@ public class SearchForClothingView extends View
     public void displayErrorMessage(String message)
     {
         statusLog.displayErrorMessage(message);
+        text.requestFocus();
     }
 
     /**
