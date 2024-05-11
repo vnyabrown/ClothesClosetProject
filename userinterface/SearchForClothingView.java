@@ -23,6 +23,8 @@ import static userinterface.InventoryChoiceView.modDelCheckFlag;
 // project imports
 import impresario.IModel;
 
+import java.util.function.UnaryOperator;
+
 /** The class containing the Account View  for the ATM application */
 //==============================================================
 public class SearchForClothingView extends View
@@ -114,6 +116,7 @@ public class SearchForClothingView extends View
         text = new TextField();
         text.setEditable(true);
         grid.add(text, 1, 1);
+        addTextFormatter(text);
 
 
         HBox doneCont = new HBox(10);
@@ -146,28 +149,53 @@ public class SearchForClothingView extends View
         return vbox;
     }
 
+    // add text formatter to text field to only enter 8 digits
+    private void addTextFormatter(TextField text) {
+            UnaryOperator<TextFormatter.Change> filter = change -> {
+                String newText = change.getControlNewText();
+                System.out.println("newtext: " + newText);
+
+                if(newText.length() > 8) {
+                    return null;
+                } else if(newText.matches("\\d*")) {
+                    System.out.println("is digit: " + newText);
+                    return change;
+                }
+                System.out.println("no match: " + newText);
+                return null;
+            };
+        TextFormatter<String> textFormatter = new TextFormatter<>(filter);
+        text.setTextFormatter(textFormatter);
+    }
+
     // Process user input
     public void processAction(Event event) {
 
         if(text.getText() == null || text.getText().isEmpty()) {
             displayErrorMessage("Please enter a Barcode.");
-            text.requestFocus();
+        } else if (text.getText().length() != 8) {
+            displayErrorMessage("Barcode must be 8 digits long");
+        } else if(!checkGender(text.getText())) {
+            displayErrorMessage("First letter of the barcode can be 0 (male) or 1 (female)");
         }
         else {
             clearErrorMessage();
             String[] values = new String[2];
             values[0] = (String) text.getText();
             values[1] = (String) "Barcode";
-            if(modDelCheckFlag == "ins")
-            {
-                myModel.stateChangeRequest("InsertInventoryView", values[0]);
-            }
-            else 
-            {
+            if(modDelCheckFlag == "ins") {
+                    myModel.stateChangeRequest("InsertInventoryView", values[0]);
+            } else {
                 myModel.stateChangeRequest("SearchClothingCollection", values);
             //myModel.stateChangeRequest("SearchColorCollection", null);
             }
         }
+    }
+
+    // Checks first digit of barcode to make sure gender can be parsed correctly when adding
+    private boolean checkGender(String barcode) {
+        Character firstDigit = barcode.charAt(0);
+        return firstDigit.equals('0') || firstDigit.equals('1');
     }
 
     private boolean pubYearHasLetter(String str) {
@@ -234,6 +262,7 @@ public class SearchForClothingView extends View
     public void displayErrorMessage(String message)
     {
         statusLog.displayErrorMessage(message);
+        text.requestFocus();
     }
 
     /**

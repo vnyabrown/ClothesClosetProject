@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,6 +19,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import java.util.Properties;
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 
 import static model.Closet.barcode;
 import static model.Closet.clothMod;
@@ -134,7 +137,9 @@ public class InsertInventoryView extends View {
         Label donorPhoneLabel = new Label("Donor Phone: ");
         grid.add(donorPhoneLabel, 0, 4);
         donorPhoneField = new TextField();
+        addPhoneFormatter(donorPhoneField);
         grid.add(donorPhoneField, 1, 4);
+
 
         Label donorEmailLabel = new Label("Donor Email: ");
         grid.add(donorEmailLabel, 0, 5);
@@ -202,6 +207,49 @@ public class InsertInventoryView extends View {
         grid.add(cancelButton, 1, 13);
         return grid;
     } // end of createFormContents
+
+    // add formatter to phone field
+    private void addPhoneFormatter(TextField donorPhoneField) {
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String newText = change.getControlNewText();
+            System.out.println("newtext: " + newText);
+
+            if(newText.length() > 14) {
+                return null;
+            }
+
+            if(newText.matches("\\(*[0-9]*\\)? ?[0-9]*-*[0-9]*")) {//|| newText.isEmpty()){
+                System.out.println("is digit: " + newText);
+                System.out.println("getText:" + change.getText());
+                if(newText.length() == 1 && !change.getText().isEmpty()) {
+                    String str = "(" + change.getText();
+                    change.setText(str);
+                    change.setCaretPosition(newText.length() + 1);
+                    change.setAnchor(newText.length() + 1);
+                } else if(newText.length() == 4 && !change.getText().isEmpty()) {
+                    String str = change.getText() + ") ";
+                    change.setText(str);
+                    change.setCaretPosition(newText.length() + 2);
+                    change.setAnchor(newText.length() + 2);
+                } else if(newText.length() == 9 && !change.getText().isEmpty()) {
+                    String str = change.getText() + "-";
+                    System.out.println("new new text: " + newText);
+                    System.out.println("str: '" + str + "'");
+                    change.setText(str);
+                    change.setCaretPosition(newText.length() + 1);
+                    change.setAnchor(newText.length() + 1);
+                }
+                return change;
+            }
+            System.out.println("no match: " + newText);
+            return null;
+        };
+
+
+        TextFormatter<String> phoneFormater = new TextFormatter<>(filter);
+        donorPhoneField.setTextFormatter(phoneFormater);
+        ///------------------------------------//------------------------------------/-------------------------------------
+    }
 
     private MessageView createStatusLog(String initialMessage)
     {
@@ -295,6 +343,12 @@ public class InsertInventoryView extends View {
             displayErrorMessage("Please enter a Size for Inventory Item!");
             sizeField.requestFocus();
         }
+        else if(!checkPhone(donorPhoneEntered)) {
+            donorPhoneField.requestFocus();
+        }
+        else if(!checkEmail(donorEmailEntered)) {
+            donorEmailField.requestFocus();
+        }
         else
         {
             props = new Properties();
@@ -333,6 +387,24 @@ public class InsertInventoryView extends View {
             }
         }
     } // end of processAction
+
+    // Check email
+    private boolean checkEmail(String email) {
+        if(!email.matches("[\\w]+@brockport.edu")) {
+            displayErrorMessage("Email format: tamer10@brockport.edu");
+            return false;
+        }
+        return true;
+    }
+
+    // Check phone number
+    private boolean checkPhone(String phoneNum) {
+        if(!phoneNum.matches("\\(([0-9]){3}\\) ([0-9]){3}-([0-9]){4}")) {
+            displayErrorMessage("Phone number format: (111) 222-3333");
+            return false;
+        }
+        return true;
+    }
 
     public void parseBarcode()
     {
