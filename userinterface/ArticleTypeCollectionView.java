@@ -277,7 +277,7 @@ public class ArticleTypeCollectionView extends View
 
             if(str.equals("delete")) {
                 myModel.stateChangeRequest("ArticleTypeSelectedForDeletion", prop);
-                displayMessage("Article Type Deleted.");
+                displayMessage("Article type with ID " + prop.getProperty("Id") + " was successfully removed");
             }
             else if(str.equals("modify")) {
                 System.out.println("in modify in view");

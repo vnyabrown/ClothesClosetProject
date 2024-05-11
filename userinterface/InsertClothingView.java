@@ -7,9 +7,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,16 +16,22 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.util.Callback;
+import model.ArticleType;
+import model.ArticleTypeCollection;
+import model.ColorCollection;
+
 import java.util.Properties;
+import java.util.Vector;
 
 public class InsertClothingView extends View {
 
     Properties props;
     private TextField genderField;
     private TextField sizeField;
-    private TextField articleTypeField;
-    private TextField color1Field;
-    private TextField color2Field;
+    private ComboBox<ArticleType> articleTypeField;
+    private ComboBox<model.Color> color1Field;
+    private ComboBox<model.Color> color2Field;
     private TextField brandField;
     private TextField notesField;
     private TextField donorLastNameField;
@@ -44,7 +48,7 @@ public class InsertClothingView extends View {
 
     public InsertClothingView(IModel color)
     {
-        super(color, "InsertColorView");
+        super(color, "InsertClothingView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -66,7 +70,7 @@ public class InsertClothingView extends View {
 
     private Node createTitle() {
 
-        Text titleText = new Text("       Insert Color          ");
+        Text titleText = new Text("       Insert Clothing          ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleText.setTextAlignment(TextAlignment.CENTER);
         titleText.setFill(Color.DARKGREEN);
@@ -110,17 +114,81 @@ public class InsertClothingView extends View {
 
         Label articleTypeLabel = new Label("Article Type: ");
         grid.add(articleTypeLabel, 0, 5);
-        articleTypeField = new TextField();
+        articleTypeField = new ComboBox<>();
+        ArticleTypeCollection articleColl = new ArticleTypeCollection();
+        Callback<ListView<ArticleType>, ListCell<ArticleType>> articleTypeFactory = new Callback<ListView<ArticleType>, ListCell<ArticleType>>() {
+            @Override
+            public ListCell<ArticleType> call(ListView<ArticleType> l) {
+                return new ListCell<ArticleType>() {
+                     public void updateItem(ArticleType col, boolean empty) {
+                        if (col == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            setText(col.getFields().get(1));
+                        }
+                    }
+                };
+            }
+        };
+        articleTypeField.setButtonCell(articleTypeFactory.call(null));
+        articleTypeField.setCellFactory(articleTypeFactory);
+
+        Vector<ArticleType> validArticleTypes = articleColl.getAllValidArticleTypes();
+        for (ArticleType artType: validArticleTypes) {
+            articleTypeField.getItems().add(artType);
+        }
         grid.add(articleTypeField, 1, 5);
 
         Label color1Label = new Label("Primary Color: ");
         grid.add(color1Label, 0, 6);
-        color1Field = new TextField();
+        color1Field = new ComboBox<>();
+        ColorCollection colorColl = new ColorCollection();
+        Callback<ListView<model.Color>, ListCell<model.Color>> color1Factory = new Callback<ListView<model.Color>, ListCell<model.Color>>() {
+            @Override
+            public ListCell<model.Color> call(ListView<model.Color> l) {
+                return new ListCell<model.Color>() {
+                    public void updateItem(model.Color col, boolean empty) {
+                        if (col == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            setText(col.getFields().get(1));
+                        }
+                    }
+                };
+            }
+        };
+        color1Field.setButtonCell(color1Factory.call(null));
+        color1Field.setCellFactory(color1Factory);
+
+        Vector<model.Color> validColors = colorColl.getAllValidColors();
+        for (model.Color col: validColors) {
+            color1Field.getItems().add(col);
+        }
         grid.add(color1Field, 1, 6);
 
         Label color2Label = new Label("Secondary Color: ");
         grid.add(color2Label, 0, 7);
-        color2Field = new TextField();
+        color2Field = new ComboBox<>();
+        Callback<ListView<model.Color>, ListCell<model.Color>> color2Factory = new Callback<ListView<model.Color>, ListCell<model.Color>>() {
+            @Override
+            public ListCell<model.Color> call(ListView<model.Color> l) {
+                return new ListCell<model.Color>() {
+                    public void updateItem(model.Color col, boolean empty) {
+                        if (col == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            setText(col.getFields().get(1));
+                        }
+                    }
+                };
+            }
+        };
+        color2Field.setButtonCell(color2Factory.call(null));
+        color2Field.setCellFactory(color2Factory);
+
+        for (model.Color col: validColors) {
+            color2Field.getItems().add(col);
+        }
         grid.add(color2Field, 1, 7);
 
         Label brandLabel = new Label("Brand: ");
@@ -180,9 +248,10 @@ public class InsertClothingView extends View {
         // PROCESS FIELDS SUBMITTED
         String genderEntered = genderField.getText();
         String sizeEntered = sizeField.getText();
-        String articleTypeEntered = articleTypeField.getText();
-        String color1Entered = color1Field.getText();
-        String color2Entered = color2Field.getText();
+        String articleTypeEntered = articleTypeField.getValue().getFields().get(2);
+        System.out.println(articleTypeEntered);
+        String color1Entered = color1Field.getValue().getFields().get(2);
+        String color2Entered = color2Field.getValue().getFields().get(2);
         String brandEntered = brandField.getText();
         String notesEntered = notesField.getText();
         String donorFirstNameEntered = donorFirstNameField.getText();
