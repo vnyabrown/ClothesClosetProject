@@ -229,15 +229,13 @@ public class Inventory extends EntityBase {
 
     }
 
-    public void modifyInventory(String genderEntered,String sizeEntered,String articleTypeEntered,
+    public void modifyInventory(String genderEntered,String sizeEntered,
                                 String color1Entered, String color2Entered, String brandEntered,
                                 String notesEntered, String donorLastnameEntered,
                                 String donorFirstnameEntered, String donorPhoneEntered, String donorEmailEntered,
-                                String receiverNetidEntered, String receiverLastnameEntered, String receiverFirstnameEntered,
-                                String dateDonatedEntered, String dateTakenEntered) {
+                                String dateDonatedEntered) {
         persistentState.setProperty("Gender", genderEntered);
         persistentState.setProperty("Size", sizeEntered);
-        persistentState.setProperty("ArticleType", articleTypeEntered);
         persistentState.setProperty("Color1", color1Entered);
         persistentState.setProperty("Color2", color2Entered);
         persistentState.setProperty("Brand", brandEntered);
@@ -246,11 +244,7 @@ public class Inventory extends EntityBase {
         persistentState.setProperty("DonorFirstname", donorFirstnameEntered);
         persistentState.setProperty("DonorPhone", donorPhoneEntered);
         persistentState.setProperty("DonorEmail", donorEmailEntered);
-        persistentState.setProperty("ReceiverNetid", receiverNetidEntered);
-        persistentState.setProperty("ReceiverLastname", receiverLastnameEntered);
-        persistentState.setProperty("ReceiverFirstname", receiverFirstnameEntered);
         persistentState.setProperty("DateDonated", dateDonatedEntered);
-        persistentState.setProperty("DateTaken", dateTakenEntered);
         System.out.println("Inventory modified.");
     }
 

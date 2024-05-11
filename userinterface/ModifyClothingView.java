@@ -1,7 +1,6 @@
 package userinterface;
 
 import impresario.IModel;
-import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -9,21 +8,23 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.ArticleTypeCollection;
+import model.ColorCollection;
 
-import javax.swing.event.ChangeEvent;
 import java.util.Properties;
 import java.util.function.UnaryOperator;
+import java.util.Vector;
 
 import static model.Closet.clothMod;
 
@@ -33,19 +34,19 @@ public class ModifyClothingView extends View {
     private TextField genderField;
     private TextField sizeField;
     private TextField articleTypeField;
-    private TextField color1Field;
-    private TextField color2Field;
+    private ComboBox color1Field;
+    private ComboBox color2Field;
     private TextField brandField;
     private TextField notesField;
     private TextField donorLastnameField;
     private TextField donorFirstnameField;
     private TextField donorPhoneField;
     private TextField donorEmailField;
-    private TextField receiverNetidField;
-    private TextField receiverLastnameField;
-    private TextField receiverFirstnameField;
     private TextField dateDonatedField;
-    private TextField dateTakenField;
+
+    private Vector<model.Color> colorObj = null;
+    ColorCollection colorCollection = new ColorCollection();
+    ArticleTypeCollection articleTypeCollection = new ArticleTypeCollection();
 
     private Button submitButton;
     private Button cancelButton;
@@ -83,6 +84,9 @@ public class ModifyClothingView extends View {
         myModel.subscribe("successfulModify", this);
         myModel.subscribe("unsuccessfulModify", this);
         myModel.subscribe("updateText", this);
+
+        colorObj = colorCollection.getAllValidColors();
+        populateComboBoxes();
 
     }
 
@@ -135,18 +139,16 @@ public class ModifyClothingView extends View {
 
         Label color1Label = new Label("Color 1: ");
         grid.add(color1Label, 0, 4);
-        color1Field = new TextField();
+        color1Field = new ComboBox<String>();
+        color1Field.setMinSize(100, 20);
         grid.add(color1Field, 1, 4);
-        color1Field.clear();
-        color1Field.setText(props.getProperty("Color1"));
 
 
         Label color2Label = new Label("Color 2: ");
         grid.add(color2Label, 0, 5);
-        color2Field = new TextField();
+        color2Field = new ComboBox<String>();
+        color2Field.setMinSize(100, 20);
         grid.add(color2Field, 1, 5);
-        color2Field.clear();
-        color2Field.setText(props.getProperty("Color2"));
 
 
         Label brandLabel = new Label("Brand: ");
@@ -165,73 +167,34 @@ public class ModifyClothingView extends View {
         notesField.setText(props.getProperty("Notes"));
 
         Label donorLastnameLabel = new Label("Donor Last Name: ");
-        grid.add(donorLastnameLabel, 0, 9);
+        grid.add(donorLastnameLabel, 0, 8);
         donorLastnameField = new TextField();
-        grid.add(donorLastnameField, 1, 9);
-        donorLastnameField.clear();
-        donorLastnameField.setText(props.getProperty("DonorLastname"));
+        grid.add(donorLastnameField, 1, 8);
 
 
         Label donorFirstnameLabel = new Label("Donor First Name: ");
-        grid.add(donorFirstnameLabel, 0, 10);
+        grid.add(donorFirstnameLabel, 0, 9);
         donorFirstnameField = new TextField();
-        grid.add(donorFirstnameField, 1, 10);
-        donorFirstnameField.clear();
-        donorFirstnameField.setText(props.getProperty("DonorFirstname"));
+        grid.add(donorFirstnameField, 1, 9);
 
 
         Label donorPhoneLabel = new Label("Donor Phone: ");
-        grid.add(donorPhoneLabel, 0, 11);
+        grid.add(donorPhoneLabel, 0, 10);
         donorPhoneField = new TextField();
-        grid.add(donorPhoneField, 1, 11);
+        grid.add(donorPhoneField, 1, 10);
         addPhoneFormatter(donorPhoneField);
 
 
         Label donorEmailLabel = new Label("Donor Email: ");
-        grid.add(donorEmailLabel, 0, 12);
+        grid.add(donorEmailLabel, 0, 11);
         donorEmailField = new TextField();
-        grid.add(donorEmailField, 1, 12);
-        donorEmailField.clear();
-        donorEmailField.setText(props.getProperty("DonorEmail"));
-
-
-        Label receiverNetidLabel = new Label("Receiver Netid: ");
-        grid.add(receiverNetidLabel, 0, 13);
-        receiverNetidField = new TextField();
-        grid.add(receiverNetidField, 1, 13);
-        receiverNetidField.clear();
-        receiverNetidField.setText(props.getProperty("ReceiverNetid"));
-
-
-        Label receiverLastnameLabel = new Label("Receiver Last Name: ");
-        grid.add(receiverLastnameLabel, 0, 14);
-        receiverLastnameField = new TextField();
-        grid.add(receiverLastnameField, 1, 14);
-        receiverLastnameField.clear();
-        receiverLastnameField.setText(props.getProperty("ReceiverLastname"));
-
-
-        Label receiverFirstnameLabel = new Label("Receiver First Name: ");
-        grid.add(receiverFirstnameLabel, 0, 15);
-        receiverFirstnameField = new TextField();
-        grid.add(receiverFirstnameField, 1, 15);
-        receiverFirstnameField.clear();
-        receiverFirstnameField.setText(props.getProperty("ReceiverFirstname"));
+        grid.add(donorEmailField, 1, 11);
 
 
         Label dateDonatedLabel = new Label("Date Donated: ");
-        grid.add(dateDonatedLabel, 0, 16);
+        grid.add(dateDonatedLabel, 0, 12);
         dateDonatedField = new TextField();
-        grid.add(dateDonatedField, 1, 16);
-        dateDonatedField.clear();
-        dateDonatedField.setText(props.getProperty("DateDonated"));
-
-        Label dateTakenLabel = new Label("Date Taken: ");
-        grid.add(dateTakenLabel, 0, 17);
-        dateTakenField = new TextField();
-        grid.add(dateTakenField, 1, 17);
-        dateTakenField.clear();
-        dateTakenField.setText(props.getProperty("DateTaken"));
+        grid.add(dateDonatedField, 1, 12);
 
 
 
@@ -243,7 +206,7 @@ public class ModifyClothingView extends View {
             }
         });
 
-        grid.add(submitButton, 0, 18);
+        grid.add(submitButton, 0, 13);
         cancelButton = new Button("Cancel");
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -254,9 +217,10 @@ public class ModifyClothingView extends View {
                 myModel.stateChangeRequest("Inventory", "");
             }
         });
-        grid.add(cancelButton, 1, 18);
+        grid.add(cancelButton, 1, 13);
 
         fillTextFields();
+        articleTypeField.setDisable(true);
 
         return grid;
     }
@@ -275,22 +239,20 @@ public class ModifyClothingView extends View {
         // DEBUG: System.out.println("InsertArticleView.actionPerformed()");
         //System.out.println("Logic TBA");
 
-        if(!checkPhone(donorPhoneField.getText())) {
-            donorPhoneField.requestFocus();
-        } else if(!checkEmail(donorEmailField.getText())) {
-            donorEmailField.requestFocus();
-        } else {
-            // PROCESS FIELDS SUBMITTED
-            String[] values = new String[]{genderField.getText(), sizeField.getText(), articleTypeField.getText(),
-                    color1Field.getText(), color2Field.getText(), brandField.getText(), notesField.getText(),
-                    donorLastnameField.getText(), donorFirstnameField.getText(), donorPhoneField.getText(),
-                    donorEmailField.getText(), receiverNetidField.getText(), receiverLastnameField.getText(),
-                    receiverFirstnameField.getText(), dateDonatedField.getText(), dateTakenField.getText()};
+        //Convert comboBox descriptions back to barcode prefixes
+        String color1 = colorCollection.getColorPFXFromDescription((String)color1Field.getValue());
+        String color2 = colorCollection.getColorPFXFromDescription((String)color2Field.getValue());
+
+        // PROCESS FIELDS SUBMITTED
+        String[] values = new String[]{genderField.getText(), sizeField.getText(),
+                color1, color2, brandField.getText(), notesField.getText(),
+                donorLastnameField.getText(), donorFirstnameField.getText(), donorPhoneField.getText(),
+                donorEmailField.getText(), dateDonatedField.getText()};
 
 
             myModel.stateChangeRequest("ModifyClothing", values);
         }
-    }
+    
 
     // add phone formatter to text field
     private void addPhoneFormatter(TextField donorPhoneField) {
@@ -391,20 +353,19 @@ public class ModifyClothingView extends View {
     public void fillTextFields(){
         genderField.setText(props.getProperty("Gender"));
         sizeField.setText(props.getProperty("Size"));
-        articleTypeField.setText(props.getProperty("ArticleType"));
-        color1Field.setText(props.getProperty("Color1"));
-        color2Field.setText(props.getProperty("Color2"));
+
+        //pulling barcodePFX from props and converting to descriptions
+        articleTypeField.setText(articleTypeCollection.getArticleDescriptionFromPFX(props.getProperty("ArticleType")));
+        color1Field.getSelectionModel().select(colorCollection.getColorDescriptionFromPFX(props.getProperty("Color1")));
+        color2Field.getSelectionModel().select(colorCollection.getColorDescriptionFromPFX(props.getProperty("Color2")));
+
         brandField.setText(props.getProperty("Brand"));
         notesField.setText(props.getProperty("Notes"));
         donorLastnameField.setText(props.getProperty("DonorLastname"));
         donorFirstnameField.setText(props.getProperty("DonorFirstname"));
         donorPhoneField.setText(props.getProperty("DonorPhone"));
         donorEmailField.setText(props.getProperty("DonorEmail"));
-        receiverNetidField.setText(props.getProperty("ReceiverNetid"));
-        receiverLastnameField.setText(props.getProperty("ReceiverLastname"));
-        receiverFirstnameField.setText(props.getProperty("ReceiverFirstname"));
         dateDonatedField.setText(props.getProperty("DateDonated"));
-        dateTakenField.setText(props.getProperty("DateTaken"));
 
     }
 
@@ -412,18 +373,24 @@ public class ModifyClothingView extends View {
         genderField.clear();
         sizeField.clear();
         articleTypeField.clear();
-        color1Field.clear();
-        color2Field.clear();
         brandField.clear();
         notesField.clear();
         donorLastnameField.clear();
         donorFirstnameField.clear();
         donorPhoneField.clear();
         donorEmailField.clear();
-        receiverNetidField.clear();
-        receiverLastnameField.clear();
-        receiverFirstnameField.clear();
         dateDonatedField.clear();
-        dateTakenField.clear();
+    }
+
+    public void populateComboBoxes()
+    {
+        for (int num = 0; num < colorObj.size(); num++) {
+            Vector<String> filler = colorObj.elementAt(num).getFields();
+            //System.out.println(filler);
+            color1Field.getItems().add(filler.get(1));
+            color2Field.getItems().add(filler.get(1));
+
+        }
+
     }
 }
