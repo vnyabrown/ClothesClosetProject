@@ -340,7 +340,7 @@ public class Closet implements IView, IModel {
         String target = values[0];
         try {
             if(values[1].equals("Barcode")) {
-                clothColl.findInventoryBarcodeDonated(target);
+                clothColl.findInventoryBarcode(target);
                 Vector<Inventory> invVec = (Vector<Inventory>) clothColl.getState("getVector");
                 if(invVec.isEmpty()) {
                     stateChangeRequest("noBarcodeFound", "nnnnn");

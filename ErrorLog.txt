@@ -48,3 +48,4 @@
 [5/2/24, 9:33 AM]|Inventory|updatePersistentState|Error|NOTAG|null<SQL Exception: 1292: (conn=241) Incorrect date value: 'NULL' for column `csdbClothesClosetSystem`.`inventory`.`DateTaken` at row 1>
 [5/2/24, 9:40 AM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1292: (conn=254) Incorrect date value: 'NULL' for column `csdbClothesClosetSystem`.`inventory`.`DateTaken` at row 1>
 [5/2/24, 9:43 AM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1292: (conn=255) Incorrect date value: 'NULL' for column `csdbClothesClosetSystem`.`inventory`.`DateTaken` at row 1>
+[5/11/24 1:50 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>

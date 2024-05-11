@@ -2,14 +2,14 @@ package model;
 
 import java.util.Vector;
 
-import exception.InvalidPrimaryKeyException;
 import impresario.IView;
 import java.util.Properties;
-import model.Inventory;
+
 
 public class InventoryCollection extends EntityBase implements IView{
     private static final String myTableName = "inventory";
     private Vector<Inventory> invenList;
+    private Vector<ArticleType> articleList;
 
     private String updateStatusMessage;
 
@@ -17,11 +17,12 @@ public class InventoryCollection extends EntityBase implements IView{
     public InventoryCollection() {
         super(myTableName);
         invenList = new Vector<>();
+        articleList = new Vector<>();
     }
 
 
     public void updateInventoryListFromSQL(String query) throws Exception {
-        // Reset bookList
+        // Reset invenList
         this.invenList = new Vector<Inventory>();
 
         // Pull the data
@@ -34,17 +35,31 @@ public class InventoryCollection extends EntityBase implements IView{
     }
 
 
-    public Vector<Inventory> findInventoryBarcodeDonated(String pfx)  {
-
+    public Vector<Inventory> findInventoryBarcode(String pfx)  {
         // The query to get all the colors
-        String query = "SELECT * FROM " + myTableName + " WHERE Barcode LIKE '%" + pfx + "%' AND Status LIKE 'Donated'";
+        String query = "SELECT * FROM " + myTableName + " WHERE Barcode LIKE '%" + pfx + "%' AND Status NOT LIKE 'Removed'";
         try {
             updateInventoryListFromSQL(query);
         } catch (Exception e) {
             System.out.println("ERROR: Invalid Barcode. '" + pfx + "' is not valid!");
         }
-
         return this.invenList;
+    }
+
+    public void listInventory() throws Exception {
+
+        String query = "SELECT * FROM " + myTableName + " WHERE Status LIKE 'Donated'";
+        updateInventoryListFromSQL(query);
+
+    }
+
+
+
+    public void listCheckout() throws Exception {
+
+        String query = "SELECT * FROM " + myTableName + " WHERE Status LIKE 'Received'";
+        updateInventoryListFromSQL(query);
+
     }
 
     public void display(){
