@@ -233,25 +233,31 @@ public class ModifyClothingView extends View {
         return statusLog;
     }
 
-    public void processAction(Event evt)
-    {
+    public void processAction(Event evt) {
         clearErrorMessage();
         // DEBUG: System.out.println("InsertArticleView.actionPerformed()");
         //System.out.println("Logic TBA");
+        if (checkEmail(donorEmailField.getText()) && checkPhone(donorPhoneField.getText())) {
+            //Convert comboBox descriptions back to barcode prefixes
+            String color1 = colorCollection.getColorPFXFromDescription((String) color1Field.getValue());
+            String color2;
+            System.out.println(color2Field.getValue());
+            if (color2Field.getValue().equals("NULL")) {
+                color2 = props.getProperty("Color2");
+            } else {
+                color2 = colorCollection.getColorPFXFromDescription((String) color2Field.getValue());
+            }
 
-        //Convert comboBox descriptions back to barcode prefixes
-        String color1 = colorCollection.getColorPFXFromDescription((String)color1Field.getValue());
-        String color2 = colorCollection.getColorPFXFromDescription((String)color2Field.getValue());
-
-        // PROCESS FIELDS SUBMITTED
-        String[] values = new String[]{genderField.getText(), sizeField.getText(),
-                color1, color2, brandField.getText(), notesField.getText(),
-                donorLastnameField.getText(), donorFirstnameField.getText(), donorPhoneField.getText(),
-                donorEmailField.getText(), dateDonatedField.getText()};
+            // PROCESS FIELDS SUBMITTED
+            String[] values = new String[]{genderField.getText(), sizeField.getText(),
+                    color1, color2, brandField.getText(), notesField.getText(),
+                    donorLastnameField.getText(), donorFirstnameField.getText(), donorPhoneField.getText(),
+                    donorEmailField.getText(), dateDonatedField.getText()};
 
 
             myModel.stateChangeRequest("ModifyClothing", values);
         }
+    }
     
 
     // add phone formatter to text field
@@ -357,8 +363,11 @@ public class ModifyClothingView extends View {
         //pulling barcodePFX from props and converting to descriptions
         articleTypeField.setText(articleTypeCollection.getArticleDescriptionFromPFX(props.getProperty("ArticleType")));
         color1Field.getSelectionModel().select(colorCollection.getColorDescriptionFromPFX(props.getProperty("Color1")));
-        color2Field.getSelectionModel().select(colorCollection.getColorDescriptionFromPFX(props.getProperty("Color2")));
-
+        try {
+            color2Field.getSelectionModel().select(colorCollection.getColorDescriptionFromPFX(props.getProperty("Color2")));
+        } catch(Exception e){
+            color2Field.getSelectionModel().select("NULL");
+        }
         brandField.setText(props.getProperty("Brand"));
         notesField.setText(props.getProperty("Notes"));
         donorLastnameField.setText(props.getProperty("DonorLastname"));
