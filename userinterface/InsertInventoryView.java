@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,6 +19,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import java.util.Properties;
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 
 import static model.Closet.barcode;
 import static model.Closet.clothMod;
@@ -134,7 +137,36 @@ public class InsertInventoryView extends View {
         Label donorPhoneLabel = new Label("Donor Phone: ");
         grid.add(donorPhoneLabel, 0, 4);
         donorPhoneField = new TextField();
+//        addFormatter(donorPhoneField);
         grid.add(donorPhoneField, 1, 4);
+//        String phonePattern = "\\((\\d{0,3})?\\)(\\d{0,3})?(\\d{0,4})?";
+//        String phonePattern = "[0-9()\\-]*";
+
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+//            String newText = change.getControlNewText();
+            String newText = change.getControlNewText();
+            System.out.println("newtext: " + newText);
+
+            if(newText.matches("[0-9]*-*[0-9]*-*[0-9]*")) {//|| newText.isEmpty()){
+                System.out.println("is digit: " + newText);
+                if(newText.length() == 3 || newText.length() == 7) {
+                    String str = change.getText() + "-";
+                    System.out.println("new new text: " + newText);
+                    System.out.println("str: " + str);
+                    change.setText(str);
+                    change.setCaretPosition(newText.length() + 1);
+                    change.setAnchor(newText.length() + 1);
+                }
+                return change;
+            }
+            System.out.println("no match: " + newText);
+            return null;
+        };
+
+
+        TextFormatter<String> phoneFormater = new TextFormatter<>(filter);
+        donorPhoneField.setTextFormatter(phoneFormater);
+        ///------------------------------------//------------------------------------/-------------------------------------
 
         Label donorEmailLabel = new Label("Donor Email: ");
         grid.add(donorEmailLabel, 0, 5);
@@ -202,6 +234,35 @@ public class InsertInventoryView extends View {
         grid.add(cancelButton, 1, 13);
         return grid;
     } // end of createFormContents
+
+    // add formatter to phone field
+    private void addFormatter(TextField donorPhoneField) {
+//        String phonePattern = "\\((\\d{0,3})?\\)(\\d{0,3})?(\\d{0,4})?";
+//        String phonePattern = "[0-9()\\-]*";
+
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String newText = change.getControlNewText();
+            System.out.println("newtext: " + newText);
+            if(newText.matches("[0-9]*\\(*\\)*-*")) {//|| newText.isEmpty()){
+                if(newText.isEmpty()) {
+                    System.out.println("empty");
+//                    newText += "(";
+                }
+                System.out.println("is digit: " + newText);
+//                change.setText(newText);
+                change.setText("1");
+                change.setCaretPosition(newText.length());
+                change.setAnchor(newText.length());
+                return change;
+            }
+            System.out.println("no match: " + newText);
+            return null;
+        };
+
+
+        TextFormatter<String> phoneFormater = new TextFormatter<>(filter);
+        donorPhoneField.setTextFormatter(phoneFormater);
+    }
 
     private MessageView createStatusLog(String initialMessage)
     {
@@ -295,6 +356,9 @@ public class InsertInventoryView extends View {
             displayErrorMessage("Please enter a Size for Inventory Item!");
             sizeField.requestFocus();
         }
+        else if(!checkPhone(donorPhoneEntered)) {
+            donorPhoneField.requestFocus();
+        }
         else
         {
             props = new Properties();
@@ -333,6 +397,18 @@ public class InsertInventoryView extends View {
             }
         }
     } // end of processAction
+
+    // Check phone number
+    private boolean checkPhone(String phoneNum) {
+        if(!phoneNum.matches("[0-9]")) {
+            displayErrorMessage("Phone can only contain digits");
+            return false;
+        } else if(!phoneNum.matches(".{10}")) {//phoneNum.length() != 10) {
+            displayErrorMessage("Phone number must be 10 digits long");
+            return false;
+        }
+        return true;
+    }
 
     public void parseBarcode()
     {
