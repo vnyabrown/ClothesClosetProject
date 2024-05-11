@@ -137,7 +137,7 @@ public class InsertInventoryView extends View {
         Label donorPhoneLabel = new Label("Donor Phone: ");
         grid.add(donorPhoneLabel, 0, 4);
         donorPhoneField = new TextField();
-        addFormatter(donorPhoneField);
+        addPhoneFormatter(donorPhoneField);
         grid.add(donorPhoneField, 1, 4);
 
 
@@ -209,7 +209,7 @@ public class InsertInventoryView extends View {
     } // end of createFormContents
 
     // add formatter to phone field
-    private void addFormatter(TextField donorPhoneField) {
+    private void addPhoneFormatter(TextField donorPhoneField) {
         UnaryOperator<TextFormatter.Change> filter = change -> {
             String newText = change.getControlNewText();
             System.out.println("newtext: " + newText);
@@ -346,6 +346,9 @@ public class InsertInventoryView extends View {
         else if(!checkPhone(donorPhoneEntered)) {
             donorPhoneField.requestFocus();
         }
+        else if(!checkEmail(donorEmailEntered)) {
+            donorEmailField.requestFocus();
+        }
         else
         {
             props = new Properties();
@@ -384,6 +387,15 @@ public class InsertInventoryView extends View {
             }
         }
     } // end of processAction
+
+    // Check email
+    private boolean checkEmail(String email) {
+        if(!email.matches("[\\w]+@brockport.edu")) {
+            displayErrorMessage("Email format: tamer10@brockport.edu");
+            return false;
+        }
+        return true;
+    }
 
     // Check phone number
     private boolean checkPhone(String phoneNum) {

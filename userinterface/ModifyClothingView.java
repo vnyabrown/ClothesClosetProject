@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -22,6 +23,7 @@ import javafx.scene.text.TextAlignment;
 
 import javax.swing.event.ChangeEvent;
 import java.util.Properties;
+import java.util.function.UnaryOperator;
 
 import static model.Closet.clothMod;
 
@@ -166,6 +168,7 @@ public class ModifyClothingView extends View {
         grid.add(donorPhoneLabel, 0, 11);
         donorPhoneField = new TextField();
         grid.add(donorPhoneField, 1, 11);
+        addPhoneFormatter(donorPhoneField);
 
 
         Label donorEmailLabel = new Label("Donor Email: ");
@@ -245,16 +248,82 @@ public class ModifyClothingView extends View {
         // DEBUG: System.out.println("InsertArticleView.actionPerformed()");
         //System.out.println("Logic TBA");
 
-        // PROCESS FIELDS SUBMITTED
-        String[] values = new String[]{genderField.getText(), sizeField.getText(), articleTypeField.getText(),
-                color1Field.getText(), color2Field.getText(), brandField.getText(), notesField.getText(),
-                donorLastnameField.getText(), donorFirstnameField.getText(), donorPhoneField.getText(),
-                donorEmailField.getText(), receiverNetidField.getText(), receiverLastnameField.getText(),
-                receiverFirstnameField.getText(), dateDonatedField.getText(), dateTakenField.getText()};
+        if(!checkPhone(donorPhoneField.getText())) {
+            donorPhoneField.requestFocus();
+        } else if(!checkEmail(donorEmailField.getText())) {
+            donorEmailField.requestFocus();
+        } else {
+            // PROCESS FIELDS SUBMITTED
+            String[] values = new String[]{genderField.getText(), sizeField.getText(), articleTypeField.getText(),
+                    color1Field.getText(), color2Field.getText(), brandField.getText(), notesField.getText(),
+                    donorLastnameField.getText(), donorFirstnameField.getText(), donorPhoneField.getText(),
+                    donorEmailField.getText(), receiverNetidField.getText(), receiverLastnameField.getText(),
+                    receiverFirstnameField.getText(), dateDonatedField.getText(), dateTakenField.getText()};
 
 
-        myModel.stateChangeRequest("ModifyClothing", values);
+            myModel.stateChangeRequest("ModifyClothing", values);
+        }
+    }
 
+    // add phone formatter to text field
+    private void addPhoneFormatter(TextField donorPhoneField) {
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String newText = change.getControlNewText();
+            System.out.println("newtext: " + newText);
+
+            if(newText.length() > 14) {
+                return null;
+            }
+
+            if(newText.matches("\\(*[0-9]*\\)? ?[0-9]*-*[0-9]*")) {//|| newText.isEmpty()){
+                System.out.println("is digit: " + newText);
+                System.out.println("getText:" + change.getText());
+                if(newText.length() == 1 && !change.getText().isEmpty()) {
+                    String str = "(" + change.getText();
+                    change.setText(str);
+                    change.setCaretPosition(newText.length() + 1);
+                    change.setAnchor(newText.length() + 1);
+                } else if(newText.length() == 4 && !change.getText().isEmpty()) {
+                    String str = change.getText() + ") ";
+                    change.setText(str);
+                    change.setCaretPosition(newText.length() + 2);
+                    change.setAnchor(newText.length() + 2);
+                } else if(newText.length() == 9 && !change.getText().isEmpty()) {
+                    String str = change.getText() + "-";
+                    System.out.println("new new text: " + newText);
+                    System.out.println("str: '" + str + "'");
+                    change.setText(str);
+                    change.setCaretPosition(newText.length() + 1);
+                    change.setAnchor(newText.length() + 1);
+                }
+                return change;
+            }
+            System.out.println("no match: " + newText);
+            return null;
+        };
+
+
+        TextFormatter<String> phoneFormater = new TextFormatter<>(filter);
+        donorPhoneField.setTextFormatter(phoneFormater);
+        ///------------------------------------//------------------------------------/-------------------------------------
+    }
+
+    // Check email
+    private boolean checkEmail(String email) {
+        if(!email.matches("[\\w]+@brockport.edu")) {
+            displayErrorMessage("Email format: tamer10@brockport.edu");
+            return false;
+        }
+        return true;
+    }
+
+    // Check phone number
+    private boolean checkPhone(String phoneNum) {
+        if(!phoneNum.matches("\\(([0-9]){3}\\) ([0-9]){3}-([0-9]){4}")) {
+            displayErrorMessage("Phone number format: (111) 222-3333");
+            return false;
+        }
+        return true;
     }
 
     @Override

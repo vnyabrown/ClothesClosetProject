@@ -23,6 +23,8 @@ import static userinterface.InventoryChoiceView.modDelCheckFlag;
 // project imports
 import impresario.IModel;
 
+import java.util.function.UnaryOperator;
+
 /** The class containing the Account View  for the ATM application */
 //==============================================================
 public class SearchForClothingView extends View
@@ -114,6 +116,7 @@ public class SearchForClothingView extends View
         text = new TextField();
         text.setEditable(true);
         grid.add(text, 1, 1);
+        addTextFormatter(text);
 
 
         HBox doneCont = new HBox(10);
@@ -144,6 +147,25 @@ public class SearchForClothingView extends View
         vbox.getChildren().add(doneCont);
 
         return vbox;
+    }
+
+    // add text formatter to text field to only enter 8 digits
+    private void addTextFormatter(TextField text) {
+            UnaryOperator<TextFormatter.Change> filter = change -> {
+                String newText = change.getControlNewText();
+                System.out.println("newtext: " + newText);
+
+                if(newText.length() > 8) {
+                    return null;
+                } else if(newText.matches("\\d*")) {
+                    System.out.println("is digit: " + newText);
+                    return change;
+                }
+                System.out.println("no match: " + newText);
+                return null;
+            };
+        TextFormatter<String> textFormatter = new TextFormatter<>(filter);
+        text.setTextFormatter(textFormatter);
     }
 
     // Process user input
