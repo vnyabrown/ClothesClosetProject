@@ -61,3 +61,7 @@
 [5/12/24, 4:15 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=380) Duplicate entry '1' for key 'BarcodePrefix'>
 [5/12/24, 4:15 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=380) Duplicate entry '1' for key 'BarcodePrefix'>
 [5/12/24, 4:30 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=419) Duplicate entry '04' for key 'BarcodePrefix'>
+[5/12/24, 4:53 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=472) Duplicate entry '02' for key 'BarcodePrefix'>
+[5/12/24, 5:01 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=521) Duplicate entry '02' for key 'BarcodePrefix'>
+[5/12/24, 5:02 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=522) Duplicate entry '02' for key 'BarcodePrefix'>
+[5/12/24, 5:02 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=522) Duplicate entry '02' for key 'BarcodePrefix'>
