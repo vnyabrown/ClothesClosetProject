@@ -1,5 +1,6 @@
 - 5/12/24
     - ColorChoiceView: Changed Quit button to Cancel button
+    - InsertInventoryView: Set dropdowns for Colors
 
 - 4/23/24
 - Add constructors to ArticleType & Color
