@@ -144,6 +144,9 @@ public class ArticleTypeCollectionView extends View
     {
         VBox vbox = new VBox(10);
 
+        vbox.setMinWidth(500);
+        vbox.setMinHeight(500);
+
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
