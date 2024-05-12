@@ -173,7 +173,7 @@ public class SearchForClothingView extends View
 
         if(text.getText() == null || text.getText().isEmpty()) {
             displayErrorMessage("Please enter a Barcode.");
-        } else if (text.getText().length() != 8) {
+        } else if (modDelCheckFlag.equals("ins") && text.getText().length() != 8) {
             displayErrorMessage("Barcode must be 8 digits long");
         } else if(!checkGender(text.getText())) {
             displayErrorMessage("First letter of the barcode can be 0 (male) or 1 (female)");
