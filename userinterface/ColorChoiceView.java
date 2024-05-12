@@ -107,7 +107,7 @@ public class ColorChoiceView extends View {
                 myModel.stateChangeRequest("SearchForColor", null);
             }
         });
-        quitButton = new Button("Quit");
+        quitButton = new Button("Cancel");
         quitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {myModel.stateChangeRequest("CancelColorTransaction", null);}

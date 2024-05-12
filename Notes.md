@@ -1,3 +1,6 @@
+- 5/12/24
+    - ColorChoiceView: Changed Quit button to Cancel button
+
 - 4/23/24
 - Add constructors to ArticleType & Color
     - Create object from barcode (like from id)

@@ -8,6 +8,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
@@ -19,6 +20,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import java.util.Properties;
+import java.util.Vector;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
@@ -26,7 +28,9 @@ import static model.Closet.barcode;
 import static model.Closet.clothMod;
 
 import model.ArticleType;
+import model.ArticleTypeCollection;
 import model.Color;
+import model.ColorCollection;
 
 public class InsertInventoryView extends View {
    
@@ -50,14 +54,19 @@ public class InsertInventoryView extends View {
     private TextField genderField;
     private TextField sizeField;
     private TextField articleTypeField;
-    private TextField color1Field;
-    private TextField color2Field;
+    private ComboBox color1Field;
+    private ComboBox color2Field;
     private TextField brandField;
     private TextField notesField;
     private TextField donorLastNameField;
     private TextField donorFirstNameField;
     private TextField donorPhoneField;
     private TextField donorEmailField;
+
+    //Article and Color to get Descriptions & BarcodePrefixes
+    private Vector<model.Color> colorObj = null;
+    ColorCollection colorCollection = new ColorCollection();
+    ArticleTypeCollection articleTypeCollection = new ArticleTypeCollection();
 
     private Button submitButton;
     private Button cancelButton;
@@ -91,8 +100,11 @@ public class InsertInventoryView extends View {
 
         myModel.subscribe("updateText", this);
 
-
         getChildren().add(container);
+
+        colorObj = colorCollection.getAllValidColors();
+        populateComboBoxes();
+
     } // end of Constructor
 
     private Node createTitle() {
@@ -151,14 +163,18 @@ public class InsertInventoryView extends View {
         articleTypeField = new TextField();
         grid.add(articleTypeField, 1, 6);
 
+        // Change to dropdown
         Label color1Label = new Label("Primary Color: ");
         grid.add(color1Label, 0, 7);
-        color1Field = new TextField();
+        color1Field = new ComboBox<String>();
+        color1Field.setMinSize(100, 20);
         grid.add(color1Field, 1, 7);
 
+        // Change to dropdown
         Label color2Label = new Label("Secondary Color: ");
         grid.add(color2Label, 0, 8);
-        color2Field = new TextField();
+        color2Field = new ComboBox<String>();
+        color2Field.setMinSize(100, 20);
         grid.add(color2Field, 1, 8);
 
         Label brandLabel = new Label("Brand: ");
@@ -267,7 +283,7 @@ public class InsertInventoryView extends View {
 
         // PROCESS FIELDS SUBMITTED        
         String sizeEntered = sizeField.getText();
-        String color2Entered = color2Field.getText();
+        String color2Entered = colorCollection.getColorPFXFromDescription((String)color2Field.getValue());
         String brandEntered = brandField.getText();
         String notesEntered = notesField.getText();
         String donorFirstNameEntered = donorFirstNameField.getText();
@@ -277,7 +293,7 @@ public class InsertInventoryView extends View {
         
         if (barcodeEntered == null || barcodeEntered.isEmpty())
         {
-            displayErrorMessage("Please provide a barcode to get initial Inventory Item information!");
+            displayErrorMessage("Please provide a valid barcode to get initial Inventory Item information!");
             barcodeField.requestFocus();
         } // end getBarcode Error
 
@@ -327,8 +343,8 @@ public class InsertInventoryView extends View {
         else if (color2Entered == null || color2Entered.isEmpty())
         {
             System.out.println();
-            System.out.println("Please enter a Secondary Color for Inventory Item!");
-            displayErrorMessage("Please enter a Secondary Color for Inventory Item!");
+            System.out.println("Please choose a Secondary Color for Inventory Item!");
+            displayErrorMessage("Please choose a Secondary Color for Inventory Item!");
             color2Field.requestFocus();
         }
         else if (brandEntered == null || brandEntered.isEmpty())
@@ -339,8 +355,8 @@ public class InsertInventoryView extends View {
         }
         else if (sizeEntered == null || sizeEntered.isEmpty())
         {
-            System.out.println("Please enter a Size for Inventory Item!");
-            displayErrorMessage("Please enter a Size for Inventory Item!");
+            System.out.println("Please choose a Size for Inventory Item!");
+            displayErrorMessage("Please choose a Size for Inventory Item!");
             sizeField.requestFocus();
         }
         else if(!checkPhone(donorPhoneEntered)) {
@@ -405,6 +421,17 @@ public class InsertInventoryView extends View {
         }
         return true;
     }
+
+    public void populateComboBoxes()
+    {
+        for (int num = 0; num < colorObj.size(); num++) {
+            Vector<String> filler = colorObj.elementAt(num).getFields();
+            //System.out.println(filler);
+            color1Field.getItems().add(filler.get(1));
+            color2Field.getItems().add(filler.get(1));
+
+        }
+    } // end of setColorDropdowns
 
     public void parseBarcode()
     {
@@ -474,12 +501,12 @@ public class InsertInventoryView extends View {
 
                     try { 
                         newCo = new Color(getColorBPFX); // Use constructor to instantiate Color from barcode prefix
-                        color1Field.setText(currentDig);
+                        color1Field.setValue((String)colorCollection.getColorDescriptionFromPFX(currentDig));
                         System.out.println(newCo.toString());
                         System.out.println("Successfully verified Color!");
                         parseBC = parseBC + 2; // move to next digits in barcode
                         // Testing, print Color
-                        System.out.println("\nColor: " + color1Field.getText());
+                        System.out.println("\nColor: " + color1Field.getValue());
                     }
                     catch (Exception ex) {
                         System.out.println("Error parsing Barcode for Color!");
@@ -491,7 +518,7 @@ public class InsertInventoryView extends View {
             } // end while parsing Barcode
             genderEntered = genderField.getText();
             articleTypeEntered = articleTypeField.getText();
-            color1Entered = color1Field.getText();
+            color1Entered = colorCollection.getColorPFXFromDescription((String)color1Field.getValue());
 
             // Lock auto-set fields
             barcodeField.setDisable(true);
@@ -534,7 +561,6 @@ public class InsertInventoryView extends View {
 
     private void clearTextFields(){
         sizeField.clear();
-        color2Field.clear();
         brandField.clear();
         notesField.clear();
         donorFirstNameField.clear();
