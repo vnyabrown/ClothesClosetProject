@@ -23,6 +23,7 @@ public class ArticleChoiceView extends View {
     private Button modArticleButton;
     private Button delArticleButton;
     private Button quitButton;
+    public static String modDelCheckFlag = "";
 
     // For showing error message
     private MessageView statusLog;
@@ -97,6 +98,7 @@ public class ArticleChoiceView extends View {
         modArticleButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+                modDelCheckFlag = "mod";
                 myModel.stateChangeRequest("SearchForArticleType", null);
             }
         });
@@ -104,6 +106,7 @@ public class ArticleChoiceView extends View {
         delArticleButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+                modDelCheckFlag = "del";
                 myModel.stateChangeRequest("SearchForArticleType", null);
             }
         });
