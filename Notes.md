@@ -1,6 +1,7 @@
 - 5/12/24
     - ColorChoiceView: Changed Quit button to Cancel button
-    - InsertInventoryView: Set dropdowns for Colors
+    - InsertInventoryView: Set dropdowns for Colors, fields show descriptions
+    - InsertInventoryView: Populated ArticleType field shows description
 
 - 4/23/24
 - Add constructors to ArticleType & Color

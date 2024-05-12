@@ -479,7 +479,7 @@ public class InsertInventoryView extends View {
                     try { 
                         newAT = new ArticleType(getArticleBPFX); //Use constructor to instantiate ArticleType from barcode prefix
                         System.out.println(newAT.toString());
-                        articleTypeField.setText(currentDig);
+                        articleTypeField.setText(articleTypeCollection.getArticleDescriptionFromPFX(currentDig));
                         System.out.println("Successfully verified Article Type!");
                         parseBC = parseBC + 2; // move to next digits in barcode
                         // Testing, print Article Type
