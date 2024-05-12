@@ -152,9 +152,13 @@ public class InsertArticleView extends View {
             displayErrorMessage("Please enter an Alpha Code for Article Type!");
             alphaCodeField.requestFocus();
         }
+        else if (!checkBarcodePrefix(barcodePrefixEntered)) {
+            barcodePrefixField.requestFocus();
+        }
         else
         {
             // Add fields to a property object for inserting
+            barcodePrefixEntered = formatBarcodePrefix(barcodePrefixEntered);
             props = new Properties();
             props.setProperty("Description", descriptionEntered);
             props.setProperty("BarcodePrefix", barcodePrefixEntered);
@@ -171,6 +175,24 @@ public class InsertArticleView extends View {
             }
         }
         
+    }
+
+    private String formatBarcodePrefix(String pfx) {
+        if(pfx.length() == 1) {
+            return "0" + pfx;
+        }
+        return pfx;
+    }
+
+    private boolean checkBarcodePrefix(String pfx) {
+        if(pfx.length() > 2) {
+            displayErrorMessage("Barcode prefix can only be at max two digits.");
+            return false;
+        } else if(pfx.matches("[0-9]+")) {
+            return true;
+        }
+        displayErrorMessage("Barcode prefix can only contain digits.");
+        return false;
     }
 
     @Override
