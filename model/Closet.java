@@ -272,6 +272,13 @@ public class Closet implements IView, IModel {
             case "InsertArticle":
                 newArticle.processNewArticle((Properties)value);
                 newArticle.updateStateInDatabase();
+                if(newArticle.getState("UpdateStatusMessage").equals("ok")) {
+                    System.out.println("ok in closet insert article");
+                    stateChangeRequest("successfulModify", "this isnt used");
+                } else {
+                    stateChangeRequest("unsuccessfulModify", "this isnt used");
+                    System.out.println("not ok in closet insert article");
+                }
                 break;
             case "InsertColor":
                 newColor.processNewColor((Properties)value);

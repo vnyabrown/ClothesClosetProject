@@ -48,3 +48,13 @@
 [5/2/24, 9:33 AM]|Inventory|updatePersistentState|Error|NOTAG|null<SQL Exception: 1292: (conn=241) Incorrect date value: 'NULL' for column `csdbClothesClosetSystem`.`inventory`.`DateTaken` at row 1>
 [5/2/24, 9:40 AM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1292: (conn=254) Incorrect date value: 'NULL' for column `csdbClothesClosetSystem`.`inventory`.`DateTaken` at row 1>
 [5/2/24, 9:43 AM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1292: (conn=255) Incorrect date value: 'NULL' for column `csdbClothesClosetSystem`.`inventory`.`DateTaken` at row 1>
+[5/12/24, 3:47 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=88) Duplicate entry '' for key 'BarcodePrefix'>
+[5/12/24, 3:47 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=88) Duplicate entry '' for key 'BarcodePrefix'>
+[5/12/24, 4:02 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=127) Duplicate entry 'c' for key 'BarcodePrefix'>
+[5/12/24, 4:02 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=127) Duplicate entry 'c' for key 'BarcodePrefix'>
+[5/12/24, 4:04 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=127) Duplicate entry 'c' for key 'BarcodePrefix'>
+[5/12/24, 4:05 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=188) Duplicate entry '2' for key 'BarcodePrefix'>
+[5/12/24, 4:07 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=189) Duplicate entry '2' for key 'BarcodePrefix'>
+[5/12/24, 4:07 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=189) Duplicate entry '3' for key 'BarcodePrefix'>
+[5/12/24, 4:08 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=250) Duplicate entry '4' for key 'BarcodePrefix'>
+[5/12/24, 4:14 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=294) Duplicate entry '6' for key 'BarcodePrefix'>
