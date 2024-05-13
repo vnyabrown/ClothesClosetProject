@@ -5,6 +5,9 @@ import impresario.IModel;
 import impresario.IView;
 import impresario.ModelRegistry;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import userinterface.*;
 
@@ -25,6 +28,8 @@ public class Closet implements IView, IModel {
     private ArticleTypeCollection atc;
     private ArticleType at;
     private ColorCollection colorColl;
+    private ColorCollection checkColorColl = new ColorCollection();
+    private ArticleTypeCollection checkArticleColl = new ArticleTypeCollection();
     private Color color;
     String[] array;
     // For Impresario
@@ -168,6 +173,16 @@ public class Closet implements IView, IModel {
             case "checkoutClothing":
                 cloth.checkout((Properties) value);
                 cloth.updateStateInDatabase();
+                createCheckoutReceipt(cloth.getFields().elementAt(0),
+                        cloth.getFields().elementAt(1),
+                        cloth.getFields().elementAt(2),
+                        checkArticleColl.getArticleDescriptionFromPFX(cloth.getFields().elementAt(3)),
+                        checkColorColl.getColorDescriptionFromPFX(cloth.getFields().elementAt(4)),
+                        checkColorColl.getColorDescriptionFromPFX(cloth.getFields().elementAt(5)),
+                        cloth.getFields().elementAt(6),
+                        cloth.getFields().elementAt(15),
+                        cloth.getFields().elementAt(14),
+                        cloth.getFields().elementAt(17));
                 String checkoutSucessful = cloth.getState("UpdateStatusMessage");
                 if(checkoutSucessful.equals("ok")){
                     stateChangeRequest("successfulModify", "yahoo");
@@ -546,5 +561,23 @@ public class Closet implements IView, IModel {
         //Place in center
         WindowPosition.placeCenter(myStage);
 
+    }
+    public void createCheckoutReceipt(String barcode, String gender, String size, String articleType,
+                                      String color1, String color2, String brand, String receiverFirstName, String receiverLastName, String dateTaken){
+        //receipt creation
+        Alert receipt = new Alert(Alert.AlertType.NONE, "Checkout Receipt", ButtonType.OK);
+        receipt.setTitle("Checkout Receipt");
+        Label text = new Label("Barcode: " + barcode + "\n" +
+                "Gender: " + gender + "\n" +
+                "Size: " + size + "\n" +
+                "Article Type: " + articleType + "\n" +
+                "Color 1: " + color1 + "\n" +
+                "Color 2: " + color2 + "\n" +
+                "Brand: " + brand + "\n" +
+                "Recived by: " + receiverFirstName + " " + receiverLastName + "\n" +
+                "Recived On: " + dateTaken + "\n");
+        receipt.getDialogPane().setContent(text);
+
+        receipt.showAndWait();
     }
 }

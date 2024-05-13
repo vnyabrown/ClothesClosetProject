@@ -25,7 +25,7 @@ public class InventoryChoiceView extends View {
     private Button listInventoryButton;
     private Button listCheckoutButton;
     private Button quitButton;
-     public static String modDelCheckFlag = null;
+     public static String modDelCheckFlag = "";
 
     // For showing error message
     private MessageView statusLog;
