@@ -9,14 +9,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Alert;
 //import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -32,6 +30,7 @@ import java.util.Optional;
 import impresario.IModel;
 import model.Color;
 import model.ColorCollection;
+import static userinterface.ColorChoiceView.modDelCheckFlag;
 
 //==============================================================================
 public class ColorCollectionView extends View
@@ -184,7 +183,7 @@ public class ColorCollectionView extends View
             public void handle(MouseEvent event)
             {
                 if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
-                    processColorSelected("");
+                    processColorSelected(modDelCheckFlag);
                 }
             }
         });
@@ -205,8 +204,17 @@ public class ColorCollectionView extends View
         deleteButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                clearErrorMessage();
-                processColorSelected("delete");
+                // Request Confirmation before deletion
+                Alert confirmDel = new Alert(AlertType.CONFIRMATION, "Are you sure you want to delete this Clothing Item?", ButtonType.OK, ButtonType.CANCEL);
+                confirmDel.setTitle("Confirm deleting Article Type");
+                ((Button) confirmDel.getDialogPane().lookupButton(ButtonType.OK)).setText("YES");
+                ((Button) confirmDel.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("NO");
+                Optional<ButtonType> result = confirmDel.showAndWait();
+                if (result.get() == ButtonType.OK)
+                {
+                    clearErrorMessage();
+                    processColorSelected("delete");
+                }
             }
         });
 
@@ -221,9 +229,15 @@ public class ColorCollectionView extends View
 
         HBox btnContainer = new HBox(100);
         btnContainer.setAlignment(Pos.CENTER);
+        // Add appropriate buttons
         btnContainer.getChildren().add(cancelButton);
-        btnContainer.getChildren().add(deleteButton);
-        btnContainer.getChildren().add(modifyButton);
+        if(modDelCheckFlag.equals("mod")) {
+            btnContainer.getChildren().add(modifyButton);
+        } else if(modDelCheckFlag.equals("del")) {
+            btnContainer.getChildren().add(deleteButton);
+        } else {
+            System.out.println("Error: Else in ColorCollectionView");
+        }
 
         vbox.getChildren().add(grid);
         vbox.getChildren().add(scrollPane);
@@ -256,17 +270,8 @@ public class ColorCollectionView extends View
             prop.setProperty("Status", selectedItem.getStatus());
 
             if(str.equals("delete")) {
-                // Request Confirmation before deletion
-                Alert confirmDel = new Alert(AlertType.CONFIRMATION, "Are you sure you want to delete this Color?", ButtonType.OK, ButtonType.CANCEL);
-                confirmDel.setTitle("Confirm deleting Color");
-                ((Button) confirmDel.getDialogPane().lookupButton(ButtonType.OK)).setText("YES");
-                ((Button) confirmDel.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("NO");
-                Optional<ButtonType> result = confirmDel.showAndWait();
-                if (result.get() == ButtonType.OK)
-                {
-                    myModel.stateChangeRequest("ColorSelectedForDeletion", prop);
-                    displayMessage("Color Deleted.");
-                }
+                myModel.stateChangeRequest("ColorSelectedForDeletion", prop);
+                displayMessage("Color with ID" + prop.getProperty("Id") + "Deleted.");
             }
             else if(str.equals("modify")) {
                 System.out.println("in modify in view");
@@ -278,6 +283,7 @@ public class ColorCollectionView extends View
         }
         else {
             System.out.println("selecteditem is null in atc view");
+            displayErrorMessage("Please select a Color!");
         }
     }
 
@@ -297,6 +303,11 @@ public class ColorCollectionView extends View
     public void displayMessage(String message)
     {
         statusLog.displayMessage(message);
+    }
+
+    public void displayErrorMessage(String message)
+    {
+        statusLog.displayErrorMessage(message);
     }
 
     /**

@@ -23,6 +23,7 @@ public class ColorChoiceView extends View {
     private Button modColorButton;
     private Button delColorButton;
     private Button quitButton;
+    public static String modDelCheckFlag = "";
 
     // For showing error message
     private MessageView statusLog;
@@ -97,6 +98,7 @@ public class ColorChoiceView extends View {
         modColorButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+                modDelCheckFlag = "mod";
                 myModel.stateChangeRequest("SearchForColor", null);
             }
         });
@@ -104,6 +106,7 @@ public class ColorChoiceView extends View {
         delColorButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+                modDelCheckFlag = "del";
                 myModel.stateChangeRequest("SearchForColor", null);
             }
         });

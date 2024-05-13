@@ -82,3 +82,5 @@
 [5/12/24, 5:02 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=522) Duplicate entry '02' for key 'BarcodePrefix'>
 [5/12/24, 5:08 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=577) Duplicate entry '03' for key 'BarcodePrefix'>
 >>>>>>> origin/ArticleTypeCleanUp
+[5/13/24 12:47 PM]|Color|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=35692) Duplicate entry '99' for key 'BarcodePrefix'>
+[5/13/24 12:47 PM]|Color|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=35707) Duplicate entry '99' for key 'BarcodePrefix'>

@@ -244,6 +244,12 @@ public class Closet implements IView, IModel {
                 else {
                     System.out.println("`not` an option in statechangerequest in modifycolor");
                 }
+                // update view message
+                if(color.getState("UpdateStatusMessage").equals("ok")){
+                    stateChangeRequest("successfulModify", "not used");
+                } else {
+                    stateChangeRequest("unsuccessfulModify", "not used");
+                }
                 break;
                 
             case "CancelArticleTransaction":
@@ -288,6 +294,13 @@ public class Closet implements IView, IModel {
             case "InsertColor":
                 newColor.processNewColor((Properties)value);
                 newColor.updateStateInDatabase();
+                if(newColor.getState("UpdateStatusMessage").equals("ok")) {
+                    System.out.println("ok in closet insert Color");
+                    stateChangeRequest("successfulModify", "this isnt used");
+                } else {
+                    stateChangeRequest("unsuccessfulModify", "this isnt used");
+                    System.out.println("not ok in closet insert Color");
+                }
                 break;
             case "InsertInventory":
                 try {

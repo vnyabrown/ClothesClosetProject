@@ -16,7 +16,7 @@ public class Color extends EntityBase {
     protected Properties dependencies;
 
     // Gui components
-    private String updateStatusMessage = "";
+    private String updateStatusMessage = "empty from color";
 
     //Constructor
     public Color(String colorId) throws InvalidPrimaryKeyException
@@ -205,25 +205,50 @@ public class Color extends EntityBase {
     public void updateStateInDatabase()
     {
         try {
+            // Upate Color
+            updateStatusMessage = "";
             if (persistentState.getProperty("Id") != null) {
-                // update
+                // update Color
                 Properties whereClause = new Properties();
                 whereClause.setProperty("Id",
                         persistentState.getProperty("Id"));
                 updatePersistentState(mySchema, persistentState, whereClause);
                 updateStatusMessage = "Color data for Id number : " + persistentState.getProperty("Id")
                         + " updated successfully in database!";
-            } else {
-                // insert
+                System.out.println("Color successfully updated in database!");
+                updateStatusMessage = "ok";
+            } 
+            else if (checkBarcodePrefixExists(persistentState.getProperty("BarcodePrefix"))) // Need to implement this for Color
+            {
+                System.out.println();
+                throw new Exception("Error! Color with BarcodePrefix " + persistentState.getProperty("BarcodePrefix") + " exists in database!");
+            }
+            else {
+                // insert new Color
                 Integer colorId = insertAutoIncrementalPersistentState(mySchema, persistentState);
                 persistentState.setProperty("Id", "" + colorId.intValue());
                 updateStatusMessage = "Color data for new Item : " + persistentState.getProperty("Id")
                         + "installed successfully in database!";
+                updateStatusMessage = "ok";
             }
-        } catch (SQLException ex) {
-            updateStatusMessage = "Error in installing Color data in database!";
+        } 
+        catch(SQLException e) {
+            System.err.println("ERROR sql: " + e.getMessage());
         }
+        catch (Exception ex) {
+            updateStatusMessage = "Error in installing Color data in database!";
+        } 
         System.out.println("updateStateInDatabase " + updateStatusMessage);
+    }
+
+    public boolean checkBarcodePrefixExists(String bfx)
+    {
+        String query = "SELECT * FROM " + myTableName + " WHERE BarcodePrefix = '%" + bfx + "%';";
+        if (!getSelectQueryResult(query).isEmpty())
+        {
+            return true; // it does already exist in table
+        }
+        return false; // it doesn't already exist in table
     }
 
     /* Return Color information as a string */

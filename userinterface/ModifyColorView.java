@@ -58,9 +58,8 @@ public class ModifyColorView extends View
 
         populateFields();
 
-        // These need to be made specific for Book
-        //myModel.subscribe("ServiceCharge", this);
-        //myModel.subscribe("UpdateStatusMessage", this);
+        myModel.subscribe("successfulModify", this);
+        myModel.subscribe("unsuccessfulModify", this);
     }
 
 
@@ -158,14 +157,27 @@ public class ModifyColorView extends View
             displayErrorMessage("Please enter a Description or Alpha Code.");
             text.requestFocus();
         }
+        else if(modificationField.getValue().equals("Barcode Prefix") && !checkBarcodePrefix(text.getText())) // Implement for Color
+        {
+            text.requestFocus();
+        }
         else {
             String[] values = new String[2];
             values[0] = (String) text.getText();
             values[1] = (String) modificationField.getValue();
             myModel.stateChangeRequest("ModifyColor", values);
-            displayMessage("Successfully modified color.");
-            //myModel.stateChangeRequest("SearchBooksCollection", null);
         }
+    }
+
+    private boolean checkBarcodePrefix(String pfx) {
+        if(pfx.length() > 2) {
+            displayErrorMessage("Barcode prefix can only be at max two digits.");
+            return false;
+        } else if(pfx.matches("[0-9]+")) {
+            return true;
+        }
+        displayErrorMessage("Barcode prefix can only contain digits.");
+        return false;
     }
 
     private boolean pubYearHasLetter(String str) {
@@ -209,12 +221,13 @@ public class ModifyColorView extends View
     {
         clearErrorMessage();
 
-        //if (key.equals("ServiceCharge") == true)
-        //{
-        //	String val = (String)value;
-        //	pubYear.setText(val);
-        //	displayMessage("Service Charge Imposed: $ " + val);
-        //}
+        if(key.equals("successfulModify")) {
+            displayMessage("Color successfully modified.");
+        } else if (key.equals("unsuccessfulModify")) {
+            displayErrorMessage("Error modifying Color!");
+        } else {
+            System.out.println("else in updateState in ModifyColorView");
+        }
     }
 
     /**

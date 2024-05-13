@@ -54,6 +54,9 @@ public class InsertColorView extends View {
 
         getChildren().add(container);
 
+        myModel.subscribe("successfulModify", this);
+        myModel.subscribe("unsuccessfulModify", this);
+
     }
 
     private Node createTitle() {
@@ -135,20 +138,24 @@ public class InsertColorView extends View {
         String alphaCodeEntered = alphaCodeField.getText();
 
         // Check all fields should not be empty
-        if (descriptionEntered == null) // Description field should not be empty
+        if (descriptionEntered == null || descriptionEntered.isEmpty()) // Description field should not be empty
         {
             displayErrorMessage("Please enter a description for Color!");
 			descriptionField.requestFocus();
         }
-        else if (barcodePrefixEntered == null)
+        else if (barcodePrefixEntered == null || barcodePrefixEntered.isEmpty())
         {
             displayErrorMessage("Please enter a Barcode Prefix for Color!");
             barcodePrefixField.requestFocus();
         }
-        else if (alphaCodeEntered == null)
+        else if (alphaCodeEntered == null || alphaCodeEntered.isEmpty())
         {
             displayErrorMessage("Please enter an Alpha Code for Color!");
             alphaCodeField.requestFocus();
+        }
+        else if (!checkBarcodePrefix(barcodePrefixEntered)) // Need to implement this method for Color
+        {
+            barcodePrefixField.requestFocus();
         }
         else
         {
@@ -160,19 +167,36 @@ public class InsertColorView extends View {
             try
             {
                 myModel.stateChangeRequest("InsertColor", props); // Call stateChangeRequest to insert an article
-                displaySuccessMessage("Successfully inserted a new Color!");
+                //displaySuccessMessage("Successfully inserted a new Color!");
             }
             catch(Exception ex)
             {
-                displayErrorMessage("Failed to insert a Color!");
+                //displayErrorMessage("Failed to insert a Color!");
                 ex.printStackTrace();
             }
         }
     }
 
+    private boolean checkBarcodePrefix(String pfx) {
+        if(pfx.length() > 2) {
+            displayErrorMessage("Barcode prefix can only be at max two digits.");
+            return false;
+        } else if(pfx.matches("[0-9]+")) {
+            return true;
+        }
+        displayErrorMessage("Barcode prefix can only contain digits.");
+        return false;
+    }
+
         @Override
         public void updateState(String key, Object value) {
-    
+            if(key.equals("successfulModify")) {
+                displaySuccessMessage("New Color Successfully Inserted!");
+            } else if(key.equals("unsuccessfulModify")) {
+                displayErrorMessage("Error Inserting New Color!");
+            } else {
+                System.out.println("Error: else updateState in insertColorView");
+            }
         }
     
         public void displayErrorMessage(String message)

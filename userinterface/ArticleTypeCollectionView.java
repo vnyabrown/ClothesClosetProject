@@ -199,7 +199,7 @@ public class ArticleTypeCollectionView extends View
             public void handle(MouseEvent event)
             {
                 if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
-                    processArticleTypeSelected("modify");
+                    processArticleTypeSelected(modDelCheckFlag);
                 }
             }
         });
@@ -299,6 +299,7 @@ public class ArticleTypeCollectionView extends View
         }
         else {
             System.out.println("selecteditem is null in atc view");
+            displayErrorMessage("Please select an Article Type!");
         }
     }
 
@@ -318,6 +319,11 @@ public class ArticleTypeCollectionView extends View
     public void displayMessage(String message)
     {
         statusLog.displayMessage(message);
+    }
+
+    public void displayErrorMessage(String message)
+    {
+        statusLog.displayErrorMessage(message);
     }
 
     /**
