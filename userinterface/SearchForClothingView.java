@@ -127,6 +127,7 @@ public class SearchForClothingView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
+                modDelCheckFlag = "";
                 myModel.stateChangeRequest("Inventory", "");
             }
         });

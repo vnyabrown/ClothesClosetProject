@@ -283,7 +283,8 @@ public class ClothingCollectionView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("SearchForClothing", null);
+                modDelCheckFlag = "";
+                myModel.stateChangeRequest("Inventory", "");
             }
         });
 
