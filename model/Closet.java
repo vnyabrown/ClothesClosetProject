@@ -307,8 +307,17 @@ public class Closet implements IView, IModel {
                     System.out.println(value.toString());
                     newInv.processNewInventory((Properties)value); // populate Inventory with new inventory data
                     newInv.updateStateInDatabase(); // Save Inventory record to databse
+                    if(newInv.getState("UpdateStatusMessage").equals("ok")) {
+                        System.out.println("ok in closet insert inventory");
+                        stateChangeRequest("successfulModify", "this isnt used");
+                    } else {
+                        stateChangeRequest("unsuccessfulModify", "this isnt used");
+                        System.out.println("not ok in closet insert inventory");
+                    }
                 } catch (Exception e) {
                     System.out.println("Error in Closet.insertInventory: Could not create inventory object");
+                    stateChangeRequest("unsuccessfulModify", "this isnt used");
+                        System.out.println("not ok in closet insert inventory");
                     e.printStackTrace();
                 }
                 break;

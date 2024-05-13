@@ -56,7 +56,7 @@ public class InsertArticleView extends View {
 
         myModel.subscribe("successfulModify", this);
         myModel.subscribe("unsuccessfulModify", this);
-    }
+    } // end of Constructor
 
     private Node createTitle() {
 

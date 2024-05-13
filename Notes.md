@@ -2,6 +2,7 @@
     - Insert/Modify Color View - Displaying successful insert into db message should be notified from closet controller object.
     - Insert Color - Barcode prefix should only be 2 numbers
     - Modify/Delete Color View - Conntains delete button which shouldn’t be there, when modify button is clicked and nothing is selected, there should be an error message displayed (also fixed this in article type)
+    - Insert Inventory View - Successful insert message is displayed when there is an error inserting into db
 
 - 5/12/24
     - ColorChoiceView: Changed Quit button to Cancel button

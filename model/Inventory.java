@@ -22,7 +22,7 @@ public class Inventory extends EntityBase {
 
     // GUI Components
 
-    private String updateStatusMessage = "";
+    private String updateStatusMessage = "empty from Inventory";
 
     // Constructor
     public Inventory(String Barcode) throws InvalidPrimaryKeyException {
@@ -44,10 +44,12 @@ public class Inventory extends EntityBase {
                 updateStatusMessage = "noBarcodeFound";
                 throw new InvalidPrimaryKeyException("No item matching barcode : "
                         + Barcode + " found.");
-            } else if (size != 1) {
+            } else if (size != 1) 
+            {
                 throw new InvalidPrimaryKeyException("Multiple Items matching barcode : "
                         + Barcode + " found.");
-            }else {
+            }
+            else {
                 // copy all the retrieved data into persistent state
                 Properties retrievedInventoryData = allDataRetrieved.elementAt(0);
                 persistentState = new Properties();
