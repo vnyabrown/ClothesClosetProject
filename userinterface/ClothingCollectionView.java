@@ -311,7 +311,7 @@ public class ClothingCollectionView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                processClothingSelected("Checkout");
+                processClothingSelected("checkout");
             }
         });
 
@@ -338,8 +338,17 @@ public class ClothingCollectionView extends View
 
 
     //--------------------------------------------------------------------------
-    public void updateState(String key, Object value)
-    {
+    public void updateState(String key, Object value) {
+        switch (key) {
+            case "successfulModify":
+                displayMessage("Clothing checked out.");
+                break;
+            case "unsuccessfulModify":
+                displayErrorMessage("Error checking out clothing.");
+                break;
+            default:
+                System.out.println("default in updatestate clothing collection view");
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -426,6 +435,11 @@ public class ClothingCollectionView extends View
             else if(str.equals("modify")) {
                 System.out.println("clothing in modify in view");
                 myModel.stateChangeRequest("ClothingToBeModified", prop);
+            }
+            else if(str.equals("checkout")) {
+                System.out.println("checkout in clothing view");
+                System.out.println();
+                myModel.stateChangeRequest("checkoutClothingView", prop);
             }
             else {
                 System.out.println("str in processClothingSelected is not right");

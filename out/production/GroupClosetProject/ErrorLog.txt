@@ -56,6 +56,7 @@
 [5/12/24, 10:03 PM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1054: (conn=731) Unknown column 'Belt' in 'field list'>
 =======
 [4/15/24, 1:03 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+<<<<<<< HEAD
 [4/29/24 9:03 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
 [4/29/24 9:04 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
 [5/1/24 1:37 PM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=12794) Duplicate entry '10210001' for key 'PRIMARY'>
@@ -82,3 +83,14 @@
 [5/12/24, 5:02 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=522) Duplicate entry '02' for key 'BarcodePrefix'>
 [5/12/24, 5:08 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=577) Duplicate entry '03' for key 'BarcodePrefix'>
 >>>>>>> origin/ArticleTypeCleanUp
+=======
+[4/29/24, 8:06 PM]|Inventory|updatePersistentState|Error|NOTAG|null<SQL Exception: 1292: (conn=224) Incorrect date value: 'NULL' for column `csdbClothesClosetSystem`.`inventory`.`DateTaken` at row 1>
+[4/29/24, 8:08 PM]|Inventory|updatePersistentState|Error|NOTAG|null<SQL Exception: 1292: (conn=237) Incorrect date value: 'NULL' for column `csdbClothesClosetSystem`.`inventory`.`DateTaken` at row 1>
+[4/29/24, 8:50 PM]|Inventory|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1364: (conn=345) Field 'Barcode' doesn't have a default value>
+[4/29/24, 8:56 PM]|Inventory|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1364: (conn=351) Field 'Barcode' doesn't have a default value>
+[4/29/24, 8:56 PM]|Inventory|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1364: (conn=351) Field 'Barcode' doesn't have a default value>
+[4/29/24, 8:56 PM]|Inventory|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1364: (conn=351) Field 'Barcode' doesn't have a default value>
+[4/29/24, 8:58 PM]|Inventory|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1364: (conn=352) Field 'Barcode' doesn't have a default value>
+[4/29/24, 8:58 PM]|Inventory|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1364: (conn=352) Field 'Barcode' doesn't have a default value>
+[4/29/24, 9:00 PM]|Inventory|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1364: (conn=353) Field 'Barcode' doesn't have a default value>
+>>>>>>> origin/checkoutClothing
