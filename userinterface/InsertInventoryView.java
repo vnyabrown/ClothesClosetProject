@@ -216,7 +216,7 @@ public class InsertInventoryView extends View {
             @Override
             public void handle(ActionEvent e) {
                 //Unlock fields
-                myModel.stateChangeRequest("Inventory", "");
+                myModel.stateChangeRequest("SearchForClothing", "");
             }
         });
         grid.add(cancelButton, 1, 13);
