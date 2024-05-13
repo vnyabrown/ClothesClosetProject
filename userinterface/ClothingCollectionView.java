@@ -291,17 +291,8 @@ public class ClothingCollectionView extends View
         deleteButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                // Request Confirmation before deletion
-                Alert confirmDel = new Alert(AlertType.CONFIRMATION, "Are you sure you want to delete this Clothing Item?", ButtonType.OK, ButtonType.CANCEL);
-                confirmDel.setTitle("Confirm deleting Clothing Item");
-                ((Button) confirmDel.getDialogPane().lookupButton(ButtonType.OK)).setText("YES");
-                ((Button) confirmDel.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("NO");
-                Optional<ButtonType> result = confirmDel.showAndWait();
-                if (result.get() == ButtonType.OK)
-                {
-                    clearErrorMessage();
-                    processClothingSelected("delete");
-                } 
+                clearErrorMessage();
+                processClothingSelected("delete");
             }
         });
 
@@ -420,8 +411,16 @@ public class ClothingCollectionView extends View
 
             System.out.println(str);
             if(str.equals("delete")) {
-                myModel.stateChangeRequest("ClothingSelectedForDeletion", prop);
-                displayMessage("Item with barcode " + prop.getProperty("Barcode") + " successfully removed");
+                // Request Confirmation before deletion
+                Alert confirmDel = new Alert(AlertType.CONFIRMATION, "Are you sure you want to delete this Clothing Item?", ButtonType.OK, ButtonType.CANCEL);
+                confirmDel.setTitle("Confirm deleting Clothing Item");
+                ((Button) confirmDel.getDialogPane().lookupButton(ButtonType.OK)).setText("YES");
+                ((Button) confirmDel.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("NO");
+                Optional<ButtonType> result = confirmDel.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    myModel.stateChangeRequest("ClothingSelectedForDeletion", prop);
+                    displayMessage("Item with barcode " + prop.getProperty("Barcode") + " successfully removed");
+                }
             }
             else if(str.equals("modify")) {
                 System.out.println("clothing in modify in view");
