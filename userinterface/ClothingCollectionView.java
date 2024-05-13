@@ -413,7 +413,7 @@ public class ClothingCollectionView extends View
             System.out.println(str);
             if(str.equals("delete")) {
                 // Request Confirmation before deletion
-                Alert confirmDel = new Alert(AlertType.CONFIRMATION, "Are you sure you want to delete this Clothing Item?", ButtonType.OK, ButtonType.CANCEL);
+                Alert confirmDel = new Alert(AlertType.CONFIRMATION, "Are you sure you want to delete Clothing Item with barcode: " + selectedBarcode + "?", ButtonType.OK, ButtonType.CANCEL);
                 confirmDel.setTitle("Confirm deleting Clothing Item");
                 ((Button) confirmDel.getDialogPane().lookupButton(ButtonType.OK)).setText("YES");
                 ((Button) confirmDel.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("NO");
