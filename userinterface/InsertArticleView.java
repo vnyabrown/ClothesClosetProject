@@ -54,8 +54,8 @@ public class InsertArticleView extends View {
 
 //        populateFields();
 
-        // STEP 0: Be sure you tell your model what keys you are interested in
-        //myModel.subscribe("LoginError", this);
+        myModel.subscribe("successfulModify", this);
+        myModel.subscribe("unsuccessfulModify", this);
     }
 
     private Node createTitle() {
@@ -137,24 +137,28 @@ public class InsertArticleView extends View {
         String alphaCodeEntered = alphaCodeField.getText();
 
         // Check all fields should not be empty
-        if (descriptionEntered == null) // Description field should not be empty
+        if (descriptionEntered == null || descriptionEntered.isEmpty()) // Description field should not be empty
         {
             displayErrorMessage("Please enter a description for Article Type!");
 			descriptionField.requestFocus();
         }
-        else if (barcodePrefixEntered == null)
+        else if (barcodePrefixEntered == null || barcodePrefixEntered.isEmpty())
         {
             displayErrorMessage("Please enter a Barcode Prefix for Article Type!");
             barcodePrefixField.requestFocus();
         }
-        else if (alphaCodeEntered == null)
+        else if (alphaCodeEntered == null || alphaCodeEntered.isEmpty())
         {
             displayErrorMessage("Please enter an Alpha Code for Article Type!");
             alphaCodeField.requestFocus();
         }
+        else if (!checkBarcodePrefix(barcodePrefixEntered)) {
+            barcodePrefixField.requestFocus();
+        }
         else
         {
             // Add fields to a property object for inserting
+            barcodePrefixEntered = formatBarcodePrefix(barcodePrefixEntered);
             props = new Properties();
             props.setProperty("Description", descriptionEntered);
             props.setProperty("BarcodePrefix", barcodePrefixEntered);
@@ -164,19 +168,42 @@ public class InsertArticleView extends View {
             try
             {
                 myModel.stateChangeRequest("InsertArticle", props); // Call stateChangeRequest to insert an article
-                displaySuccessMessage("Successfully inserted a new Article Type!");
             }
             catch(Exception ex)
             {
-                displayErrorMessage("Failed to insert an Article Type!");
                 ex.printStackTrace();
             }
         }
         
     }
 
+    private String formatBarcodePrefix(String pfx) {
+        if(pfx.length() == 1) {
+            return "0" + pfx;
+        }
+        return pfx;
+    }
+
+    private boolean checkBarcodePrefix(String pfx) {
+        if(pfx.length() > 2) {
+            displayErrorMessage("Barcode prefix can only be at max two digits.");
+            return false;
+        } else if(pfx.matches("[0-9]+")) {
+            return true;
+        }
+        displayErrorMessage("Barcode prefix can only contain digits.");
+        return false;
+    }
+
     @Override
     public void updateState(String key, Object value) {
+        if(key.equals("successfulModify")) {
+            displaySuccessMessage("New Article Type Successfully Inserted");
+        } else if(key.equals("unsuccessfulModify")) {
+            displayErrorMessage("Error Inserting New Article Type");
+        } else {
+            System.out.println("else updateState in insertArticleView");
+        }
 
     }
 

@@ -158,6 +158,7 @@ public class ArticleType extends EntityBase {
     public void updateStateInDatabase() {
         try {
             // Upate Article Type
+            updateStatusMessage = "";
 
             if(persistentState.getProperty("Id") != null) {
                 Properties whereClause = new Properties();
@@ -168,6 +169,7 @@ public class ArticleType extends EntityBase {
                     persistentState.getProperty("Id") +
                     " was updated in database.";
                 System.out.println("Article Type was updated into database.");
+                updateStatusMessage = "ok";
             }
             else if (checkBarcodePrefixExists(persistentState.getProperty("BarcodePrefix")))
             {
@@ -182,6 +184,7 @@ public class ArticleType extends EntityBase {
                     updateStatusMessage = "Article Type for id: " +  
                     persistentState.getProperty("Id") + 
                     " installed successfully in database!";
+                    updateStatusMessage = "ok";
                 }
                 catch(Exception e) {
                     e.printStackTrace();

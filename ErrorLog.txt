@@ -40,6 +40,7 @@
 [4/4/24, 1:07 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
 [4/4/24, 1:09 PM]|JDBCBroker|JDBCBroker|Error|NOTAG|null<Could not load driver class[org.mariadb.jdbc.Driver]>
 [4/4/24, 1:09 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+<<<<<<< HEAD
 [4/15/24, 1:03 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
 [4/29/24 9:03 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
 [4/29/24 9:04 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
@@ -53,3 +54,31 @@
 [5/12/24, 10:02 PM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1054: (conn=731) Unknown column 'Belt' in 'field list'>
 [5/12/24, 10:03 PM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1054: (conn=731) Unknown column 'Belt' in 'field list'>
 [5/12/24, 10:03 PM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1054: (conn=731) Unknown column 'Belt' in 'field list'>
+=======
+[4/15/24, 1:03 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+[4/29/24 9:03 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+[4/29/24 9:04 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+[5/1/24 1:37 PM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=12794) Duplicate entry '10210001' for key 'PRIMARY'>
+[5/1/24 11:43 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+[5/2/24, 9:33 AM]|Inventory|updatePersistentState|Error|NOTAG|null<SQL Exception: 1292: (conn=241) Incorrect date value: 'NULL' for column `csdbClothesClosetSystem`.`inventory`.`DateTaken` at row 1>
+[5/2/24, 9:40 AM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1292: (conn=254) Incorrect date value: 'NULL' for column `csdbClothesClosetSystem`.`inventory`.`DateTaken` at row 1>
+[5/2/24, 9:43 AM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1292: (conn=255) Incorrect date value: 'NULL' for column `csdbClothesClosetSystem`.`inventory`.`DateTaken` at row 1>
+[5/12/24, 3:47 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=88) Duplicate entry '' for key 'BarcodePrefix'>
+[5/12/24, 3:47 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=88) Duplicate entry '' for key 'BarcodePrefix'>
+[5/12/24, 4:02 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=127) Duplicate entry 'c' for key 'BarcodePrefix'>
+[5/12/24, 4:02 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=127) Duplicate entry 'c' for key 'BarcodePrefix'>
+[5/12/24, 4:04 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=127) Duplicate entry 'c' for key 'BarcodePrefix'>
+[5/12/24, 4:05 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=188) Duplicate entry '2' for key 'BarcodePrefix'>
+[5/12/24, 4:07 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=189) Duplicate entry '2' for key 'BarcodePrefix'>
+[5/12/24, 4:07 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=189) Duplicate entry '3' for key 'BarcodePrefix'>
+[5/12/24, 4:08 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=250) Duplicate entry '4' for key 'BarcodePrefix'>
+[5/12/24, 4:14 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=294) Duplicate entry '6' for key 'BarcodePrefix'>
+[5/12/24, 4:15 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=380) Duplicate entry '1' for key 'BarcodePrefix'>
+[5/12/24, 4:15 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=380) Duplicate entry '1' for key 'BarcodePrefix'>
+[5/12/24, 4:30 PM]|ArticleType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=419) Duplicate entry '04' for key 'BarcodePrefix'>
+[5/12/24, 4:53 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=472) Duplicate entry '02' for key 'BarcodePrefix'>
+[5/12/24, 5:01 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=521) Duplicate entry '02' for key 'BarcodePrefix'>
+[5/12/24, 5:02 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=522) Duplicate entry '02' for key 'BarcodePrefix'>
+[5/12/24, 5:02 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=522) Duplicate entry '02' for key 'BarcodePrefix'>
+[5/12/24, 5:08 PM]|ArticleType|updatePersistentState|Error|NOTAG|null<SQL Exception: 1062: (conn=577) Duplicate entry '03' for key 'BarcodePrefix'>
+>>>>>>> origin/ArticleTypeCleanUp

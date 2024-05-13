@@ -45,6 +45,7 @@ import java.util.Enumeration;
 import impresario.IModel;
 import model.ArticleType;
 import model.ArticleTypeCollection;
+import static userinterface.ArticleChoiceView.modDelCheckFlag;
 
 //==============================================================================
 public class ArticleTypeCollectionView extends View
@@ -144,6 +145,9 @@ public class ArticleTypeCollectionView extends View
     {
         VBox vbox = new VBox(10);
 
+        vbox.setMinWidth(500);
+        vbox.setMinHeight(500);
+
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -241,9 +245,15 @@ public class ArticleTypeCollectionView extends View
 
         HBox btnContainer = new HBox(100);
         btnContainer.setAlignment(Pos.CENTER);
+        // Add appropriate buttons
         btnContainer.getChildren().add(cancelButton);
-        btnContainer.getChildren().add(deleteButton);
-        btnContainer.getChildren().add(modifyButton);
+        if(modDelCheckFlag.equals("mod")) {
+            btnContainer.getChildren().add(modifyButton);
+        } else if(modDelCheckFlag.equals("del")) {
+            btnContainer.getChildren().add(deleteButton);
+        } else {
+            System.out.println("else in articleTypeCollectionView");
+        }
 
         vbox.getChildren().add(grid);
         vbox.getChildren().add(scrollPane);

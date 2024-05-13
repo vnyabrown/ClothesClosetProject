@@ -157,6 +157,9 @@ public class SearchArticleTypeView extends View
         if(text.getText() == null || text.getText().isEmpty()) {
             displayErrorMessage("Please enter a Description or Alpha Code.");
             text.requestFocus();
+        } else if(searchMethod.getValue() == null) {
+            displayErrorMessage("Pick a search criteria.");
+            searchMethod.requestFocus();
         }
         else {
             String[] values = new String[2];

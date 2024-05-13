@@ -182,7 +182,6 @@ public class Closet implements IView, IModel {
                 break;
             case "ArticleTypeToBeModified":
                 at = new ArticleType((Properties) value);
-                System.out.println("here");
                 createAndShowChoiceView("ModifyArticleTypeView");
                 break;
             case "ModifyArticleType":
@@ -201,6 +200,13 @@ public class Closet implements IView, IModel {
                 }
                 else {
                     System.out.println("not an option in statechangerequest in modifyarticletype");
+                }
+
+                // update view message
+                if(at.getState("UpdateStatusMessage").equals("ok")){
+                    stateChangeRequest("successfulModify", "not used");
+                } else {
+                    stateChangeRequest("unsuccessfulModify", "not used");
                 }
                 break;
             case "SearchForColor":
@@ -271,6 +277,13 @@ public class Closet implements IView, IModel {
             case "InsertArticle":
                 newArticle.processNewArticle((Properties)value);
                 newArticle.updateStateInDatabase();
+                if(newArticle.getState("UpdateStatusMessage").equals("ok")) {
+                    System.out.println("ok in closet insert article");
+                    stateChangeRequest("successfulModify", "this isnt used");
+                } else {
+                    stateChangeRequest("unsuccessfulModify", "this isnt used");
+                    System.out.println("not ok in closet insert article");
+                }
                 break;
             case "InsertColor":
                 newColor.processNewColor((Properties)value);
