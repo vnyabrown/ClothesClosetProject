@@ -265,8 +265,11 @@ public class ClothingCollectionView extends View
                 if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
                     switch (modDelCheckFlag) {
                         case "del": processClothingSelected("delete");
+                        break;
                         case "mod": processClothingSelected("modify");
+                        break;
                         case "check": processClothingSelected("Checkout");
+                        break;
                     }
                 }
             }
@@ -326,8 +329,11 @@ public class ClothingCollectionView extends View
         btnContainer.getChildren().add(cancelButton);
         switch (modDelCheckFlag) {
             case "del": btnContainer.getChildren().add(deleteButton);
+            break;
             case "mod": btnContainer.getChildren().add(modifyButton);
+            break;
             case "check": btnContainer.getChildren().add(checkButton);
+            break;
         }
         vbox.getChildren().add(grid);
         vbox.getChildren().add(scrollPane);

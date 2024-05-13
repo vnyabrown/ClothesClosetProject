@@ -7,11 +7,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -22,6 +18,7 @@ import javafx.scene.text.TextAlignment;
 import model.ArticleTypeCollection;
 import model.ColorCollection;
 
+import java.util.Optional;
 import java.util.Properties;
 import java.util.function.UnaryOperator;
 import java.util.Vector;
@@ -254,8 +251,12 @@ public class ModifyClothingView extends View {
                     donorLastnameField.getText(), donorFirstnameField.getText(), donorPhoneField.getText(),
                     donorEmailField.getText(), dateDonatedField.getText()};
 
-
+            createReceipt(genderField.getText(), sizeField.getText(),
+                    (String)color1Field.getValue(), (String)color2Field.getValue(), brandField.getText(), notesField.getText(),
+                    donorLastnameField.getText(), donorFirstnameField.getText(), donorPhoneField.getText(),
+                    donorEmailField.getText(), dateDonatedField.getText());
             myModel.stateChangeRequest("ModifyClothing", values);
+
         }
     }
     
@@ -401,5 +402,28 @@ public class ModifyClothingView extends View {
 
         }
 
+    }
+
+    public void createReceipt(String gender, String size,String color1, String color2, String brand,
+                              String notes, String donorLastname, String donorFirstname,String donorPhone,
+                              String donorEmail, String dateDonated){
+        //receipt creation
+        Alert receipt = new Alert(Alert.AlertType.NONE, "Modification Receipt", ButtonType.OK);
+        receipt.setTitle("Modification Receipt");
+        Label text = new Label("Gender: " + gender + "\n" +
+                "Size: " + size + "\n" +
+                "Color 1: " + color1 + "\n" +
+                "Color 2: " + color2 + "\n" +
+                "Brand: " + brand + "\n" +
+                "Notes: " + notes + "\n" +
+                "Donor Last Name: " + donorLastname + "\n" +
+                "Donor First Name: " + donorFirstname + "\n" +
+                "Donor Phone: " + donorPhone + "\n" +
+                "Donor Email: " + donorEmail + "\n" +
+                "Date Donated: " + dateDonated);
+        receipt.getDialogPane().setContent(text);
+
+        receipt.showAndWait();
+        clearErrorMessage();
     }
 }
