@@ -7,11 +7,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -393,6 +389,12 @@ public class InsertInventoryView extends View {
             try
             {
                 // TODO: need to finalize this state request within Closet
+                createReceipt(barcodeEntered, genderEntered, sizeEntered,
+                        articleTypeCollection.getArticleDescriptionFromPFX(articleTypeEntered),
+                        colorCollection.getColorDescriptionFromPFX(color1Entered),
+                        colorCollection.getColorDescriptionFromPFX(color2Entered),
+                        brandEntered, notesEntered, donorLastNameEntered, donorFirstNameEntered,
+                        donorPhoneEntered, donorEmailEntered);
                 myModel.stateChangeRequest("InsertInventory", props); // Call stateChangeRequest to insert an inventoryItem
                 displaySuccessMessage("Successfully inserted a new Inventory item!");
             }
@@ -538,7 +540,7 @@ public class InsertInventoryView extends View {
     } // end of parseBarcode
 
     @Override
-    public void updateState(String key, Object value) {
+            public void updateState(String key, Object value) {
         if(key.equals("updateText")){
             clearTextFields();
             System.out.println("Updating Text");
@@ -576,6 +578,31 @@ public class InsertInventoryView extends View {
         donorPhoneField.clear();
         donorEmailField.clear();
 
-    };
+    }
+
+    public void createReceipt(String barcode, String gender, String size, String articleType,
+                              String color1, String color2, String brand, String notes,
+                              String donorLastName, String donorFirstName, String donorPhone,
+                              String donorEmail){
+        //receipt creation
+        Alert receipt = new Alert(Alert.AlertType.NONE, "Insertion Receipt", ButtonType.OK);
+        receipt.setTitle("Insertion Receipt");
+        Label text = new Label("Barcode: " + barcode + "\n" +
+                "Gender: " + gender + "\n" +
+                "Size: " + size + "\n" +
+                "Article Type: " + articleType + "\n" +
+                "Color 1: " + color1 + "\n" +
+                "Color 2: " + color2 + "\n" +
+                "Brand: " + brand + "\n" +
+                "Notes: " + notes + "\n" +
+                "Donor Last Name: " + donorLastName + "\n" +
+                "Donor First Name: " + donorFirstName + "\n" +
+                "Donor Phone: " + donorPhone + "\n" +
+                "Donor Email: " + donorEmail);
+        receipt.getDialogPane().setContent(text);
+
+        receipt.showAndWait();
+        clearErrorMessage();
+    }
 
 } // end of InsertInventoryView
