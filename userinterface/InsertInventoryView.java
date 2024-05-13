@@ -517,7 +517,7 @@ public class InsertInventoryView extends View {
                 } // end get Color
             } // end while parsing Barcode
             genderEntered = genderField.getText();
-            articleTypeEntered = articleTypeField.getText();
+            articleTypeEntered = Character.toString(barcodeEntered.charAt(1)) + Character.toString(barcodeEntered.charAt(2));
             color1Entered = colorCollection.getColorPFXFromDescription((String)color1Field.getValue());
 
             // Lock auto-set fields
