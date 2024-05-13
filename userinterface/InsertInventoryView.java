@@ -101,6 +101,9 @@ public class InsertInventoryView extends View {
         colorObj = colorCollection.getAllValidColors();
         populateComboBoxes();
 
+        myModel.subscribe("successfulModify", this);
+        myModel.subscribe("unsuccessfulModify", this);
+
     } // end of Constructor
 
     private Node createTitle() {
@@ -396,11 +399,11 @@ public class InsertInventoryView extends View {
                         brandEntered, notesEntered, donorLastNameEntered, donorFirstNameEntered,
                         donorPhoneEntered, donorEmailEntered);
                 myModel.stateChangeRequest("InsertInventory", props); // Call stateChangeRequest to insert an inventoryItem
-                displaySuccessMessage("Successfully inserted a new Inventory item!");
+                //displaySuccessMessage("Successfully inserted a new Inventory item!");
             }
             catch(Exception ex)
             {
-                displayErrorMessage("Failed to insert an Inventory item!");
+                //displayErrorMessage("Failed to insert an Inventory item!");
                 ex.printStackTrace();
             }
         }
@@ -547,6 +550,13 @@ public class InsertInventoryView extends View {
             barcodeEntered = barcode;
             barcodeField.setText(barcode);
             parseBarcode();
+        }
+        else if(key.equals("successfulModify")) {
+            displaySuccessMessage("New Inventory Item Successfully Inserted");
+        } else if(key.equals("unsuccessfulModify")) {
+            displayErrorMessage("Error Inserting New Inventory Item");
+        } else {
+            System.out.println("Error: else updateState in insertInventoryView");
         }
     }
 
