@@ -79,13 +79,16 @@ public class ArticleType extends EntityBase {
     public ArticleType(int BPFX) throws InvalidPrimaryKeyException
     {
         super(myTableName);
+        System.out.println("creating at with int bpfx");
 
-        String query = "SELECT * FROM " + myTableName + " WHERE (BarcodePrefix = " + Integer.toString(BPFX) + ")";
+        String query = "SELECT * FROM " + myTableName + " WHERE (BarcodePrefix = " + (BPFX) + ")";
+        System.out.println("query in at creation" + query);
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
         // You must get one item at least
         if (allDataRetrieved != null)
         {
+            System.out.println("alldataretrieved not null for at");
             int size = allDataRetrieved.size();
 
             // There should be EXACTLY one item, more than that is an error
@@ -108,11 +111,16 @@ public class ArticleType extends EntityBase {
 
                     if (nextValue != null)
                     {
+                        System.out.println("in loop key : " + nextKey);
+                        System.out.println("in loop value : " + nextValue);
                         persistentState.setProperty(nextKey, nextValue);
                     } // end if
                 } // end while
             } // end if else
-        } // end if
+        } // end ifo
+        else {
+            System.out.println("no data for article type was retrieved. this is a problem");
+        }
     } // end of Constructor by Barcode Prefix
 
     public ArticleType()
@@ -268,6 +276,7 @@ public class ArticleType extends EntityBase {
 
     public void markInactive() {
         persistentState.setProperty("Status", "Inactive");
+
         updateStateInDatabase();
     }
 
@@ -278,3 +287,5 @@ public class ArticleType extends EntityBase {
 		stateChangeRequest(key, value);
 	}
 }
+
+

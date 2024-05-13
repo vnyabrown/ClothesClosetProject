@@ -49,3 +49,7 @@
 [5/2/24, 9:40 AM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1292: (conn=254) Incorrect date value: 'NULL' for column `csdbClothesClosetSystem`.`inventory`.`DateTaken` at row 1>
 [5/2/24, 9:43 AM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1292: (conn=255) Incorrect date value: 'NULL' for column `csdbClothesClosetSystem`.`inventory`.`DateTaken` at row 1>
 [5/11/24 1:50 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+[5/12/24, 10:00 PM]|ClothesClosetApplication|ClothesClosetApplication.<init>|Error|NOTAG|null<Unable to create Closet object>
+[5/12/24, 10:02 PM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1054: (conn=731) Unknown column 'Belt' in 'field list'>
+[5/12/24, 10:03 PM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1054: (conn=731) Unknown column 'Belt' in 'field list'>
+[5/12/24, 10:03 PM]|Inventory|insertPersistentState|Error|NOTAG|null<SQL Exception: 1054: (conn=731) Unknown column 'Belt' in 'field list'>

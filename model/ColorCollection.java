@@ -53,8 +53,11 @@ public class ColorCollection extends EntityBase implements IView {
     }
 
     public String getColorPFXFromDescription(String desc){
-        String query = "SELECT BarcodePrefix FROM "+ myTableName + " WHERE Description LIKE '" + desc + "'";
+        System.out.println("desc: " + desc);
+        String query = "SELECT BarcodePrefix FROM "+ myTableName + " WHERE Description ='" + desc + "'";
+        System.out.println("qqq: " + query);
         Vector<Properties> result = getSelectQueryResult(query);
+        System.out.println("result size" + result.size());
         String realResult = result.elementAt(0).getProperty("BarcodePrefix");
 
         return realResult;

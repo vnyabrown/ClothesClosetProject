@@ -474,12 +474,15 @@ public class InsertInventoryView extends View {
                     System.out.println("Getting Article Type...");
                     currentDig = Character.toString(barcodeEntered.charAt(parseBC)) + Character.toString(barcodeEntered.charAt(parseBC + 1));
                     int getArticleBPFX = Integer.parseInt(currentDig);
+                    System.out.println("integerrrrr: " + getArticleBPFX);
 
                     // Verify Article Type Barcode Prefix in database
-                    try { 
+                    try {
+                        System.out.println("getATBPFX" + getArticleBPFX);
                         newAT = new ArticleType(getArticleBPFX); //Use constructor to instantiate ArticleType from barcode prefix
-                        System.out.println(newAT.toString());
-                        articleTypeField.setText(articleTypeCollection.getArticleDescriptionFromPFX(currentDig));
+                        //articleTypeField.setText(articleTypeCollection.getArticleDescriptionFromPFX(currentDig));
+                        articleTypeField.setText((String) newAT.getState("Description"));
+                        System.out.println("fail here");
                         System.out.println("Successfully verified Article Type!");
                         parseBC = parseBC + 2; // move to next digits in barcode
                         // Testing, print Article Type
@@ -490,6 +493,7 @@ public class InsertInventoryView extends View {
                         parseBC = 6;
                         displayErrorMessage("Error parsing Barcode for Article Type!");
                         articleTypeField.requestFocus();
+                        ex.printStackTrace();
                     }
 
                 } // end get Article Type
@@ -501,7 +505,8 @@ public class InsertInventoryView extends View {
 
                     try { 
                         newCo = new Color(getColorBPFX); // Use constructor to instantiate Color from barcode prefix
-                        color1Field.setValue((String)colorCollection.getColorDescriptionFromPFX(currentDig));
+                        //color1Field.setValue((String)colorCollection.getColorDescriptionFromPFX(currentDig));
+                        color1Field.setValue(newCo.getState("Description"));
                         System.out.println(newCo.toString());
                         System.out.println("Successfully verified Color!");
                         parseBC = parseBC + 2; // move to next digits in barcode
@@ -527,6 +532,9 @@ public class InsertInventoryView extends View {
             genderField.setDisable(true);
             validBarcode = true;
         } // end getBarcode
+        else {
+            System.out.println("Barcode is null THERE IS AN ERROR HERE");
+        }
     } // end of parseBarcode
 
     @Override
