@@ -160,7 +160,7 @@ public class ClothingCollectionView extends View
 
         // Set width and height of table
         vbox.setMinWidth(1500);
-        vbox.setMinHeight(1000);
+        vbox.setMinHeight(500);
 
         TableColumn barcodeColumn = new TableColumn("Barcode");
         barcodeColumn.setMinWidth(100);
