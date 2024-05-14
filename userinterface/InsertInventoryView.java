@@ -108,7 +108,7 @@ public class InsertInventoryView extends View {
 
     private Node createTitle() {
 
-        Text titleText = new Text("       Insert an Inventory Item          ");
+        Text titleText = new Text("       Insert a Clothing Item          ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleText.setTextAlignment(TextAlignment.CENTER);
         titleText.setFill(color.DARKGREEN);
@@ -124,13 +124,13 @@ public class InsertInventoryView extends View {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("INVENTORY INFORMATION");
+        Text prompt = new Text("CLOTHING INFORMATION");
         prompt.setWrappingWidth(400);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(color.BLACK);
         grid.add(prompt, 0, 0, 2, 1);
 
-        Label barcodeLabel = new Label("Inventory Item Barcode: ");
+        Label barcodeLabel = new Label("Barcode: ");
         grid.add(barcodeLabel, 0, 1);
         barcodeField = new TextField();
         grid.add(barcodeField, 1, 1);
@@ -292,27 +292,27 @@ public class InsertInventoryView extends View {
         
         if (barcodeEntered == null || barcodeEntered.isEmpty())
         {
-            displayErrorMessage("Please provide a valid barcode to get initial Inventory Item information!");
+            displayErrorMessage("Please provide a valid barcode to get initial Clothing Item information!");
             barcodeField.requestFocus();
         } // end getBarcode Error
 
         // Check all fields should not be empty
         else if (genderEntered == null || genderEntered.isEmpty()) // Description field should not be empty
         {
-            System.out.println("Please provide a Barcode to get Gender for Inventory Item!");
-            displayErrorMessage("Please provide a Barcode to get Gender for Inventory Item!");
+            System.out.println("Please provide a Barcode to get Gender for Clothing Item!");
+            displayErrorMessage("Please provide a Barcode to get Gender for Clothing Item!");
             genderField.requestFocus();
         }
         else if (articleTypeEntered == null || articleTypeEntered.isEmpty())
         {  
-            System.out.println("Please provide a Barcode to get an Article Type for Inventory Item!");
-            displayErrorMessage("Please provide a Barcode to get an Article Type for Inventory Item!");
+            System.out.println("Please provide a Barcode to get an Article Type for Clothing Item!");
+            displayErrorMessage("Please provide a Barcode to get an Article Type for Clothing Item!");
             articleTypeField.requestFocus();
         }
         else if (color1Entered == null || color1Entered.isEmpty())
         {
-            System.out.println("Please provide a Barconde to get a Primary Color for Inventory Item!");
-            displayErrorMessage("Please provide a Barconde to get a Primary Color for Inventory Item!");
+            System.out.println("Please provide a Barconde to get a Primary Color for Clothing Item!");
+            displayErrorMessage("Please provide a Barconde to get a Primary Color for Clothing Item!");
             color1Field.requestFocus();
         }
         else if (donorFirstNameEntered == null || donorFirstNameEntered.isEmpty())
@@ -342,8 +342,8 @@ public class InsertInventoryView extends View {
         else if (color2Entered == null || color2Entered.isEmpty())
         {
             System.out.println();
-            System.out.println("Please choose a Secondary Color for Inventory Item!");
-            displayErrorMessage("Please choose a Secondary Color for Inventory Item!");
+            System.out.println("Please choose a Secondary Color for Clothing Item!");
+            displayErrorMessage("Please choose a Secondary Color for Clothing Item!");
             color2Field.requestFocus();
         }
         else if (brandEntered == null || brandEntered.isEmpty())
@@ -354,8 +354,8 @@ public class InsertInventoryView extends View {
         }
         else if (sizeEntered == null || sizeEntered.isEmpty())
         {
-            System.out.println("Please choose a Size for Inventory Item!");
-            displayErrorMessage("Please choose a Size for Inventory Item!");
+            System.out.println("Please choose a Size for Clothing Item!");
+            displayErrorMessage("Please choose a Size for Clothing Item!");
             sizeField.requestFocus();
         }
         else if(!checkPhone(donorPhoneEntered)) {
@@ -552,9 +552,9 @@ public class InsertInventoryView extends View {
             parseBarcode();
         }
         else if(key.equals("successfulModify")) {
-            displaySuccessMessage("New Inventory Item Successfully Inserted");
+            displaySuccessMessage("New Clothing Item Successfully Inserted");
         } else if(key.equals("unsuccessfulModify")) {
-            displayErrorMessage("Error Inserting New Inventory Item");
+            displayErrorMessage("Error Inserting New Clothing Item");
         } else {
             System.out.println("Error: else updateState in insertInventoryView");
         }
