@@ -241,10 +241,10 @@ public class SearchForClothingView extends View
 
         switch (key) {
             case "duplicateBarcode":
-                displayErrorMessage("Duplicate Barcode");
+                displayErrorMessage("Duplicate Barcode, try another combination of last three digits!");
                 break;
             case "noBarcodeFound":
-                displayErrorMessage("No Barcode Found");
+                displayErrorMessage("No Barcode Found!");
                 break;
         }
 
