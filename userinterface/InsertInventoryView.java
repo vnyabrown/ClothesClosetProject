@@ -48,7 +48,7 @@ public class InsertInventoryView extends View {
 
     private TextField barcodeField;
     private TextField genderField;
-    private TextField sizeField;
+    private ComboBox sizeField;
     private TextField articleTypeField;
     private ComboBox color1Field;
     private ComboBox color2Field;
@@ -188,8 +188,16 @@ public class InsertInventoryView extends View {
 
         Label sizeLabel = new Label("Size: ");
         grid.add(sizeLabel, 0, 11);
-        sizeField = new TextField();
+        sizeField = new ComboBox<String>();
+        sizeField.setMinSize(100, 20);
         grid.add(sizeField, 1, 11);
+
+        //add values to size comboBox
+        sizeField.getItems().add("XS");
+        sizeField.getItems().add("S");
+        sizeField.getItems().add("M");
+        sizeField.getItems().add("L");
+        sizeField.getItems().add("XL");
 
         Label notesLabel = new Label("Notes: ");
         grid.add(notesLabel, 0, 12);
@@ -281,7 +289,7 @@ public class InsertInventoryView extends View {
         //System.out.println("Logic TBA");
 
         // PROCESS FIELDS SUBMITTED        
-        String sizeEntered = sizeField.getText();
+        String sizeEntered = (String) sizeField.getValue();
         String color2Entered = colorCollection.getColorPFXFromDescription((String)color2Field.getValue());
         String brandEntered = brandField.getText();
         String notesEntered = notesField.getText();
@@ -580,7 +588,7 @@ public class InsertInventoryView extends View {
     } // end of clearMessage
 
     private void clearTextFields(){
-        sizeField.clear();
+        sizeField.getSelectionModel().select("");
         brandField.clear();
         notesField.clear();
         donorFirstNameField.clear();
