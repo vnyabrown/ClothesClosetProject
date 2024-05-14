@@ -92,7 +92,7 @@ ClosetView extends View {
             }
         });
 
-        inventoryButton = new Button("Inventory");
+        inventoryButton = new Button("Clothing");
         inventoryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {

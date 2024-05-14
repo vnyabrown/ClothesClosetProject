@@ -89,7 +89,7 @@ public class InventoryChoiceView extends View {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        addClothingButton = new Button("Insert Inventory Item");
+        addClothingButton = new Button("Insert Clothing");
         addClothingButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -126,7 +126,7 @@ public class InventoryChoiceView extends View {
                 modDelCheckFlag = "check";
             }
         });
-        listInventoryButton = new Button("List Inventory");
+        listInventoryButton = new Button("List Available Clothing");
         listInventoryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
