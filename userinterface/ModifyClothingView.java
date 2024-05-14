@@ -29,7 +29,7 @@ public class ModifyClothingView extends View {
 
     Properties props = clothMod;
     private TextField genderField;
-    private TextField sizeField;
+    private ComboBox sizeField;
     private TextField articleTypeField;
     private ComboBox color1Field;
     private ComboBox color2Field;
@@ -120,10 +120,16 @@ public class ModifyClothingView extends View {
 
         Label sizeLabel = new Label("Size: ");
         grid.add(sizeLabel, 0, 2);
-        sizeField = new TextField();
+        sizeField = new ComboBox<String>();
+        sizeField.setMinSize(100, 20);
         grid.add(sizeField, 1, 2);
-        sizeField.clear();
-        sizeField.setText(props.getProperty("Size"));
+
+        //add values to size comboBox
+        sizeField.getItems().add("XS");
+        sizeField.getItems().add("S");
+        sizeField.getItems().add("M");
+        sizeField.getItems().add("L");
+        sizeField.getItems().add("XL");
 
 
         Label articleTypeLabel = new Label("Article Type: ");
@@ -246,12 +252,12 @@ public class ModifyClothingView extends View {
             }
 
             // PROCESS FIELDS SUBMITTED
-            String[] values = new String[]{genderField.getText(), sizeField.getText(),
+            String[] values = new String[]{genderField.getText(), (String) sizeField.getValue(),
                     color1, color2, brandField.getText(), notesField.getText(),
                     donorLastnameField.getText(), donorFirstnameField.getText(), donorPhoneField.getText(),
                     donorEmailField.getText(), dateDonatedField.getText()};
 
-            createReceipt(genderField.getText(), sizeField.getText(),
+            createReceipt(genderField.getText(), (String) sizeField.getValue(),
                     (String)color1Field.getValue(), (String)color2Field.getValue(), brandField.getText(), notesField.getText(),
                     donorLastnameField.getText(), donorFirstnameField.getText(), donorPhoneField.getText(),
                     donorEmailField.getText(), dateDonatedField.getText());
@@ -359,7 +365,7 @@ public class ModifyClothingView extends View {
 
     public void fillTextFields(){
         genderField.setText(props.getProperty("Gender"));
-        sizeField.setText(props.getProperty("Size"));
+        sizeField.getSelectionModel().select(props.getProperty("Size"));
 
         //pulling barcodePFX from props and converting to descriptions
         articleTypeField.setText(articleTypeCollection.getArticleDescriptionFromPFX(props.getProperty("ArticleType")));
@@ -381,7 +387,7 @@ public class ModifyClothingView extends View {
 
     private void resetTextFields(){
         genderField.clear();
-        sizeField.clear();
+        sizeField.getSelectionModel().select("");
         articleTypeField.clear();
         brandField.clear();
         notesField.clear();
