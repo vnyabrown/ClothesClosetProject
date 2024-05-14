@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -33,6 +34,7 @@ ClosetView extends View {
 
         // create a container for showing the contents
         VBox container = new VBox(10);
+        container.getStyleClass().add("vbox");
 
         container.setPadding(new Insets(15, 5, 5, 5));
 

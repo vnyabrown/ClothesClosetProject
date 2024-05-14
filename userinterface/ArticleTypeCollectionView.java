@@ -204,7 +204,7 @@ public class ArticleTypeCollectionView extends View
             }
         });
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(115, 150);
+        scrollPane.setPrefSize(115, 300);
         scrollPane.setContent(tableOfArticleTypes);
 
         cancelButton = new Button("Back");

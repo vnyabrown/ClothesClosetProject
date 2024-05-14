@@ -275,7 +275,7 @@ public class ClothingCollectionView extends View
             }
         });
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(115, 150);
+        scrollPane.setPrefSize(115, 300);
         scrollPane.setContent(tableOfClothing);
 
         cancelButton = new Button("Back");

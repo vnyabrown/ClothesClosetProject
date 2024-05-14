@@ -188,7 +188,7 @@ public class ColorCollectionView extends View
             }
         });
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(115, 150);
+        scrollPane.setPrefSize(115, 300);
         scrollPane.setContent(tableOfColors);
 
         cancelButton = new Button("Back");

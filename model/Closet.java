@@ -473,6 +473,7 @@ public class Closet implements IView, IModel {
         // create our initial view
         View newView = ViewFactory.createView("ArticleTypeCollectionView", this); // USE VIEW FACTORY
         Scene currentScene = new Scene(newView);
+        currentScene.getStylesheets().add("userinterface/controlStyle1.css");
 
         swapToView(currentScene);
     }
@@ -482,6 +483,7 @@ public class Closet implements IView, IModel {
         // create our initial view
         View newView = ViewFactory.createView("ColorCollectionView", this); // USE VIEW FACTORY
         Scene currentScene = new Scene(newView);
+        currentScene.getStylesheets().add("userinterface/controlStyle1.css");
 
         swapToView(currentScene);
     }
@@ -490,6 +492,7 @@ public class Closet implements IView, IModel {
         // create our initial view
         View newView = ViewFactory.createView("ClothingCollectionView", this); // USE VIEW FACTORY
         Scene currentScene = new Scene(newView);
+        currentScene.getStylesheets().add("userinterface/controlStyle1.css");
 
         swapToView(currentScene);
     }
@@ -503,6 +506,7 @@ public class Closet implements IView, IModel {
             // create our initial view
             View newView = ViewFactory.createView(view, this); // USE VIEW FACTORY
             currentScene = new Scene(newView);
+            currentScene.getStylesheets().add("userinterface/controlStyle1.css");
             myViews.put(view, currentScene);
         }
 
