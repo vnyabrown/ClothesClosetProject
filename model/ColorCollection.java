@@ -78,7 +78,7 @@ public class ColorCollection extends EntityBase implements IView {
     public Vector<Color> findColorBarcodePfx(String pfx)  {
 
         // The query to get all the colors
-        String query = "SELECT * FROM " + myTableName + " WHERE (BarcodePrefix = " + pfx + ")";
+        String query = "SELECT * FROM " + myTableName + " WHERE (BarcodePrefix = " + pfx + ")" + " AND Status NOT LIKE 'Inactive'";
         try {
             updateColorListFromSQL(query);
         } catch (Exception e) {
@@ -89,7 +89,7 @@ public class ColorCollection extends EntityBase implements IView {
     }
 
     public Vector<Color> findColorAlphaCode(String alpha) throws InvalidPrimaryKeyException{
-        String query = "SELECT * FROM " + myTableName + " WHERE AlphaCode LIKE '%" + alpha + "%'";
+        String query = "SELECT * FROM " + myTableName + " WHERE AlphaCode LIKE '%" + alpha + "%'" + " AND Status NOT LIKE 'Inactive'";
         try {
             updateColorListFromSQL(query);
         } catch (Exception e) {
@@ -101,7 +101,7 @@ public class ColorCollection extends EntityBase implements IView {
 
 
     public Vector<Color> findColorDescription(String descr) throws InvalidPrimaryKeyException{
-        String query = "SELECT * FROM " + myTableName + " WHERE Description LIKE '%" + descr + "%'";
+        String query = "SELECT * FROM " + myTableName + " WHERE Description LIKE '%" + descr + "%'" + " AND Status NOT LIKE 'Inactive'";
         try {
             updateColorListFromSQL(query);
         } catch (Exception e) {
